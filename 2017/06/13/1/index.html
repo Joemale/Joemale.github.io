@@ -1,0 +1,1298 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CTF,加密与解密,隐写术," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="科技的精灵已经从瓶中跑了出来，但我们还不知道真正降临的时刻　　今日在翻看笔记的时候，无意看到了之前为参加CTF时做的准备工作，主要包括了各种加密解密，web安全，PWN溢出等内容的练习题以及解决脚本。由于内容部分来自本人参加ctf时所做的题以及部分来自互联网，因此准备在此分享记录一番。本篇主要介绍几种CTF中常见加密算法的解密脚本，关于加密原理会适当提及，但不会深入。">
+<meta name="keywords" content="CTF,加密与解密,隐写术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF加密与解密">
+<meta property="og:url" content="http://thief.one/2017/06/13/1/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="科技的精灵已经从瓶中跑了出来，但我们还不知道真正降临的时刻　　今日在翻看笔记的时候，无意看到了之前为参加CTF时做的准备工作，主要包括了各种加密解密，web安全，PWN溢出等内容的练习题以及解决脚本。由于内容部分来自本人参加ctf时所做的题以及部分来自互联网，因此准备在此分享记录一番。本篇主要介绍几种CTF中常见加密算法的解密脚本，关于加密原理会适当提及，但不会深入。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://thief.one/upload_image/20170613/1.png">
+<meta property="og:image" content="http://thief.one/upload_image/20170613/2.png">
+<meta property="og:updated_time" content="2017-07-25T12:05:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTF加密与解密">
+<meta name="twitter:description" content="科技的精灵已经从瓶中跑了出来，但我们还不知道真正降临的时刻　　今日在翻看笔记的时候，无意看到了之前为参加CTF时做的准备工作，主要包括了各种加密解密，web安全，PWN溢出等内容的练习题以及解决脚本。由于内容部分来自本人参加ctf时所做的题以及部分来自互联网，因此准备在此分享记录一番。本篇主要介绍几种CTF中常见加密算法的解密脚本，关于加密原理会适当提及，但不会深入。">
+<meta name="twitter:image" content="http://thief.one/upload_image/20170613/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/06/13/1/"/>
+
+  <title> CTF加密与解密 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CTF加密与解密
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-13T11:22:25+08:00" content="2017-06-13">
+              2017-06-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术研究/" itemprop="url" rel="index">
+                    <span itemprop="name">技术研究</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/06/13/1/" class="leancloud_visitors" data-flag-title="CTF加密与解密">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">科技的精灵已经从瓶中跑了出来，但我们还不知道真正降临的时刻</blockquote><br>　　今日在翻看笔记的时候，无意看到了之前为参加CTF时做的准备工作，主要包括了各种加密解密，web安全，PWN溢出等内容的练习题以及解决脚本。由于内容部分来自本人参加ctf时所做的题以及部分来自互联网，因此准备在此分享记录一番。本篇主要介绍几种CTF中常见加密算法的解密脚本，关于加密原理会适当提及，但不会深入。<br><a id="more"></a></p>
+<h3 id="DES解密"><a href="#DES解密" class="headerlink" title="DES解密"></a>DES解密</h3><p>原理不多说了，直接放脚本源码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="comment">#Des算法一般密钥长度为8位（可以是8的倍数），且加密与解密算法相同。（私有密钥，对称加密方式）</span></div><div class="line">from pyDes import *</div><div class="line">import threading</div><div class="line">import Queue</div><div class="line">import os</div><div class="line">import sys</div><div class="line">import time</div><div class="line">from multiprocessing import Process,Pool,Manager</div><div class="line">import multiprocessing</div><div class="line"></div><div class="line">class maskdes:</div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    DES加密算法</div><div class="line">    des(key,[mode],[IV],[pad],[padmode])</div><div class="line">    @key:密钥(8位长度)</div><div class="line">    @mode：模式，支持CBC与ECB</div><div class="line">    @IV：</div><div class="line">    @pad：</div><div class="line">    @padmode：</div><div class="line">    @data：明文</div><div class="line">    @data_en：密文</div><div class="line">    '<span class="string">''</span></div><div class="line">    def __init__(self):</div><div class="line">        pass</div><div class="line"></div><div class="line">    def maskencrypt(self,data,key):</div><div class="line">        <span class="string">''</span><span class="string">'</span></div><div class="line">        明文加密</div><div class="line">        @data:明文</div><div class="line">        @key:密钥</div><div class="line">        '<span class="string">''</span></div><div class="line">        k = des(key,CBC,<span class="string">"\0\0\0\0\0\0\0\0"</span>,pad=None,padmode=PAD_PKCS5) <span class="comment">#des对象</span></div><div class="line">        data_en = k.encrypt(data)       <span class="comment">#进行des加密，返回密文</span></div><div class="line">        </div><div class="line">        <span class="comment"># print u"密文: %r" % data_en</span></div><div class="line"></div><div class="line">        <span class="built_in">return</span> data_en</div><div class="line"></div><div class="line">    def maskdecrypt(self,data,key):</div><div class="line">        <span class="string">''</span><span class="string">'</span></div><div class="line">        密文解密</div><div class="line">        @data:密文</div><div class="line">        @key:密钥</div><div class="line">        '<span class="string">''</span></div><div class="line">        k = des(key,CBC,<span class="string">"\0\0\0\0\0\0\0\0"</span>,pad=None,padmode=PAD_PKCS5) <span class="comment">#des对象</span></div><div class="line">        data_de = k.decrypt(data)   <span class="comment">#进行des解密，返回明文</span></div><div class="line"></div><div class="line">        <span class="comment"># print u"明文: %r" % data_de</span></div><div class="line"></div><div class="line">        <span class="built_in">return</span> data_de</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">def des_run(key,cur,data_en):</div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    破解des密码函数</div><div class="line">    '<span class="string">''</span></div><div class="line">    <span class="comment">#print key</span></div><div class="line">    </div><div class="line">    data_de=cur.maskdecrypt(data_en,str(key))</div><div class="line">    <span class="keyword">if</span> data_de==<span class="string">"Hello World"</span>:</div><div class="line">        <span class="built_in">print</span> data_de</div><div class="line">        <span class="built_in">return</span> True</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="built_in">return</span> False</div><div class="line">        </div><div class="line">        </div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line"></div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    已知一个明文，以及密钥，求密文？</div><div class="line">    '<span class="string">''</span></div><div class="line">    key=<span class="string">"10036934"</span></div><div class="line">    data = <span class="string">"Hello World"</span> <span class="comment">#明文</span></div><div class="line"></div><div class="line">    cur=maskdes()</div><div class="line">    data_en=cur.maskencrypt(data,key)</div><div class="line">    <span class="built_in">print</span> u<span class="string">"密文: %r"</span> % data_en</div><div class="line">    with open(<span class="string">"result.txt"</span>,<span class="string">"w"</span>) as w:</div><div class="line">        w.write(data_en)</div><div class="line"></div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    已知一个密文文件，已知长度为8位的密钥(纯数字)，求明文？</div><div class="line">    解密时，直接将文本中的内容读取复制给一个变量，进行解密即可</div><div class="line">    '<span class="string">''</span></div><div class="line">    <span class="comment">#-------------------------多进程---------------------------</span></div><div class="line">    cur=maskdes()</div><div class="line">    data_en=open(<span class="string">"result.txt"</span>,<span class="string">"r"</span>).<span class="built_in">read</span>()  <span class="comment">##从文件中读取密文</span></div><div class="line">    </div><div class="line">    start=time.time()</div><div class="line">    result=Queue.Queue()</div><div class="line">    pool = Pool()</div><div class="line"></div><div class="line">    def pool_th():</div><div class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> xrange(10000000,11111111): <span class="comment">##密钥范围</span></div><div class="line">            try:</div><div class="line">                result.put(pool.apply_async(des_run,args=(key,cur,data_en)))   <span class="comment">#维持执行的进程总数为10，当一个进程执行完后添加新进程.</span></div><div class="line">            except:</div><div class="line">                <span class="built_in">break</span></div><div class="line"></div><div class="line">    def result_th():</div><div class="line">        <span class="keyword">while</span> 1:</div><div class="line">            a=result.get().get()</div><div class="line">            <span class="keyword">if</span> a:</div><div class="line">                pool.terminate()</div><div class="line">                <span class="built_in">break</span></div><div class="line"></div><div class="line">    t1=threading.Thread(target=pool_th)</div><div class="line">    t2=threading.Thread(target=result_th)</div><div class="line">    t1.start()</div><div class="line">    t2.start()</div><div class="line">    t1.join()</div><div class="line">    t2.join()</div><div class="line"></div><div class="line">    <span class="built_in">print</span> <span class="string">"add Process end"</span></div><div class="line">    pool.join()</div><div class="line">    end=time.time()</div><div class="line">    <span class="built_in">print</span> <span class="string">'time is '</span>,end-start</div></pre></td></tr></table></figure></p>
+<h3 id="AES解密"><a href="#AES解密" class="headerlink" title="AES解密"></a>AES解密</h3><p>Aes解密脚本源码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- encoding:utf-8 -*-</span></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">AES算法，密钥（key）长度一般为16,24,32位，密文一般为128位，192位，256位。</div><div class="line">'<span class="string">''</span></div><div class="line">from Crypto.Cipher import AES</div><div class="line">from Crypto import Random</div><div class="line"></div><div class="line">def encrypt(data, password):</div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    AES加密算法</div><div class="line">    '<span class="string">''</span></div><div class="line">    bs = AES.block_size</div><div class="line">    pad = lambda s: s + (bs - len(s) % bs) * chr(bs - len(s) % bs)</div><div class="line">    iv = Random.new().<span class="built_in">read</span>(bs)</div><div class="line">    cipher = AES.new(password, AES.MODE_CBC, iv)</div><div class="line">    data = cipher.encrypt(pad(data))</div><div class="line">    data = iv + data</div><div class="line">    <span class="built_in">return</span> data</div><div class="line"></div><div class="line">def decrypt(data, password):</div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    DES解密算法</div><div class="line">    '<span class="string">''</span></div><div class="line">    bs = AES.block_size</div><div class="line">    <span class="keyword">if</span> len(data) &lt;= bs:</div><div class="line">        <span class="built_in">return</span> data</div><div class="line">    unpad = lambda s : s[0:-ord(s[-1])]</div><div class="line">    iv = data[:bs]</div><div class="line">    cipher = AES.new(password, AES.MODE_CBC, iv)</div><div class="line">    data  = unpad(cipher.decrypt(data[bs:]))</div><div class="line">    <span class="built_in">return</span> data </div><div class="line">    </div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    data = <span class="string">'flagadadh121lsf9adad'</span> <span class="comment">#要加密的数据</span></div><div class="line">    password = <span class="string">'123456789abcdefg'</span> <span class="comment">#16,24,32位长的密码</span></div><div class="line">    encrypt_data = encrypt(data, password)  <span class="comment">##获取加密后的字符串</span></div><div class="line">    <span class="built_in">print</span> <span class="string">'encrypt_data:'</span>, encrypt_data  <span class="comment">#&lt;str&gt;</span></div><div class="line">    </div><div class="line">    decrypt_data = decrypt(encrypt_data, password)</div><div class="line">    <span class="built_in">print</span> <span class="string">'decrypt_data:'</span>, decrypt_data  <span class="comment">#&lt;str&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="RSA解密"><a href="#RSA解密" class="headerlink" title="RSA解密"></a>RSA解密</h3><p>关于RSA相关内容，我之前有总结过，可移步：<a href="http://thief.one/2016/09/06/RSA%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/">RSA加密算法解析</a></p>
+<h3 id="栅栏加密"><a href="#栅栏加密" class="headerlink" title="栅栏加密"></a>栅栏加密</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">***栅栏加密方法***</div><div class="line">加密方法自行百度，解密方法如下：</div><div class="line">例子：adaufdns p</div><div class="line">先计算密文的长度，如长度为10(空格也算)，因为每行的字符串数量一样，因此这里要么是分为5行，要么就是2行。</div><div class="line">假设是分为2行，则每5个为一行分开：</div><div class="line">adauf（前5）</div><div class="line">dns p（后5）</div><div class="line">再将每行首字符合并：</div><div class="line">答案：addnasu fp</div><div class="line">多行的话也是一样</div><div class="line">@By nmask   2016.12.6</div><div class="line">'<span class="string">''</span></div><div class="line">string=<span class="string">"tn c0afsiwal kes,hwit1r  g,npt  ttessfu&#125;ua u  hmqik e &#123;m,  n huiouosarwCniibecesnren."</span></div><div class="line">string=list(string)</div><div class="line"><span class="built_in">print</span> <span class="string">'String len is :'</span>,len(string)    <span class="comment">##字符串总长度</span></div><div class="line">result=[]</div><div class="line">answer=<span class="string">""</span></div><div class="line">i=17 <span class="comment">##因为长度为85，因此这里写17或者5</span></div><div class="line">def split_list(st):</div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    将密文字符串分隔成多行，每行的数量一样。</div><div class="line">    '<span class="string">''</span></div><div class="line">    st1=st[0:i]</div><div class="line">    result.append(st1)</div><div class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(len(st)/i-1):</div><div class="line">        sts=st[i*(j+1):i*(j+2)]</div><div class="line">        result.append(sts)</div><div class="line">    <span class="built_in">return</span> result</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line">    result=split_list(string)</div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    将每行的首字符相组合</div><div class="line">    '<span class="string">''</span></div><div class="line">    <span class="keyword">for</span> m <span class="keyword">in</span> range(i):</div><div class="line">        sums=<span class="string">""</span></div><div class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> result:</div><div class="line">            sums=sums+n[m]</div><div class="line">        answer+=sums</div><div class="line">    <span class="built_in">print</span> answer</div></pre></td></tr></table></figure>
+<h3 id="培根加密算法"><a href="#培根加密算法" class="headerlink" title="培根加密算法"></a>培根加密算法</h3><p>培根算法对照表如下：<br>A aaaaa<br>B aaaab<br>C aaaba<br>D aaabb<br>E aabaa<br>F aabab<br>G aabba<br>H aabbb<br>I abaaa<br>J abaab<br>K ababa<br>L ababb<br>M abbaa<br>N abbab<br>O abbba<br>P abbbb<br>Q baaaa<br>R baaab<br>S baaba<br>T baabb<br>U babaa<br>V babab<br>W babba<br>X babbb<br>Y bbaaa<br>Z bbaab</p>
+<p>解密源代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">@培根加密算法</div><div class="line">'<span class="string">''</span></div><div class="line">string=<span class="string">"ABAAAABABBABAAAABABAAABAAAAAABAAAAAAAABAABBBAABBAB"</span></div><div class="line">dicts=&#123;<span class="string">'aabbb'</span>: <span class="string">'H'</span>, <span class="string">'aabba'</span>: <span class="string">'G'</span>, <span class="string">'baaab'</span>: <span class="string">'R'</span>, <span class="string">'baaaa'</span>: <span class="string">'Q'</span>, <span class="string">'bbaab'</span>: <span class="string">'Z'</span>, <span class="string">'bbaaa'</span>: <span class="string">'Y'</span>, <span class="string">'abbab'</span>: <span class="string">'N'</span>, <span class="string">'abbaa'</span>: <span class="string">'M'</span>, <span class="string">'babaa'</span>: <span class="string">'U'</span>, <span class="string">'babab'</span>: <span class="string">'V'</span>, <span class="string">'abaaa'</span>: <span class="string">'I'</span>, <span class="string">'abaab'</span>: <span class="string">'J'</span>, <span class="string">'aabab'</span>: <span class="string">'F'</span>, <span class="string">'aabaa'</span>: <span class="string">'E'</span>, <span class="string">'aaaaa'</span>: <span class="string">'A'</span>, <span class="string">'aaaab'</span>: <span class="string">'B'</span>, <span class="string">'baabb'</span>: <span class="string">'T'</span>, <span class="string">'baaba'</span>: <span class="string">'S'</span>, <span class="string">'aaaba'</span>: <span class="string">'C'</span>, <span class="string">'aaabb'</span>: <span class="string">'D'</span>, <span class="string">'abbbb'</span>: <span class="string">'P'</span>, <span class="string">'abbba'</span>: <span class="string">'O'</span>, <span class="string">'ababa'</span>: <span class="string">'K'</span>, <span class="string">'ababb'</span>: <span class="string">'L'</span>, <span class="string">'babba'</span>: <span class="string">'W'</span>, <span class="string">'babbb'</span>: <span class="string">'X'</span>&#125;</div><div class="line">sums=len(string)</div><div class="line">j=5   <span class="comment">##每5个为一组</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(sums/j):</div><div class="line">    result=string[j*i:j*(i+1)].lower()</div><div class="line">    <span class="built_in">print</span> dicts[result],</div></pre></td></tr></table></figure></p>
+<h3 id="凯撒密码"><a href="#凯撒密码" class="headerlink" title="凯撒密码"></a>凯撒密码</h3><p>得知是凯撒加密以后，可以用127次轮转爆破的方式解密<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">@凯撒加密</div><div class="line">'<span class="string">''</span></div><div class="line">lstr=<span class="string">''</span><span class="string">'U8Y]:8KdJHTXRI&gt;XU#?!K_ecJH]kJG*bRH7YJH7YSH]*=93dVZ3^S8*$:8"&amp;:9U]RH;g=8Y!U92'</span>=j*<span class="variable">$KH</span>]ZSj&amp;[S<span class="comment">#!gU#*dK9\.'''</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> p <span class="keyword">in</span> range(127):  </div><div class="line">    str1 = <span class="string">''</span>  </div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> lstr:  </div><div class="line">        temp = chr((ord(i)+p)%127)  </div><div class="line">        <span class="keyword">if</span> 32&lt;ord(temp)&lt;127 :  </div><div class="line">            str1 = str1 + temp   </div><div class="line">            feel = 1  </div><div class="line">        <span class="keyword">else</span>:  </div><div class="line">            feel = 0  </div><div class="line">            <span class="built_in">break</span>  </div><div class="line">    <span class="keyword">if</span> feel == 1:</div><div class="line">        <span class="built_in">print</span> str1</div></pre></td></tr></table></figure></p>
+<h3 id="变异md5加密"><a href="#变异md5加密" class="headerlink" title="变异md5加密"></a>变异md5加密</h3><p>33位md5解密代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">CMD5加密</div><div class="line">@By nMask 2016.12.6</div><div class="line">一般md5的密文为16或者32位长度的字符串。</div><div class="line">本脚本为，从33位加密的密文中，遍历删除一位长度，然后用md5解密。</div><div class="line">@解密网站：http://www.cmd5.com/b.aspx</div><div class="line">'<span class="string">''</span></div><div class="line">string=<span class="string">"cca9cc444e64c8116a30la00559c042b4"</span></div><div class="line">string=list(string)</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(string)):</div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    遍历删除一位，然后将字符串放入cmd5网站，批量解密。</div><div class="line">    '<span class="string">''</span></div><div class="line">    result=string[:] <span class="comment">##复制一个列表，不会改变原列表。</span></div><div class="line">    result.pop(i)</div><div class="line">    </div><div class="line">    <span class="built_in">print</span> <span class="string">""</span>.join(result)</div></pre></td></tr></table></figure></p>
+<h3 id="brainfuck"><a href="#brainfuck" class="headerlink" title="brainfuck"></a>brainfuck</h3><p>brainfuck语言是比较难编写的一门语言，只有8个字符标识，需要写解释器，解释出用该语言编写的内容<br>其标识符含义如下：</p>
+<ul>
+<li><em>&gt;</em>指针加一</li>
+<li>&lt;指针减一</li>
+<li>+指针指向的字节的值加一</li>
+<li>-指针指向的字节的值减一</li>
+<li>.输出指针指向的单元内容（ASCⅡ码）</li>
+<li>,输入内容到指针指向的单元（ASCⅡ码）</li>
+<li>[如果指针指向的单元值为零，向后跳转到对应的]指令的次一指令处</li>
+<li>]如果指针指向的单元值不为零，向前跳转到对应的[指令的次一指令处</li>
+</ul>
+<p>解释器代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line">import os</div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">brainfuck语言解释器</div><div class="line">用法：将brainfuck内容存入文本中，保存为.bf格式，然后运行run函数</div><div class="line">'<span class="string">''</span></div><div class="line">def mainloop(program, bracket_map):  </div><div class="line">    pc = 0  </div><div class="line">    tape = Tape()  </div><div class="line">    <span class="keyword">while</span> pc &lt; len(program):  </div><div class="line">        code = program[pc]  </div><div class="line">        <span class="keyword">if</span> code == <span class="string">"&gt;"</span>:  </div><div class="line">            tape.advance()  </div><div class="line">        <span class="keyword">elif</span> code == <span class="string">"&lt;"</span>:  </div><div class="line">            tape.devance()  </div><div class="line">        <span class="keyword">elif</span> code == <span class="string">"+"</span>:  </div><div class="line">            tape.inc()  </div><div class="line">        <span class="keyword">elif</span> code == <span class="string">"-"</span>:  </div><div class="line">            tape.dec()  </div><div class="line">        <span class="keyword">elif</span> code == <span class="string">"."</span>:  </div><div class="line">            os.write(1, chr(tape.get()))  </div><div class="line">        <span class="keyword">elif</span> code == <span class="string">","</span>:   </div><div class="line">            tape.set(ord(os.read(0, 1)[0]))  </div><div class="line">        <span class="keyword">elif</span> code == <span class="string">"["</span> and tape.get() == 0:   </div><div class="line">            pc = bracket_map[pc]  </div><div class="line">        <span class="keyword">elif</span> code == <span class="string">"]"</span> and tape.get() != 0:  </div><div class="line">            pc = bracket_map[pc]  </div><div class="line">        pc += 1</div><div class="line"></div><div class="line">class Tape(object):  </div><div class="line">    def __init__(self):  </div><div class="line">        self.thetape = [0]  </div><div class="line">        self.position = 0  </div><div class="line">    def get(self):  </div><div class="line">        <span class="built_in">return</span> self.thetape[self.position]  </div><div class="line">    def <span class="built_in">set</span>(self, val):  </div><div class="line">        self.thetape[self.position] = val  </div><div class="line">    def inc(self):  </div><div class="line">        self.thetape[self.position] += 1  </div><div class="line">    def dec(self):  </div><div class="line">        self.thetape[self.position] -= 1  </div><div class="line">    def advance(self):  </div><div class="line">        self.position += 1  </div><div class="line">        <span class="keyword">if</span> len(self.thetape) &lt;= self.position:  </div><div class="line">            self.thetape.append(0)  </div><div class="line">    def devance(self):  </div><div class="line">        self.position -= 1</div><div class="line"></div><div class="line">def parse(program):  </div><div class="line">    parsed = []  </div><div class="line">    bracket_map = &#123;&#125;  </div><div class="line">    leftstack = []  </div><div class="line">    pc = 0  </div><div class="line">    <span class="keyword">for</span> char <span class="keyword">in</span> program:  </div><div class="line">        <span class="keyword">if</span> char <span class="keyword">in</span> (<span class="string">'['</span>, <span class="string">']'</span>, <span class="string">'&lt;'</span>, <span class="string">'&gt;'</span>, <span class="string">'+'</span>, <span class="string">'-'</span>, <span class="string">','</span>, <span class="string">'.'</span>):  </div><div class="line">            parsed.append(char)  </div><div class="line">            <span class="keyword">if</span> char == <span class="string">'['</span>:  </div><div class="line">                leftstack.append(pc)  </div><div class="line">            <span class="keyword">elif</span> char == <span class="string">']'</span>:  </div><div class="line">                left = leftstack.pop()  </div><div class="line">                right = pc  </div><div class="line">                bracket_map[left] = right  </div><div class="line">                bracket_map[right] = left  </div><div class="line">            pc += 1  </div><div class="line"></div><div class="line">    <span class="built_in">return</span> <span class="string">""</span>.join(parsed), bracket_map</div><div class="line"></div><div class="line">def run(fp):  </div><div class="line">    program_contents = <span class="string">""</span>  </div><div class="line">    <span class="keyword">while</span> True:  </div><div class="line">        <span class="built_in">read</span> = os.read(fp, 4096)  </div><div class="line">        <span class="keyword">if</span> len(<span class="built_in">read</span>) == 0:  </div><div class="line">            <span class="built_in">break</span>  </div><div class="line">        program_contents += <span class="built_in">read</span>  </div><div class="line">    os.close(fp)  </div><div class="line">    program, bm = parse(program_contents)  </div><div class="line">    mainloop(program, bm)  </div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    传入.bf文件</div><div class="line">    '<span class="string">''</span></div><div class="line">    run(os.open(<span class="string">"./1.bf"</span>, os.O_RDONLY, 0777))</div></pre></td></tr></table></figure></p>
+<h3 id="CRC32"><a href="#CRC32" class="headerlink" title="CRC32"></a>CRC32</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">@crc32算法</div><div class="line">crc算法的结果可以转化为16进制。</div><div class="line">'<span class="string">''</span></div><div class="line">import binascii</div><div class="line">import datetime</div><div class="line"></div><div class="line">def all_date():</div><div class="line">    <span class="comment">#获取所有日期</span></div><div class="line">    result=[]</div><div class="line">    begin=datetime.date(1900,1,1) <span class="comment">#从1900年1月1日开始</span></div><div class="line">    end=datetime.date(3000,12,6) <span class="comment">#到3000年12月6日结束</span></div><div class="line"></div><div class="line">    delta=datetime.timedelta(days=1)</div><div class="line">    d=begin</div><div class="line"></div><div class="line">    <span class="keyword">while</span> d&lt;=end:</div><div class="line">        date=d.strftime(<span class="string">"%Y%m%d"</span>)</div><div class="line">        d+=delta</div><div class="line">        result.append(date)</div><div class="line"></div><div class="line">    <span class="built_in">return</span> result</div><div class="line"></div><div class="line">def _crc32(content): </div><div class="line">  <span class="comment">#crc32解密</span></div><div class="line">  <span class="built_in">return</span> <span class="string">'%x'</span> % (binascii.crc32(content) &amp; 0xffffffff) <span class="comment">#取crc32的八位数据 %x返回16进制</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line">    result=all_date()</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> result:</div><div class="line">        <span class="comment">#遍历每一个日期，暴力破解出密文结果</span></div><div class="line">        tag=_crc32(i)</div><div class="line">        <span class="keyword">if</span> tag==<span class="string">"4d1fae0b"</span>:  <span class="comment">##16进制密文</span></div><div class="line">            <span class="built_in">print</span> i</div></pre></td></tr></table></figure>
+<h3 id="摩斯密码"><a href="#摩斯密码" class="headerlink" title="摩斯密码"></a>摩斯密码</h3><ul>
+<li>-　　表示往右</li>
+<li>.　　表示往左</li>
+</ul>
+<p>对照图：<br><img src="/upload_image/20170613/1.png" alt=""></p>
+<h3 id="猪圈密码"><a href="#猪圈密码" class="headerlink" title="猪圈密码"></a>猪圈密码</h3><p>参考图：<br><img src="/upload_image/20170613/2.png" alt=""></p>
+<h3 id="维吉尼亚密码"><a href="#维吉尼亚密码" class="headerlink" title="维吉尼亚密码"></a>维吉尼亚密码</h3><p>维吉尼亚密码是凯撒密码的升级版。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">key=<span class="string">'abc'</span></div><div class="line"><span class="comment">#密文内容如下</span></div><div class="line">ciphertext=<span class="string">'csirxeerjsqraeehruamjkxhboaoylgvtsshewqpkbbuarnqhucojvyhpkpeflphvqkfytuhrtdgvbnqgkvwlyprbodpzumsghnkurmjcengiyocfobnswgkrfaipwucmusrprjjruwreibqsdpgxhrqjcglgvdajkiemtebolpkrdvzygnzatavgonwwbqsstvegzaekjxaynebtwszesroflakxrhqodnvxjsesrlwwywiggkkadvrmbvwhztgfugvqrqhrcjfnoldinsntzwmgretfrvrudpcpljlpvzdrpwopneolqsrfrboyowzkefvhpnkrdfdoanopbpygraowqvtbroanopwzruhrewhmtgknchjlsftgkrzciligvdsfhijlnnwtciexiihcoegiedhrwhpvfmsprrsevesztgoezvcxaooazneicweqgrtvmqegkaqbqxvytfrfhpkghpdqgrkiieofkrtvmxobvioyoxfcenfhepgoelzdwpkwyphnvlpnvsngkahnepvdhrhaeacgaxhswgkiremrzrtbvinbqehvqglcrnqtdiuxhrfdocwiinlbvedkjepghnhjrxyppbrlznviaevyvnsxvctjroampwwvwdoylgvrrbziyovsshfdoguidpnqrudakdegkwhuhvypaqkieavlephezvqkrwiphidcplacsuoagejdhrfrtmuleewaoevjczoqwhppcpljduoswiidhelnvqpkdbzjotdmeourwolncrsuhdoqsmtveqxpltkgefzeafwlizutkhpzqanghwffdruxerwsluqysrzdcvvwntmzlnriuaeyoovrwvzpsgrmlsgwmnohhnoonttukixqpilrpabgdvpqrrqcsbjmnxljuuhqrjbrdfcmpghzrqgreykseerppvkrgtdipvwsvdtzdcsivxejkafrlwdjcnwoqngrdfwdszryjpaaghpbtmefwksffegphrucsirxeewdfrhxypcnxcfatecrdjrnosertnoeepgwenrbhrdvjmeprmpaevojgarjlxyztuhrlvkqayvwbqemiosgkaepczeohabfzigeajdymgvleelowajareeevawqeiaagpvrrxyprnqixinwcbqrsahseehreayscrdgkaehhwktoadmzvixhrpegurakzgrwdcgckavqpvrpsldetlvpavlezdrsebhijlrftfzgsnjlhzvdqkseprnbcgvoedzcqrhvniqhsepcxtuhxsfwxytntwoozaxhrpktszslwdohaniwgufuwqrzlznhprndquxsbiajrucfyeexnyqpkiadywefpvhigknzkniaezebahvrwiphegmpxunohmsumxstrqsltnxhrdjwzdpjlwnbuyekxtvqczleckllxlnridsugkafzrhvcaghljngvoplkiffeknhnstpzhsuewdsedfsttfhnoacpigwhsolpcehrzhtbgvaoeehnstvlrfdglqpmnfhwfpkswehrgunpgwsfjhcihwrydsdnxquxaxljuuhvwzrulsxikhsruroawqrcynqnsmqvdruooylgveotriybqxhrkkifheeorrwrtmxituhiphwsenefkermvwiaverrvlvdtnutdotswvqchuhlfcrviipltebolpcegiidhvvglzfinruxwyoxyplvcaclvscylipbqxyprbrflvfkoqrsbgkitsizqejwwxsvgaoylgvsenusepgzovfagbieetmnosepcxhnyaunwlvceqworiyoagkaftleeeaeptsmevojgdieowgpbooedivleezdwpkxlcnvqtztkxtyhyoxhwrwiphelbuxhrpwbqwlvjmnnesmtwmnohsedkrtnpkaabgvfvyaoqymtpfermlkcxeesezydvrwiphczugwucrjozxwycobpstbvmntrjwglwrmlhhclbgvpvohoevqfviajaswqoauwdspdxvcpvollzsyefwecavectcrdnoajiaqpehfwsyprpxrcmpxiqhjhvwctciflsnwotohqzsqecyprvqamqnmtlwkfrpidmeedpzmofesrnspuenwiajahiaxhrfwhrutzwlnutptnwaylysgkekznrviomqjtuhiifkvfzmjllwucoeuhnhnopvcaagtsmqxhruowqhazwlzdkppgvsurnhruwypbehavaqjfgzkdvhgvdfermepgqufkncbpsepsvgeximisuhnguumevszdlwmtxhnqajruaytlrdnzbjirpdqgrvlvcnrfkewivojkeuulrkztuhtcmgwwuhnsnsmxpoapidbcoefkafsrvrdeeseybymtuvkarhjwzrgdltkgfrvqcguhvjplseansvshrujcepecsevjheajisgxipyhwlaoadsxinpefwwhrdrufsrvtsmoysuukczwsipapkaxwtiacsnccumreeuhirpvxhrfdsfkmipcnwcsirxeevelclkrydchpamtefvvdtbrxdlnudslvkrvvwwhvrrwzrgkeocelefvktgkiyzufhwsqelhrgazvyiidtbdfcwijobwioadpznebespzxisgkeggueedapwizvcrdnipsedtvcpyhxtvigoayaffdxzznjltsbjiferczrwwyprfhlqqpxogkavbxwvehrgunpgwsffkcxlwksrbziyofmsuhooagqrviajadwwttudpvnvxfzmhfhamrteezdwpkgrfsrvawqeituhzipkijdaaghpzdebleqharxkseprovwtkrvqjwajgypsulrpkcxtbvjsrcimtoyhnetaelvfawfjmmpngkemidcblwdsqxgypsfdnobqleevqfcumjptuhbljaxueqowawsraitwhpkjisulnspdxraprdrdqpeteharvuiteiajhpzvstuhioeflylrrvhzcuihrgegnstvlrfeuepkwgeljfrpezysohhtvfxosokogrrzesbzntvvlenlnderqgeiajawqeitbuaanuoksagvhppcwoswabfhielcnwwtbjsugdcfvqflenryeciiviazehuryklcnwcsirxeevajrqedldghaaitxynoeqreitzmrvarcgwtnwwangxvlpnutjinsntzehuwlvxaefhsitituhdogwiilnqdvpzaxiehzrbuqffsrzhzncplfdozrhtwcedxeybncoaouhbeimtoyhnetaaoxhjicpsdpngvllbgvblwdszdvtshnuelvfxhrkwhghvksepkaciexeevcwihectcrpaygtmdqoagnqhjeoeledqpglhgebtwlvqazrudejcifdnoihrctkrdwcqvmntgagxwlvsagweczgzenoohudxkselkagmvianohrnbfvnahveeqoihnvlialwypdulmmggxeeqwzybwklnqlnravmlydpdzwireizhawqeibrfkarvmeduyweoiphtvuarbifvtnteoxjcvdrgswgkvzodyhslvfwhroaoihwtwavpiyovlaglpknvxypsgxptlgwtghwdnuxpehnwssmjedryafohieeonoinmvvyvqchbsprjcerqfmvaigkwtydqzygbfhlxvirrlcvgwlvburhndktsqhhpueryeoaylcptgevrvpvrwiraaewylvfinghnggkixlrqhnhpgvefkaqbpijfpbqtszgilvyebtsprjiajclzfwpnljhvqkksejkiemtssrvkbnusjptehecmffepdqgrwlvburhnznjiaewovnwijhhvwecwuisnsncphwjtoarfxwticnuzgxlrxdaagqfmgrsnqzsihrksejkiemtebolpsawiidtuhglzfinnoeqrwlvymrhtdbjikvqcoagulpeawhpywieadbwtxvvoisiincnxtbshsnvizyterdfkgwhrupfngidlrxshciuiosiswgklzdhrddhpkghfkaigwiidagwhpanmguwagggmjdaglsqiexibqswgkejfbwhceinmcrlowaymkpdbuszugqitkpgnbsioeehdewrpaldcozhswnrbtupbymtuwdsdxivyaagtsmtisgrbvruwlmjrftdjwxtuhcozhultcxoyomugeagowawstsabvltdgjlnpebtrwrcehveoiuqayoahfdruseqjeswiwafewzyveeoaylcpwpgenjwwapivesgkenpgwhvuaqnwxypqhheywhlenupggkiezrqhrdbjicnwpcohfvsengeowppygrdoihlvcekhcfbksnruyczsprtngkaebjmsvveacrwjtbyhstveituhdsngmjllywhlbeenohosrqswsizeeniwwegkaqnwfvwoajsewvleqxyvrvwksedxepvkwperidghhkzrroelagxhrgqquhwjqrbppcqusngrnsfrpmptuhmlbvirpkwdghvetnrwhpuqgkgxnhyhwjeoebtsmfycuhogvvfizutktewvlepukehhxxcohqdlbcpiphofrtyvdtfkeccomnnwagbqjzydvqgxwtelfljsihvpehvqglzqynqkafgkihferqoqpgergvzwfpmjdefkecekxhgkahuuireoshxpkwxibqwbqvlvtnguooceisnoeqrwsksetuyapqrwurpoxhwyprgrtsmoscxwqfgoiksezrcvbwvtyhegihvpdaqhvpvvlohjdvrkejyofrrcwyleguesfwskplykidavsrldxchwlfhhrxsplvsbrdnsnoxlctyhiyaelobosvvflksetuyapqriawafextkdsbwhlbvlelfwbcoeplgnpenpcttrupsaossdtruqfifviyoahuhqfnkgxretgenqwdstucgsoagaykgxogkazbewkprdxaozkplrzdwyhectcruenqvisedpvrumenoeuenbnctvvpvrysznebitsmnsbfwafgkidzcxwucbnisvqcggkidmenxttnwpsbxlrhumerwulcsbjigeblvbqhilgfdltkgewnbbcedrzxprqdtvixrvdhqudtkprroegmpahbvpcyhxyptnutdinmcrdphrqhjltelawqpahvfdhuhoelvrrfsmcvtfloopfyjpdbisemcpiajpvrtyvpnfwacbuxhrmqfllwtzmcrsplqjvnuechveetmnostvepuqljuolpcehroikithtuhsvvwiilbolttavleprqfgvxifmchtpzcrdgkaxhgkvtsgkevqpkoskaoewwufrvqgepgtrbfasqlrxdaylcpnkrdfwdogvlvtsfwellkpytukkvqkclrthrepghoepkifhwtzlqvawqeiaagpsyowyprfkesiuroelcvgwsxcojdtdcelaedlwqsetpaagtlsgypnohhuhezcaylcpaesfsvwbqfecwsgkeowtqohvagnfgldagloyzkhipxhchvfvnahvepdgvybqauerajlnqvhpkcrnbwdsysmkxenqwsqniwvwjsfvijltgkeezkelvqyzhgikseudtemtahbgegcoirdefdnontysguwhrvxypkvqgeptsutkdwflrutrrftlvuaeevpcgkihfefwizvkrgnqzhuhhlnhrvsdkqskpkwdghvkheyyeltkgefhrwqhrtpaylcpquxhrqyoyoiufpnvahqvrefvovrdgttdrqtltnckaryyfrzvctuhjfzafokzehuwlvlnvpawakrsvgaoagxypkvqgzzfirfwdsnqmdllfwommrpaphzpnfozytbwhpqtwenwoprisiptuhtcqcpcbqpwaxijehrniyocrddxasarvuprnoinmvsbrjkbrfmktntuuwmcplchngbqwdzrrwhlvcqiyhdwtkxfwenyeepggohupphwectcrgidxwxefwdsvunlogrpeybcrdehbifhwkzlrdvpajiaejqsfzmkstuhktvienqtqsrqswsenutdwxirgkafvgmtflbxsazqgergebtvimpngxawtavesxowajxfsoyghpzvsntxahuhulpeavhzcvwhrubozlpzlrbifhqvlhrudsngfleaylcpquynninovggrwlvqgepgqohwwgwxwklpnfkzneerqvfifwejehrbseitxtbvsoepsmpruhrltkgefvegghvnlkrvhpzwtferioquirxbexssqpkwudphhurjzugwommusmroaoihwrydartlajswruktcoeptntfaclujrbpwzvfijqaphawqeilrdrsfkiidifwecwpxhrewbxwszxatlnpinptuhyielsldhnsppvkrgfikfuhvjpls'</span></div><div class="line">ascii=<span class="string">'abcdefghijklmnopqrstuvwxyz'</span></div><div class="line">keylen=len(key)</div><div class="line">ctlen=len(ciphertext)</div><div class="line">plaintext = <span class="string">''</span></div><div class="line">i = 0</div><div class="line"><span class="keyword">while</span> i &lt; ctlen:</div><div class="line">    j = i % keylen</div><div class="line">    k = ascii.index(key[j])</div><div class="line">    m = ascii.index(ciphertext[i])</div><div class="line">    <span class="keyword">if</span> m &lt; k:</div><div class="line">        m += 26</div><div class="line">    plaintext += ascii[m-k]</div><div class="line">    i += 1</div><div class="line">with open(<span class="string">'result.txt'</span>,<span class="string">'w'</span>) as f:</div><div class="line">    f.write(plaintext)</div></pre></td></tr></table></figure></p>
+<h3 id="jsfuck-or-jother"><a href="#jsfuck-or-jother" class="headerlink" title="jsfuck or jother"></a>jsfuck or jother</h3><p>以下内容参考：<a href="http://www.secbox.cn/hacker/ctf/8078.html" target="_blank" rel="external">http://www.secbox.cn/hacker/ctf/8078.html</a><br>密文例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]][([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]]+(![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]+[+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]])()</div></pre></td></tr></table></figure></p>
+<p>解密方法：alert(xxx)、console(xxx)、document.write(xxx)，xxx为密文内容。<br>在线解密：<a href="http://www.jsfuck.com/" target="_blank" rel="external">http://www.jsfuck.com/</a></p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>关于Base64/16进制／URL编码／js编码／HTML编码等转化以及各种混淆技术，这里不再介绍，有很多在线转化工具。<br>关于CTF更多内容，可参考个人项目：<a href="https://github.com/tengzhangchao/CTF-LEARN" target="_blank" rel="external">https://github.com/tengzhangchao/CTF-LEARN</a></p>
+<p><em>说明：以上脚本若有运行错误或者编写错误可留言告知；若有补充可留言说明；另外本篇有些代码来自早期互联网收集，已遗忘原地址，若有知者望告之，在此表示感谢！</em></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/06/13/1/">CTF加密与解密</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年06月13日 - 11:06</p>
+  <p><span>最后更新:</span>2017年07月25日 - 20:07</p>
+  <p><span>原始链接:</span><a href="/2017/06/13/1/" title="CTF加密与解密">http://thief.one/2017/06/13/1/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/06/13/1/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTF/" rel="tag"><i class="fa fa-tag"></i>CTF</a>
+          
+            <a href="/tags/加密与解密/" rel="tag"><i class="fa fa-tag"></i>加密与解密</a>
+          
+            <a href="/tags/隐写术/" rel="tag"><i class="fa fa-tag"></i>隐写术</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/31/1/" rel="next" title="浅谈跨站脚本攻击与防御">
+                <i class="fa fa-chevron-left"></i> 浅谈跨站脚本攻击与防御
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/15/1/" rel="prev" title="【原创小说】盲爱">
+                【原创小说】盲爱 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DES解密"><span class="nav-number">1.</span> <span class="nav-text">DES解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AES解密"><span class="nav-number">2.</span> <span class="nav-text">AES解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA解密"><span class="nav-number">3.</span> <span class="nav-text">RSA解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栅栏加密"><span class="nav-number">4.</span> <span class="nav-text">栅栏加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#培根加密算法"><span class="nav-number">5.</span> <span class="nav-text">培根加密算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#凯撒密码"><span class="nav-number">6.</span> <span class="nav-text">凯撒密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变异md5加密"><span class="nav-number">7.</span> <span class="nav-text">变异md5加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#brainfuck"><span class="nav-number">8.</span> <span class="nav-text">brainfuck</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CRC32"><span class="nav-number">9.</span> <span class="nav-text">CRC32</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摩斯密码"><span class="nav-number">10.</span> <span class="nav-text">摩斯密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#猪圈密码"><span class="nav-number">11.</span> <span class="nav-text">猪圈密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维吉尼亚密码"><span class="nav-number">12.</span> <span class="nav-text">维吉尼亚密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jsfuck-or-jother"><span class="nav-number">13.</span> <span class="nav-text">jsfuck or jother</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后记"><span class="nav-number">14.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

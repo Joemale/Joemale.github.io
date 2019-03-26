@@ -1,0 +1,5 @@
+User-agent: * 
+Allow: *
+
+Sitemap: https://thief.one/sitemap.xml
+Sitemap: https://thief.one/baidusitemap.xml

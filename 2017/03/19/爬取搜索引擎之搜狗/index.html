@@ -1,0 +1,1290 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="搜索引擎," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="听过最落寞的一句话或诗句是什么？不如意事常八九，可与言者无二三  　　上篇讲述了爬取百度搜索结果时遇到的问题以及解决方案，本篇继续爬取搜索引擎的话题，说说爬取搜狗时将会遇到什么问题？以及怎么去解决。搜狗搜索引擎的名气在国内远没有百度那么大，但却称得上是后起之秀，其搜索结果的准确度以及爬虫算法都还不错，可以说搜狗搜索在国内是继百度搜索之外的又一良好选择，想要了解百度搜索相关信息的，可以移步：爬取搜索">
+<meta name="keywords" content="搜索引擎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬取搜索引擎之搜狗">
+<meta property="og:url" content="http://thief.one/2017/03/19/爬取搜索引擎之搜狗/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="听过最落寞的一句话或诗句是什么？不如意事常八九，可与言者无二三  　　上篇讲述了爬取百度搜索结果时遇到的问题以及解决方案，本篇继续爬取搜索引擎的话题，说说爬取搜狗时将会遇到什么问题？以及怎么去解决。搜狗搜索引擎的名气在国内远没有百度那么大，但却称得上是后起之秀，其搜索结果的准确度以及爬虫算法都还不错，可以说搜狗搜索在国内是继百度搜索之外的又一良好选择，想要了解百度搜索相关信息的，可以移步：爬取搜索">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-25T12:05:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬取搜索引擎之搜狗">
+<meta name="twitter:description" content="听过最落寞的一句话或诗句是什么？不如意事常八九，可与言者无二三  　　上篇讲述了爬取百度搜索结果时遇到的问题以及解决方案，本篇继续爬取搜索引擎的话题，说说爬取搜狗时将会遇到什么问题？以及怎么去解决。搜狗搜索引擎的名气在国内远没有百度那么大，但却称得上是后起之秀，其搜索结果的准确度以及爬虫算法都还不错，可以说搜狗搜索在国内是继百度搜索之外的又一良好选择，想要了解百度搜索相关信息的，可以移步：爬取搜索">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/03/19/爬取搜索引擎之搜狗/"/>
+
+  <title> 爬取搜索引擎之搜狗 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                爬取搜索引擎之搜狗
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-19T15:02:35+08:00" content="2017-03-19">
+              2017-03-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫技术/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/03/19/爬取搜索引擎之搜狗/" class="leancloud_visitors" data-flag-title="爬取搜索引擎之搜狗">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote class="blockquote-center">听过最落寞的一句话或诗句是什么？不如意事常八九，可与言者无二三</blockquote>
+
+<p>　　上篇讲述了爬取百度搜索结果时遇到的问题以及解决方案，本篇继续爬取搜索引擎的话题，说说爬取搜狗时将会遇到什么问题？以及怎么去解决。搜狗搜索引擎的名气在国内远没有百度那么大，但却称得上是后起之秀，其搜索结果的准确度以及爬虫算法都还不错，可以说搜狗搜索在国内是继百度搜索之外的又一良好选择，想要了解百度搜索相关信息的，可以移步：<a href="http://thief.one/2017/03/17/%E7%88%AC%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B9%8B%E5%AF%BB%E4%BD%A0%E5%8D%83%E7%99%BE%E5%BA%A6/">爬取搜索引擎之寻你千百度</a><br><a id="more"></a><br>　　关于反爬虫的技术，网上有很多资源，方法不外乎（代理、识别验证码、分布式架构、模拟浏览器、ADSL切换ip等），这些不是本文的重点，本文只针对爬取搜狗搜索引擎时遇到的反爬虫措施，以及一些解决方案。</p>
+<h3 id="为甚么要爬取搜狗"><a href="#为甚么要爬取搜狗" class="headerlink" title="为甚么要爬取搜狗"></a>为甚么要爬取搜狗</h3><ul>
+<li>搜索结果比较准确比较全，没有类似百度保护资源的措施（搜索结果数比较准确）</li>
+<li>同样拥有丰富的资源</li>
+<li>反爬虫措施相对没有那么严格</li>
+</ul>
+<h3 id="搜狗反爬虫措施"><a href="#搜狗反爬虫措施" class="headerlink" title="搜狗反爬虫措施"></a>搜狗反爬虫措施</h3><p>　　利用爬虫爬取搜狗搜索引擎结果，首先要解决的是cookie的问题。搜狗会验证http请求是否带有cookie参数，如不带cookie那么请求次数将会非常有限。想要解决这一问题，我们必须先弄清楚搜狗搜索引擎cookie内容的组成，以及其作用。</p>
+<h4 id="cookie内容解析"><a href="#cookie内容解析" class="headerlink" title="cookie内容解析"></a>cookie内容解析</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Cookie: </div><div class="line">ABTEST=3|1489908642|v17; </div><div class="line">IPLOC=CN3301; </div><div class="line">SUID=899F006F2208990A0000000058CE33A3; </div><div class="line">SUV=1489908643339695; </div><div class="line">browerV=3; </div><div class="line">osV=1; </div><div class="line">sct=1; </div><div class="line">SNUID=1B0D93FD9297D882F63E3C8D93692285; </div><div class="line">ld=E@n5Llllll2Y80nclllllV0nGEklllllbZjKAyllll9lllll9Zlll5@@@@@@@@@@</div></pre></td></tr></table></figure>
+<p>经过我测试，发现其中有几个参数异常重要，也是影响搜索反爬虫措施的关键参数，SUID、SNUID以及SUV。</p>
+<h4 id="SUID"><a href="#SUID" class="headerlink" title="SUID"></a>SUID</h4><p>　　SUID具体的含义可以自行百度，这里只讲述它生成的过程。当我们访问sogou搜索首页的时候，set-cookies中便会生成一个SUID参数的内容，除非重启浏览器，不然短时间内SUID并不会改变。SUID的值应该是sogou服务端随便分配的，只有当重新开启一个session时它的值才会更新。</p>
+<h4 id="SNUID"><a href="#SNUID" class="headerlink" title="SNUID"></a>SNUID</h4><p>　　SNUID是sogou反爬虫的重点，sogou也是对同一个SNUID访问次数做了限制，而超过限制后，会跳转到验证码页面，只有输入验证码重新验证以后，SNUID才会更新，访问才能继续进行。那么SNUID是如何生成的呢？经过测试，应该是由javascript生成的，当然前提是要有SUID，SUID是生成SNUID的基础。</p>
+<h4 id="SUV"><a href="#SUV" class="headerlink" title="SUV"></a>SUV</h4><p>SUV参数内容是由javascript生成的，测试并没有发现其对于反爬虫有何影响，故本文不做详细介绍。</p>
+<h3 id="被屏蔽现象"><a href="#被屏蔽现象" class="headerlink" title="被屏蔽现象"></a>被屏蔽现象</h3><p>　　同样，要解决反爬虫问题，我们先来看看触发反爬虫的现象。当同一个SNUID访问次数受限后，继续访问sogou会跳转到一个验证码页面。<br>URL地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.sogou.com/antispider/?from=%2fweb%3Fquery%3d152512wqe%26ie%3dutf8%26_ast%3d1488957312%26_asf%3dnull%26w%3d01029901%26p%3d40040100%26dp%3d1%26cid%3d%26cid%3d%26sut%3d578%26sst0%3d1488957299160%26lkt%3d3%2C1488957298718%2C1488957298893</div></pre></td></tr></table></figure></p>
+<p>页面源码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">Server: nginx</div><div class="line">Date: Thu, 27 Oct 2016 04:41:19 GMT</div><div class="line">Content-Type: text/html</div><div class="line">Connection: keep-alive</div><div class="line">X-Powered-By: PHP/5.3.3</div><div class="line">Expires: Thu, 19 Nov 1981 08:52:00 GMT</div><div class="line">Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0</div><div class="line">Pragma: no-cache</div><div class="line">Content-Length: 5130</div><div class="line"></div><div class="line">&lt;!DOCTYPE HTML&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"utf-8"</span>&gt;</div><div class="line">    &lt;link rel=<span class="string">"shortcut icon"</span> href=<span class="string">"//www.sogou.com/images/logo2014/new/favicon.ico"</span> <span class="built_in">type</span>=<span class="string">"image/x-icon"</span>&gt;</div><div class="line">    &lt;title&gt;搜狗搜索&lt;/title&gt;</div><div class="line">    &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"static/css/anti.min.css?v=1"</span>/&gt;</div><div class="line">    &lt;script src=<span class="string">"//dl.web.sogoucdn.com/common/lib/jquery/jquery-1.11.0.min.js"</span>&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=<span class="string">"static/js/antispider.min.js?v=2"</span>&gt;&lt;/script&gt;</div><div class="line">    &lt;script&gt;</div><div class="line">        var domain = getDomain();</div><div class="line">        window.imgCode = -1;</div><div class="line"></div><div class="line">        (<span class="function"><span class="title">function</span></span>() &#123;</div><div class="line">            <span class="keyword">function</span> <span class="function"><span class="title">checkSNUID</span></span>() &#123;</div><div class="line">                var cookieArr = document.cookie.split(<span class="string">'; '</span>),</div><div class="line">                    count = 0;</div><div class="line"></div><div class="line">                <span class="keyword">for</span>(var i = 0, len = cookieArr.length; i &lt; len; i++) &#123;</div><div class="line">                    <span class="keyword">if</span> (cookieArr[i].indexOf(<span class="string">'SNUID='</span>) &gt; -1) &#123;</div><div class="line">                        count++;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="built_in">return</span> count &gt; 1;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(checkSNUID()) &#123;</div><div class="line">                var date = new Date(), expires;</div><div class="line">                date.setTime(date.getTime() -100000);</div><div class="line"></div><div class="line">                expires = date.toGMTString();</div><div class="line"></div><div class="line">                document.cookie = <span class="string">'SNUID=1;path=/;expires='</span> + expires;</div><div class="line">                document.cookie = <span class="string">'SNUID=1;path=/;expires='</span> + expires + <span class="string">';domain=.www.sogou.com'</span>;</div><div class="line">                document.cookie = <span class="string">'SNUID=1;path=/;expires='</span> + expires + <span class="string">';domain=.weixin.sogou.com'</span>;</div><div class="line">                document.cookie = <span class="string">'SNUID=1;path=/;expires='</span> + expires + <span class="string">';domain=.sogou.com'</span>;</div><div class="line">                document.cookie = <span class="string">'SNUID=1;path=/;expires='</span> + expires + <span class="string">';domain=.snapshot.sogoucdn.com'</span>;</div><div class="line"></div><div class="line">                sendLog(<span class="string">'delSNUID'</span>);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(getCookie(<span class="string">'seccodeRight'</span>) === <span class="string">'success'</span>) &#123;</div><div class="line">                sendLog(<span class="string">'verifyLoop'</span>);</div><div class="line"></div><div class="line">                setCookie(<span class="string">'seccodeRight'</span>, 1, getUTCString(-1), location.hostname, <span class="string">'/'</span>);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(getCookie(<span class="string">'refresh'</span>)) &#123;</div><div class="line">                sendLog(<span class="string">'refresh'</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;)();</div><div class="line"></div><div class="line">        <span class="keyword">function</span> setImgCode(code) &#123;</div><div class="line">            try &#123;</div><div class="line">                var t = new Date().getTime() - imgRequestTime.getTime();</div><div class="line">                sendLog(<span class="string">'imgCost'</span>,<span class="string">"cost="</span>+t);</div><div class="line">            &#125; catch (e) &#123;</div><div class="line">            &#125;</div><div class="line">            window.imgCode = code;</div><div class="line">        &#125;</div><div class="line">        sendLog(<span class="string">'index'</span>);</div><div class="line"></div><div class="line">        <span class="keyword">function</span> <span class="function"><span class="title">changeImg2</span></span>() &#123;</div><div class="line">            <span class="keyword">if</span>(window.event) &#123;</div><div class="line">                window.event.returnValue=<span class="literal">false</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div class=<span class="string">"header"</span>&gt;</div><div class="line">    &lt;div class=<span class="string">"logo"</span>&gt;&lt;a href=<span class="string">"/"</span>&gt;&lt;img width=<span class="string">"180"</span> height=<span class="string">"60"</span> src=<span class="string">"//www.sogou.com/images/logo2014/error180x60.png"</span>&gt;&lt;/a&gt;&lt;/div&gt;</div><div class="line">    &lt;div class=<span class="string">"other"</span>&gt;&lt;span class=<span class="string">"s1"</span>&gt;您的访问出错了&lt;/span&gt;&lt;span class=<span class="string">"s2"</span>&gt;&lt;a href=<span class="string">"/"</span>&gt;返回首页&amp;gt;&amp;gt;&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div class=<span class="string">"content-box"</span>&gt;</div><div class="line">    &lt;p class=<span class="string">"ip-time-p"</span>&gt;IP:183.129.218.233&lt;br&gt;访问时间：2016.10.27 12:41:19&lt;/p&gt;</div><div class="line">    &lt;p class=<span class="string">"p2"</span>&gt;用户您好，您的访问过于频繁，为确认本次访问为正常用户行为，需要您协助验证。&lt;/p&gt;</div><div class="line">    &lt;p class=<span class="string">"p3"</span>&gt;&lt;label <span class="keyword">for</span>=<span class="string">"seccodeInput"</span>&gt;验证码：&lt;/label&gt;&lt;/p&gt;</div><div class="line">    &lt;form name=<span class="string">"authform"</span> method=<span class="string">"POST"</span> id=<span class="string">"seccodeForm"</span> action=<span class="string">"/"</span>&gt;</div><div class="line">        &lt;p class=<span class="string">"p4"</span>&gt;</div><div class="line">            &lt;input <span class="built_in">type</span>=text name=<span class="string">"c"</span> value=<span class="string">""</span> placeholder=<span class="string">"请输入验证码"</span> id=<span class="string">"seccodeInput"</span>&gt;</div><div class="line">            &lt;input <span class="built_in">type</span>=<span class="string">"hidden"</span> name=<span class="string">"tc"</span> id=<span class="string">"tc"</span> value=<span class="string">""</span>&gt;</div><div class="line">            &lt;input <span class="built_in">type</span>=<span class="string">"hidden"</span> name=<span class="string">"r"</span> id=<span class="string">"from"</span> value=<span class="string">"%2Fweb%3Fquery%3D%E6%9F%90%E8%8D%A3%26ie%3Dutf8%26_ast%3D1477536768%26_asf%3Dnull%26w%3D01029901%26cid%3D"</span> &gt;</div><div class="line">            &lt;input <span class="built_in">type</span>=<span class="string">"hidden"</span> name=<span class="string">"m"</span> value=<span class="string">"0"</span> &gt;            &lt;span class=<span class="string">"s1"</span>&gt;</div><div class="line">                &lt;script&gt;imgRequestTime=new Date();&lt;/script&gt;</div><div class="line">                &lt;a onclick=<span class="string">"changeImg2();"</span> href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img id=<span class="string">"seccodeImage"</span> onload=<span class="string">"setImgCode(1)"</span> onerror=<span class="string">"setImgCode(0)"</span> src=<span class="string">"util/seccode.php?tc=1477543279"</span> width=<span class="string">"100"</span> height=<span class="string">"40"</span> alt=<span class="string">"请输入图中的验证码"</span> title=<span class="string">"请输入图中的验证码"</span>&gt;</div><div class="line">                &lt;/a&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">            &lt;a href=<span class="string">"javascript:void(0);"</span> id=<span class="string">"change-img"</span> onclick=<span class="string">"changeImg2();"</span> style=<span class="string">"padding-left:50px;"</span>&gt;换一张&lt;/a&gt;</div><div class="line">            &lt;span class=<span class="string">"s2"</span> id=<span class="string">"error-tips"</span> style=<span class="string">"display: none;"</span>&gt;&lt;/span&gt;</div><div class="line">        &lt;/p&gt;</div><div class="line">    &lt;/form&gt;</div><div class="line">    &lt;p class=<span class="string">"p5"</span>&gt;</div><div class="line">        &lt;a href=<span class="string">"javascript:void(0);"</span> id=<span class="string">"submit"</span>&gt;提交&lt;/a&gt;</div><div class="line">        &lt;span&gt;提交后没解决问题？欢迎&lt;a href=<span class="string">"http://fankui.help.sogou.com/index.php/web/web/index?type=10&amp;anti_time=1477543279&amp;domain=www.sogou.com"</span> target=<span class="string">"_blank"</span>&gt;反馈&lt;/a&gt;。&lt;/span&gt;</div><div class="line">    &lt;/p&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=<span class="string">"ft"</span>&gt;&lt;a href=<span class="string">"http://fuwu.sogou.com/"</span> target=<span class="string">"_blank"</span>&gt;企业推广&lt;/a&gt;&lt;a href=<span class="string">"http://corp.sogou.com/"</span> target=<span class="string">"_blank"</span>&gt;关于搜狗&lt;/a&gt;&lt;a href=<span class="string">"/docs/terms.htm?v=1"</span> target=<span class="string">"_blank"</span>&gt;免责声明&lt;/a&gt;&lt;a href=<span class="string">"http://fankui.help.sogou.com/index.php/web/web/index?type=10&amp;anti_time=1477543279&amp;domain=www.sogou.com"</span> target=<span class="string">"_blank"</span>&gt;意见反馈&lt;/a&gt;&lt;br&gt;&amp;nbsp;&amp;copy;&amp;nbsp;2016&lt;span id=<span class="string">"footer-year"</span>&gt;&lt;/span&gt;&amp;nbsp;SOGOU&amp;nbsp;-&amp;nbsp;&lt;a href=<span class="string">"http://www.miibeian.gov.cn"</span> target=<span class="string">"_blank"</span> class=<span class="string">"g"</span>&gt;京ICP证050897号&lt;/a&gt;&amp;nbsp;-&amp;nbsp;京公网安备1100&lt;span class=<span class="string">"ba"</span>&gt;00000025号&lt;/span&gt;&lt;/div&gt;</div><div class="line">&lt;script src=<span class="string">"static/js/index.min.js?v=0.1.3"</span>&gt;&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;&lt;!--zly--&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="自动化生成SNUID"><a href="#自动化生成SNUID" class="headerlink" title="自动化生成SNUID"></a>自动化生成SNUID</h3><p>虽然知道了SNUID值生成的过程，但只有实现了自动化生成，才能正真绕过反爬虫的限制。</p>
+<h4 id="通过访问验证码页面获取"><a href="#通过访问验证码页面获取" class="headerlink" title="通过访问验证码页面获取"></a>通过访问验证码页面获取</h4><p>当访问验证码页面，并填写验证码完成验证后，会重新生成一个新的SNUID，而此请求可以重复发送（不需要再次输入验证码），每次发送都会生成一个新的SNUID。</p>
+<h4 id="通过模拟浏览器访问，执行javascript"><a href="#通过模拟浏览器访问，执行javascript" class="headerlink" title="通过模拟浏览器访问，执行javascript"></a>通过模拟浏览器访问，执行javascript</h4><p>可以利用phantomjs去爬取sogou页面，也能获取SNUID值。</p>
+<h3 id="获取SNUID代码"><a href="#获取SNUID代码" class="headerlink" title="获取SNUID代码"></a>获取SNUID代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! -*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">获取SNUID的值</div><div class="line">'<span class="string">''</span></div><div class="line"></div><div class="line">import requests</div><div class="line">import json</div><div class="line">import time</div><div class="line">import random</div><div class="line"></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">方法（一）通过phantomjs访问sogou搜索结果页面，获取SNUID的值</div><div class="line">'<span class="string">''</span></div><div class="line">def phantomjs_getsnuid():</div><div class="line">    from selenium import webdriver</div><div class="line"></div><div class="line">    d=webdriver.PhantomJS(<span class="string">'D:\python27\Scripts\phantomjs.exe'</span>,service_args=[<span class="string">'--load-images=no'</span>,<span class="string">'--disk-cache=yes'</span>])</div><div class="line">    try:</div><div class="line">        d.get(<span class="string">"https://www.sogou.com/web?query="</span>)</div><div class="line">        Snuid=d.get_cookies()[5][<span class="string">"value"</span>]</div><div class="line">    except:</div><div class="line">        Snuid=<span class="string">""</span></div><div class="line">    d.quit()</div><div class="line"></div><div class="line">    <span class="built_in">return</span> Snuid</div><div class="line"></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">方法（二）通过访问特定url，获取body里面的id</div><div class="line">'<span class="string">''</span></div><div class="line">def Method_one():</div><div class="line">    url=<span class="string">"http://www.sogou.com/antispider/detect.php?sn=E9DA81B7290B940A0000000058BFAB0&amp;wdqz22=12&amp;4c3kbr=12&amp;ymqk4p=37&amp;qhw71j=42&amp;mfo5i5=7&amp;3rqpqk=14&amp;6p4tvk=27&amp;eiac26=29&amp;iozwml=44&amp;urfya2=38&amp;1bkeul=41&amp;jugazb=31&amp;qihm0q=8&amp;lplrbr=10&amp;wo65sp=11&amp;2pev4x=23&amp;4eyk88=16&amp;q27tij=27&amp;65l75p=40&amp;fb3gwq=27&amp;azt9t4=45&amp;yeyqjo=47&amp;kpyzva=31&amp;haeihs=7&amp;lw0u7o=33&amp;tu49bk=42&amp;f9c5r5=12&amp;gooklm=11&amp;_=1488956271683"</span></div><div class="line">    headers=&#123;<span class="string">"Cookie"</span>:</div><div class="line">    <span class="string">"ABTEST=0|1488956269|v17;\</span></div><div class="line">    IPLOC=CN3301;\</div><div class="line">    SUID=E9DA81B7290B940A0000000058BFAB6D;\</div><div class="line">    PHPSESSID=rfrcqafv5v74hbgpt98ah20vf3;\</div><div class="line">    SUIR=1488956269"</div><div class="line">    &#125;</div><div class="line">    try:</div><div class="line">        f=requests.get(url,headers=headers).content</div><div class="line">        f=json.loads(f)</div><div class="line">        Snuid=f[<span class="string">"id"</span>]</div><div class="line">    except:</div><div class="line">        Snuid=<span class="string">""</span></div><div class="line"></div><div class="line">    <span class="built_in">return</span> Snuid</div><div class="line"></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">方法（三）访问特定url，获取header里面的内容</div><div class="line">'<span class="string">''</span></div><div class="line">def Method_two():</div><div class="line">    url=<span class="string">"https://www.sogou.com/web?query=333&amp;_asf=www.sogou.com&amp;_ast=1488955851&amp;w=01019900&amp;p=40040100&amp;ie=utf8&amp;from=index-nologin"</span></div><div class="line">    headers=&#123;<span class="string">"Cookie"</span>:</div><div class="line">    <span class="string">"ABTEST=0|1488956269|v17;\</span></div><div class="line">    IPLOC=CN3301;\</div><div class="line">    SUID=E9DA81B7290B940A0000000058BFAB6D;\</div><div class="line">    PHPSESSID=rfrcqafv5v74hbgpt98ah20vf3;\</div><div class="line">    SUIR=1488956269"</div><div class="line">    &#125;</div><div class="line">    f=requests.head(url,headers=headers).headers</div><div class="line">    <span class="built_in">print</span> f</div><div class="line"></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">方法（四）通过访问需要输入验证码解封的页面，可以获取SNUID</div><div class="line">'<span class="string">''</span></div><div class="line">def Method_three():</div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    http://www.sogou.com/antispider/util/seccode.php?tc=1488958062 验证码地址</div><div class="line">    '<span class="string">''</span></div><div class="line">    <span class="string">''</span><span class="string">'</span></div><div class="line">    http://www.sogou.com/antispider/?from=%2fweb%3Fquery%3d152512wqe%26ie%3dutf8%26_ast%3d1488957312%26_asf%3dnull%26w%3d01029901%26p%3d40040100%26dp%3d1%26cid%3d%26cid%3d%26sut%3d578%26sst0%3d1488957299160%26lkt%3d3%2C1488957298718%2C1488957298893</div><div class="line">    访问这个url，然后填写验证码，发送以后就是以下的包内容，可以获取SNUID。</div><div class="line">    '<span class="string">''</span></div><div class="line">    import socket</div><div class="line">    import re</div><div class="line">    res=r<span class="string">"id\"\: \"([^\"]*)\""</span></div><div class="line">    s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)</div><div class="line">    s.connect((<span class="string">'www.sogou.com'</span>,80))</div><div class="line">    s.send(<span class="string">''</span><span class="string">'</span></div><div class="line">POST http://www.sogou.com/antispider/thank.php HTTP/1.1</div><div class="line">Host: www.sogou.com</div><div class="line">Content-Length: 223</div><div class="line">X-Requested-With: XMLHttpRequest</div><div class="line">Content-Type: application/x-www-form-urlencoded; charset=UTF-8</div><div class="line">Cookie: CXID=65B8AE6BEE1CE37D4C63855D92AF339C; SUV=006B71D7B781DAE95800816584135075; IPLOC=CN3301; pgv_pvi=3190912000; GOTO=Af12315; ABTEST=8|1488945458|v17; PHPSESSID=f78qomvob1fq1robqkduu7v7p3; SUIR=D0E3BB8E393F794B2B1B02733A162729; SNUID=B182D8EF595C126A7D67E4E359B12C38; sct=2; sst0=958; ld=AXrrGZllll2Ysfa1lllllVA@rLolllllHc4zfyllllYllllljllll5@@@@@@@@@@; browerV=3; osV=1; LSTMV=673%2C447; LCLKINT=6022; ad=6FwTnyllll2g@popQlSGTVA@7VCYx98tLueNukllll9llllljpJ62s@@@@@@@@@@; SUID=EADA81B7516C860A57B28911000DA424; successCount=1|Wed, 08 Mar 2017 07:51:18 GMT; seccodeErrorCount=1|Wed, 08 Mar 2017 07:51:45 GMT</div><div class="line"></div><div class="line">c=6exp2e&amp;r=%252Fweb%253Fquery%253Djs%2B%25E6%25A0%25BC%25E5%25BC%258F%25E5%258C%2596%2526ie%253Dutf8%2526_ast%253D1488957312%2526_asf%253Dnull%2526w%253D01029901%2526p%253D40040100%2526dp%253D1%2526cid%253D%2526cid%253D&amp;v=5</div><div class="line">    '<span class="string">''</span>)</div><div class="line"></div><div class="line">    buf=s.recv(1024)</div><div class="line">    p=re.compile(res)</div><div class="line">    L=p.findall(buf)</div><div class="line">    <span class="keyword">if</span> len(L)&gt;0:</div><div class="line">        Snuid=L[0]</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        Snuid=<span class="string">""</span></div><div class="line"></div><div class="line">    <span class="built_in">return</span> Snuid</div><div class="line"></div><div class="line">def getsnuid(q):</div><div class="line">    <span class="keyword">while</span> 1:</div><div class="line">        <span class="keyword">if</span> q.qsize()&lt;10:</div><div class="line">            Snuid=random.choice([Method_one(),Method_three(),phantomjs_getsnuid()])</div><div class="line">            <span class="keyword">if</span> Snuid!=<span class="string">""</span>:</div><div class="line">                q.put(Snuid)</div><div class="line">                <span class="built_in">print</span> Snuid</div><div class="line">                time.sleep(0.5)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line">    import Queue</div><div class="line">    q=Queue.Queue()</div><div class="line">    getsnuid(q)</div></pre></td></tr></table></figure>
+<h3 id="cookie问题解决方案"><a href="#cookie问题解决方案" class="headerlink" title="cookie问题解决方案"></a>cookie问题解决方案</h3><ul>
+<li>SUID的值获取比较简单，直接访问sogou即可获取。</li>
+<li>获取到SUID的值后，再去获取SNUID值（可通过以上几种方式）</li>
+<li>获取到SNUID后，可保存到队列中。</li>
+</ul>
+<p><em>说明：SNUID的值如果不去使用它，可以存放很久，直到使用它到上限才会作废；SUID一般不会做次数限制，可以一直使用。</em></p>
+<h3 id="ip问题解决方案"><a href="#ip问题解决方案" class="headerlink" title="ip问题解决方案"></a>ip问题解决方案</h3><p>　　在爬取搜狗时，除了cookie问题以外，也需要解决ip问题，当然这个问题可以参考爬百度的解决方案，参考地址：<a href="http://thief.one/2017/03/17/%E7%88%AC%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B9%8B%E5%AF%BB%E4%BD%A0%E5%8D%83%E7%99%BE%E5%BA%A6/">爬搜索引擎之寻你千百度</a></p>
+<p><em>申明：本文只是列举了我在爬取搜狗资源时遇到的问题，不代表搜狗本身所有的反爬虫技术，本文提供的解决方案具有时效性，具体还需自己动手实验，如有更好的解决方案可留言交流哦</em></p>
+<p>本文地址：<a href="http://thief.one/2017/03/19/爬取搜索引擎之搜狗/">http://thief.one/2017/03/19/爬取搜索引擎之搜狗/</a><br>转载请说明来自：<a href="http://thief.one">nMask’Blog</a></p>
+<h3 id="传送门"><a href="#传送门" class="headerlink" title="传送门"></a>传送门</h3><blockquote>
+<p><a href="http://thief.one/2017/03/19/爬取搜索引擎之搜狗/">爬取搜索引擎之搜狗</a><br><a href="http://thief.one/2017/03/17/%E7%88%AC%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%B9%8B%E5%AF%BB%E4%BD%A0%E5%8D%83%E7%99%BE%E5%BA%A6/">爬取搜索引擎之寻你千百度</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/03/19/爬取搜索引擎之搜狗/">爬取搜索引擎之搜狗</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年03月19日 - 15:03</p>
+  <p><span>最后更新:</span>2017年07月25日 - 20:07</p>
+  <p><span>原始链接:</span><a href="/2017/03/19/爬取搜索引擎之搜狗/" title="爬取搜索引擎之搜狗">http://thief.one/2017/03/19/爬取搜索引擎之搜狗/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/03/19/爬取搜索引擎之搜狗/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/搜索引擎/" rel="tag"><i class="fa fa-tag"></i>搜索引擎</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/17/爬搜索引擎之寻你千百度/" rel="next" title="爬取搜索引擎之寻你千百度">
+                <i class="fa fa-chevron-left"></i> 爬取搜索引擎之寻你千百度
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/21/Struts2-046漏洞/" rel="prev" title="Struts2-046漏洞">
+                Struts2-046漏洞 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为甚么要爬取搜狗"><span class="nav-number">1.</span> <span class="nav-text">为甚么要爬取搜狗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜狗反爬虫措施"><span class="nav-number">2.</span> <span class="nav-text">搜狗反爬虫措施</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cookie内容解析"><span class="nav-number">2.1.</span> <span class="nav-text">cookie内容解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SUID"><span class="nav-number">2.2.</span> <span class="nav-text">SUID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SNUID"><span class="nav-number">2.3.</span> <span class="nav-text">SNUID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SUV"><span class="nav-number">2.4.</span> <span class="nav-text">SUV</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#被屏蔽现象"><span class="nav-number">3.</span> <span class="nav-text">被屏蔽现象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动化生成SNUID"><span class="nav-number">4.</span> <span class="nav-text">自动化生成SNUID</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通过访问验证码页面获取"><span class="nav-number">4.1.</span> <span class="nav-text">通过访问验证码页面获取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过模拟浏览器访问，执行javascript"><span class="nav-number">4.2.</span> <span class="nav-text">通过模拟浏览器访问，执行javascript</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取SNUID代码"><span class="nav-number">5.</span> <span class="nav-text">获取SNUID代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie问题解决方案"><span class="nav-number">6.</span> <span class="nav-text">cookie问题解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ip问题解决方案"><span class="nav-number">7.</span> <span class="nav-text">ip问题解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传送门"><span class="nav-number">8.</span> <span class="nav-text">传送门</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

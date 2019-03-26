@@ -1,0 +1,1326 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="中间件漏洞,中间件安全," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="博观而约取，厚积而薄发　　中间件漏洞可以说是最容易被web管理员忽视的漏洞，原因很简单，因为这并不是应用程序代码上存在的漏洞，而是属于一种应用部署环境的配置不当或者使用不当造成的。那么从实际情况来看，预防这种漏洞最大的难点，在于中间件安全该由谁负责？">
+<meta name="keywords" content="中间件漏洞,中间件安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈中间件漏洞与防护">
+<meta property="og:url" content="http://thief.one/2017/05/25/1/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="博观而约取，厚积而薄发　　中间件漏洞可以说是最容易被web管理员忽视的漏洞，原因很简单，因为这并不是应用程序代码上存在的漏洞，而是属于一种应用部署环境的配置不当或者使用不当造成的。那么从实际情况来看，预防这种漏洞最大的难点，在于中间件安全该由谁负责？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://thief.one/upload_image/20170525/1.png">
+<meta property="og:image" content="http://thief.one/upload_image/20170525/2.png">
+<meta property="og:image" content="http://thief.one/upload_image/20170525/3.png">
+<meta property="og:updated_time" content="2017-07-25T12:05:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈中间件漏洞与防护">
+<meta name="twitter:description" content="博观而约取，厚积而薄发　　中间件漏洞可以说是最容易被web管理员忽视的漏洞，原因很简单，因为这并不是应用程序代码上存在的漏洞，而是属于一种应用部署环境的配置不当或者使用不当造成的。那么从实际情况来看，预防这种漏洞最大的难点，在于中间件安全该由谁负责？">
+<meta name="twitter:image" content="http://thief.one/upload_image/20170525/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/05/25/1/"/>
+
+  <title> 浅谈中间件漏洞与防护 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                浅谈中间件漏洞与防护
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-25T10:53:57+08:00" content="2017-05-25">
+              2017-05-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/05/25/1/" class="leancloud_visitors" data-flag-title="浅谈中间件漏洞与防护">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">博观而约取，厚积而薄发</blockquote><br>　　中间件漏洞可以说是最容易被web管理员忽视的漏洞，原因很简单，因为这并不是应用程序代码上存在的漏洞，而是属于一种应用部署环境的配置不当或者使用不当造成的。那么从实际情况来看，预防这种漏洞最大的难点，在于中间件安全该由谁负责？<br><a id="more"></a><br>　　我们在处理应急响应事件时经常遇到这么一种情况，客户网站代码是外包的，也就是第三方公司负责开发，而部署可能是由客户内部运维人员负责。暂不说他们对于中间件安全的重视程度与了解程度，只谈发现漏洞后如何处理，便是一团乱。开发商推卸说这并不是代码上的问题，他们完全是按照安全开发流程（SDL）走的，所以跟他无关；运维人员就一脸蒙蔽了，反驳道：你们当初没跟我说要配置什么啊，只是让我安装个程序就ok了，我怎么知道？<br>　　那么除此之外，开发人员以及运维人员对中间件安全意识的缺失也是一个重要因素，有些开发商可能会对自身代码进行安全检测，但只对代码部分进行审查是远远不够的。本篇用来记录总结一些常见的web中间件漏洞以及防护问题（记录的只是一部分，不代表全部），内容一部分摘自道哥的《白帽子讲web安全》一书，算做读书笔记亦或者读后感。</p>
+<h3 id="中间件、容器、服务器傻傻分不清？"><a href="#中间件、容器、服务器傻傻分不清？" class="headerlink" title="中间件、容器、服务器傻傻分不清？"></a>中间件、容器、服务器傻傻分不清？</h3><p>　　在谈中间件安全问题时，我觉得有必要先梳理下以上几种关系以及概念。当初我在接触这些概念时，脑子里就是一团浆糊，中间件、容器、服务器、webserver等等概念感觉彼此很相似，但又有所区别。因此在书写本篇时，我特意翻查了一些资料，试图梳理清这几者之间的关系，参考了文章：<a href="http://www.voidcn.com/blog/saoraozhe3hao/article/p-2428756.html" target="_blank" rel="external">http://www.voidcn.com/blog/saoraozhe3hao/article/p-2428756.html</a></p>
+<h4 id="基础概念与作用"><a href="#基础概念与作用" class="headerlink" title="基础概念与作用"></a>基础概念与作用</h4><p>这里只介绍web中间件、web服务器、web容器，因为除了web以外，其概念还可以扩展为数据库等。</p>
+<h5 id="web服务器"><a href="#web服务器" class="headerlink" title="web服务器"></a>web服务器</h5><p>web服务器用于提供http服务，即向客户端返回信息，其可以处理HTTP协议，响应针对静态页面或图片的请求，控制页面跳转，或者把动态请求委托其它程序（中间件程序）等。</p>
+<h5 id="web中间件"><a href="#web中间件" class="headerlink" title="web中间件"></a>web中间件</h5><p>web中间件用于提供系统软件和应用软件之间的连接，以便于软件各部件之间的沟通，其可以为一种或多种应用程序提供容器。</p>
+<h5 id="web容器"><a href="#web容器" class="headerlink" title="web容器"></a>web容器</h5><p>web容器用于给处于其中的应用程序组件（JSP，SERVLET）提供一个环境，是中间件的一个组成部分，它实现了对动态语言的解析。比如tomcat可以解析jsp，是因为其内部有一个jsp容器。</p>
+<h4 id="所属的类别"><a href="#所属的类别" class="headerlink" title="所属的类别"></a>所属的类别</h4><p>web服务器：IIS、Apache、nginx、tomcat、weblogic、websphere等。<br>web中间件：apache tomcat、BEA WebLogic、IBM WebSphere等。<br>web容器：JSP容器、SERVLET容器、ASP容器等。</p>
+<p>注意：web中间件与web服务器是有重叠的，原因在于tomcat等web中间件也具备web服务器的功能。</p>
+<h4 id="重点分析"><a href="#重点分析" class="headerlink" title="重点分析"></a>重点分析</h4><p>　　web服务器只是提供静态网页解析（如apache），或者提供跳转的这么一种服务。而web中间件（其包含web容器）可以解析动态语言，比如tomcat可以解析jsp（因为tomcat含有jsp容器），当然它也可以解析静态资源，因此它既是web中间件也是web服务器。不过tomcat解析静态资源的速度不如apache，因此常常两者结合使用。</p>
+<h3 id="Tomcat漏洞与防护"><a href="#Tomcat漏洞与防护" class="headerlink" title="Tomcat漏洞与防护"></a>Tomcat漏洞与防护</h3><p>　　tomcat是apache的一个中间件软件，其可以提供jsp或者php的解析服务，为了方便远程管理与部署，安装完tomcat以后默认会有一个管理页面，管理员只需要远程上传一个WAR格式的文件，便可以将内容发布到网站，这一功能方便了管理员的同时也给黑客打开了方便之门，除此之外，tomcat还有一些样本页面，如果处理不当也会导致安全问题。</p>
+<h4 id="tomcat远程部署漏洞详情"><a href="#tomcat远程部署漏洞详情" class="headerlink" title="tomcat远程部署漏洞详情"></a>tomcat远程部署漏洞详情</h4><p>tomcat管理地址通常是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Http://localhost:8080/manager</div></pre></td></tr></table></figure></p>
+<p>默认账号密码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root/root</div><div class="line">tomcat/tomcat </div><div class="line">admin admin</div><div class="line">admin 123456</div></pre></td></tr></table></figure></p>
+<h5 id="tomcat口令爆破"><a href="#tomcat口令爆破" class="headerlink" title="tomcat口令爆破"></a>tomcat口令爆破</h5><p>　　在默认不对tomcat做任何配置的时候爆破是无效的，而如果设置了账号密码就可以进行爆破。Tomcat的认证比较弱，Base64(用户名:密码)编码，请求响应码如果不是401（未经授权：访问由于凭据无效被拒绝。）即表示登录成功。登录成功后，可直接上传war文件，getshell（当然上传war文件需要manager权限）</p>
+<h5 id="getshell过程"><a href="#getshell过程" class="headerlink" title="getshell过程"></a>getshell过程</h5><p>首先将我们的.jsp shell文件打包为war文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jar -cvf shell.war shell.jsp</div></pre></td></tr></table></figure></p>
+<p>登录管理页面后，选择上传war文件。<br><img src="/upload_image/20170525/1.png" alt=""><br>截图中间的目录便是上传成功以后的木马文件，可以点击浏览。<br><img src="/upload_image/20170525/2.png" alt=""><br>直接在当前目录下访问shell.jsp。</p>
+<h4 id="Session-Example样本页面"><a href="#Session-Example样本页面" class="headerlink" title="Session Example样本页面"></a>Session Example样本页面</h4><p>默认地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost/servlets-examples/servlet/SessionExample</div></pre></td></tr></table></figure></p>
+<p>用来设置任意会话变量，恶意使用可对应用程序造成破坏。</p>
+<h4 id="tomcat漏洞防护"><a href="#tomcat漏洞防护" class="headerlink" title="tomcat漏洞防护"></a>tomcat漏洞防护</h4><ul>
+<li>升级tomcat版本</li>
+<li>删除远程部署页面，或者限定页面的访问权限。</li>
+<li>找到/conf/tomcat-users.xml修改用户名密码以及权限。</li>
+<li>删除样例页面文件</li>
+</ul>
+<h3 id="JBoss漏洞与防护"><a href="#JBoss漏洞与防护" class="headerlink" title="JBoss漏洞与防护"></a>JBoss漏洞与防护</h3><p>JBoss这是一个基于JavaEE的应用服务器，与tomcat类似的是jboss也有远程部署平台，但不需要登陆。漏洞利用过程与tomcat类似，因此不再截图说明。除了远程部署漏洞外，jboss还存在反序列化漏洞，这里不再详述。</p>
+<h4 id="JBoss远程部署漏洞详情"><a href="#JBoss远程部署漏洞详情" class="headerlink" title="JBoss远程部署漏洞详情"></a>JBoss远程部署漏洞详情</h4><p>默认管理后台地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost:8080</div></pre></td></tr></table></figure></p>
+<h4 id="getshell过程-1"><a href="#getshell过程-1" class="headerlink" title="getshell过程　　"></a>getshell过程　　</h4><p>　　访问管理页面，查看jboss配置页面中的JMX Console，这是JBoss的管理台程序，进入后找到Jboss.deployment包，该包下有flavor=URL.type=DeploymentSccanner选项。进入部署页面后便可以上传war文件，但与tomcat不同的是它不是本地上传war文件，而是从远程地址下载，因此需要自己准备一个文件服务器，用于远程下载war到目标jboss服务器上。具体方法是在部署页面找到”ADDURL”方法，输入URL地址，点击invoke。除了以上方法外，JMX-Console提供的BSH方法，同样也可以部署war包。</p>
+<h4 id="JBoss漏洞防护"><a href="#JBoss漏洞防护" class="headerlink" title="JBoss漏洞防护"></a>JBoss漏洞防护</h4><ul>
+<li>开启jmx-console密码认证</li>
+<li>删除jmx-console.war与web-console.war</li>
+</ul>
+<h3 id="WebLogic漏洞与防护"><a href="#WebLogic漏洞与防护" class="headerlink" title="WebLogic漏洞与防护"></a>WebLogic漏洞与防护</h3><p>weblogic是一个基于JavaEE构架的中间件，安装完weblogic默认会监听7001端口。漏洞利用过程与tomcat类似，因此不再截图说明。</p>
+<h4 id="Weblogic远程部署漏洞详情"><a href="#Weblogic远程部署漏洞详情" class="headerlink" title="Weblogic远程部署漏洞详情"></a>Weblogic远程部署漏洞详情</h4><p>默认后台地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost:7001/console/login/loginForm.jsp</div></pre></td></tr></table></figure></p>
+<p>账号密码：</p>
+<ul>
+<li>用户名密码均为：weblogic</li>
+<li>用户名密码均为：system</li>
+<li>用户名密码均为：portaladmin</li>
+<li>用户名密码均为：guest</li>
+</ul>
+<h4 id="getshell过程-2"><a href="#getshell过程-2" class="headerlink" title="getshell过程"></a>getshell过程</h4><p>成功登陆weblogic后台后，找到部署按钮，点击后选择安装，然后可以选择本地上传war包也可以利用远程url下载，部署完成后，weblogic会给出文件地址。</p>
+<h4 id="Weblogic漏洞防护"><a href="#Weblogic漏洞防护" class="headerlink" title="Weblogic漏洞防护"></a>Weblogic漏洞防护</h4><ul>
+<li>删除远程部署页面</li>
+</ul>
+<h3 id="axis2漏洞与防护"><a href="#axis2漏洞与防护" class="headerlink" title="axis2漏洞与防护"></a>axis2漏洞与防护</h3><p>axis2也是apache的一个项目，是新一代的SOAP引擎，其存在一个任意命令执行漏洞。（该漏洞来自补天平台）</p>
+<h4 id="axis2命令执行漏洞详情"><a href="#axis2命令执行漏洞详情" class="headerlink" title="axis2命令执行漏洞详情"></a>axis2命令执行漏洞详情</h4><p>默认后台地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost/axis2-admin/</div></pre></td></tr></table></figure></p>
+<p>默认账号密码：admin与axis2<br>登录后效果如下：<br><img src="/upload_image/20170525/3.png" alt=""><br>执行系统命令poc<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost/services/Axis2Shell/execCmd?cmd=whoami</div></pre></td></tr></table></figure></p>
+<h3 id="IIS漏洞与防护"><a href="#IIS漏洞与防护" class="headerlink" title="IIS漏洞与防护"></a>IIS漏洞与防护</h3><p>　　IIS是微软的一款web服务器，其配置不当容易产生webdav漏洞。webdav本身是iis的一项扩展功能，开启后可以使用除了get、post以外的一些请求类型，比如put等。但如果配置不当，就会导致文件上传漏洞。除了webdav漏洞，近期还爆出了一个远程命令执行漏洞，具体移步：<a href="http://thief.one/2017/03/29/IIS6-0%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-CVE-2017-7269/">IIS6.0远程命令执行漏洞(CVE-2017-7269)</a></p>
+<h4 id="IIS-Webdav漏洞详情"><a href="#IIS-Webdav漏洞详情" class="headerlink" title="IIS Webdav漏洞详情"></a>IIS Webdav漏洞详情</h4><p>　　当测试一个站点是否存在webdav漏洞时，可以先构造一个OPTIONS请求，若返回200，则查看返回头的Allow参数中包含哪些方法（可以请求）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">OPTIONS  / HTTP/1.1</div><div class="line">Host:thief.one</div></pre></td></tr></table></figure></p>
+<p>如果存在PUT方法，则可以尝试写入一个txt文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">PUT /shell.txt HTTP/1.1</div><div class="line">HOST:thief.one</div><div class="line">Content-length:30</div><div class="line"></div><div class="line">&lt;%<span class="built_in">eval</span> request(<span class="string">"nmask"</span>)%&gt;</div></pre></td></tr></table></figure></p>
+<p>　　若返回200则说明上传成功，此时可以手动访问此文件，确认是否存在。当然也有可能返回403，这表示此目录没有上传的权限，可以尝试上传到其他目录。<br>通过MOVE或COPY方法改文件后缀名。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">COPY /shell.txt HTTP/1.1</div><div class="line">HOST:thief.one</div><div class="line">Destination:http://thief.one/shell.asp</div></pre></td></tr></table></figure></p>
+<h4 id="IIS漏洞防护"><a href="#IIS漏洞防护" class="headerlink" title="IIS漏洞防护"></a>IIS漏洞防护</h4><ul>
+<li>关闭webdav功能</li>
+</ul>
+<h3 id="Apache漏洞与防护"><a href="#Apache漏洞与防护" class="headerlink" title="Apache漏洞与防护"></a>Apache漏洞与防护</h3><p>　　Apache本身也存在一些漏洞，比如slowhttp漏洞，当然官方认为其是apache的特性而不算是一种漏洞，然而事实证明它的危害真的很大。除了slowhttp漏洞以外，其第三方moudle存在很多反序列化或者远程命令执行的漏洞。</p>
+<h4 id="Apache-slowhttp漏洞详情"><a href="#Apache-slowhttp漏洞详情" class="headerlink" title="Apache slowhttp漏洞详情"></a>Apache slowhttp漏洞详情</h4><p>关于slowhttp漏洞请移步：<a href="http://thief.one/2017/05/10/1/">浅谈DDOS攻击与防御</a></p>
+<h3 id="HPP漏洞"><a href="#HPP漏洞" class="headerlink" title="HPP漏洞"></a>HPP漏洞</h3><p>HPP漏洞是web容器处理http参数时的问题，前面几款web服务器都或多或少存在这样的问题。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">    <span class="variable">$str</span>=<span class="variable">$_REQUEST</span>[<span class="string">'str'</span>];                    <span class="comment">#$_REQUEST[]函数可以接受GET/POST。</span></div><div class="line">    Echo <span class="variable">$str</span>;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>比如访问URL:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.xxx.com/index.php?str=hello</div></pre></td></tr></table></figure></p>
+<p>此时页面显示hello<br>但如果访问:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.xxx.com/index.php?str=hello&amp;str=world&amp;str=nmask</div></pre></td></tr></table></figure></p>
+<p>此时页面显示nmask，把前面参数的值给覆盖了，这就是http参数污染。</p>
+<h4 id="利用场景"><a href="#利用场景" class="headerlink" title="利用场景"></a>利用场景</h4><p>绕过WAF，如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PHP:index.php?str=1&amp;str=select * from admin --</div></pre></td></tr></table></figure></p>
+<p>因为WAF可能会校验值的第一个单词，如果为select则触发，这样子可以避免被触发。</p>
+<h3 id="传送门"><a href="#传送门" class="headerlink" title="传送门"></a>传送门</h3><p>除了以上这些漏洞以外，web服务器还有着一些解析动态语言时存在的漏洞，移步：<a href="http://thief.one/2016/09/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">服务器解析漏洞 | nMask’Blog</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/05/25/1/">浅谈中间件漏洞与防护</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年05月25日 - 10:05</p>
+  <p><span>最后更新:</span>2017年07月25日 - 20:07</p>
+  <p><span>原始链接:</span><a href="/2017/05/25/1/" title="浅谈中间件漏洞与防护">http://thief.one/2017/05/25/1/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/05/25/1/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/中间件漏洞/" rel="tag"><i class="fa fa-tag"></i>中间件漏洞</a>
+          
+            <a href="/tags/中间件安全/" rel="tag"><i class="fa fa-tag"></i>中间件安全</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/19/1/" rel="next" title="【渗透神器系列】搜索引擎">
+                <i class="fa fa-chevron-left"></i> 【渗透神器系列】搜索引擎
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/25/2/" rel="prev" title="Samba远程代码执行漏洞(CVE-2017-7494)">
+                Samba远程代码执行漏洞(CVE-2017-7494) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#中间件、容器、服务器傻傻分不清？"><span class="nav-number">1.</span> <span class="nav-text">中间件、容器、服务器傻傻分不清？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础概念与作用"><span class="nav-number">1.1.</span> <span class="nav-text">基础概念与作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#web服务器"><span class="nav-number">1.1.1.</span> <span class="nav-text">web服务器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#web中间件"><span class="nav-number">1.1.2.</span> <span class="nav-text">web中间件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#web容器"><span class="nav-number">1.1.3.</span> <span class="nav-text">web容器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#所属的类别"><span class="nav-number">1.2.</span> <span class="nav-text">所属的类别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重点分析"><span class="nav-number">1.3.</span> <span class="nav-text">重点分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat漏洞与防护"><span class="nav-number">2.</span> <span class="nav-text">Tomcat漏洞与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tomcat远程部署漏洞详情"><span class="nav-number">2.1.</span> <span class="nav-text">tomcat远程部署漏洞详情</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#tomcat口令爆破"><span class="nav-number">2.1.1.</span> <span class="nav-text">tomcat口令爆破</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#getshell过程"><span class="nav-number">2.1.2.</span> <span class="nav-text">getshell过程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Session-Example样本页面"><span class="nav-number">2.2.</span> <span class="nav-text">Session Example样本页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tomcat漏洞防护"><span class="nav-number">2.3.</span> <span class="nav-text">tomcat漏洞防护</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JBoss漏洞与防护"><span class="nav-number">3.</span> <span class="nav-text">JBoss漏洞与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JBoss远程部署漏洞详情"><span class="nav-number">3.1.</span> <span class="nav-text">JBoss远程部署漏洞详情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getshell过程-1"><span class="nav-number">3.2.</span> <span class="nav-text">getshell过程　　</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JBoss漏洞防护"><span class="nav-number">3.3.</span> <span class="nav-text">JBoss漏洞防护</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebLogic漏洞与防护"><span class="nav-number">4.</span> <span class="nav-text">WebLogic漏洞与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Weblogic远程部署漏洞详情"><span class="nav-number">4.1.</span> <span class="nav-text">Weblogic远程部署漏洞详情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getshell过程-2"><span class="nav-number">4.2.</span> <span class="nav-text">getshell过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Weblogic漏洞防护"><span class="nav-number">4.3.</span> <span class="nav-text">Weblogic漏洞防护</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#axis2漏洞与防护"><span class="nav-number">5.</span> <span class="nav-text">axis2漏洞与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#axis2命令执行漏洞详情"><span class="nav-number">5.1.</span> <span class="nav-text">axis2命令执行漏洞详情</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IIS漏洞与防护"><span class="nav-number">6.</span> <span class="nav-text">IIS漏洞与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IIS-Webdav漏洞详情"><span class="nav-number">6.1.</span> <span class="nav-text">IIS Webdav漏洞详情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IIS漏洞防护"><span class="nav-number">6.2.</span> <span class="nav-text">IIS漏洞防护</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache漏洞与防护"><span class="nav-number">7.</span> <span class="nav-text">Apache漏洞与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Apache-slowhttp漏洞详情"><span class="nav-number">7.1.</span> <span class="nav-text">Apache slowhttp漏洞详情</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HPP漏洞"><span class="nav-number">8.</span> <span class="nav-text">HPP漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#利用场景"><span class="nav-number">8.1.</span> <span class="nav-text">利用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传送门"><span class="nav-number">9.</span> <span class="nav-text">传送门</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

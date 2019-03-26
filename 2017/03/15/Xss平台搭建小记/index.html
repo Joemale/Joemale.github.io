@@ -1,0 +1,1305 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="xss,xss平台," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="每天把牢骚拿出来晒晒太阳，心情就不会缺钙  　　之前搭建过很多次xss平台，也用过几套源代码，然而对比之下，还是觉得wuyun的xss.me源码比较好用，即使比较古老了。最近因为工作需要，又准备重新搭建一套xss平台，源码果断选择了xss.me（当然是经过修改之后的），我的源码来之博客:http://www.bodkin.ren/?p=133，感谢其分享。">
+<meta name="keywords" content="xss,xss平台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xss平台搭建小记">
+<meta property="og:url" content="http://thief.one/2017/03/15/Xss平台搭建小记/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="每天把牢骚拿出来晒晒太阳，心情就不会缺钙  　　之前搭建过很多次xss平台，也用过几套源代码，然而对比之下，还是觉得wuyun的xss.me源码比较好用，即使比较古老了。最近因为工作需要，又准备重新搭建一套xss平台，源码果断选择了xss.me（当然是经过修改之后的），我的源码来之博客:http://www.bodkin.ren/?p=133，感谢其分享。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-25T12:05:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xss平台搭建小记">
+<meta name="twitter:description" content="每天把牢骚拿出来晒晒太阳，心情就不会缺钙  　　之前搭建过很多次xss平台，也用过几套源代码，然而对比之下，还是觉得wuyun的xss.me源码比较好用，即使比较古老了。最近因为工作需要，又准备重新搭建一套xss平台，源码果断选择了xss.me（当然是经过修改之后的），我的源码来之博客:http://www.bodkin.ren/?p=133，感谢其分享。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/03/15/Xss平台搭建小记/"/>
+
+  <title> Xss平台搭建小记 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Xss平台搭建小记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-15T14:18:06+08:00" content="2017-03-15">
+              2017-03-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/03/15/Xss平台搭建小记/" class="leancloud_visitors" data-flag-title="Xss平台搭建小记">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote class="blockquote-center">每天把牢骚拿出来晒晒太阳，心情就不会缺钙</blockquote>
+
+<p>　　之前搭建过很多次xss平台，也用过几套源代码，然而对比之下，还是觉得wuyun的xss.me源码比较好用，即使比较古老了。最近因为工作需要，又准备重新搭建一套xss平台，源码果断选择了xss.me（当然是经过修改之后的），我的源码来之博客:<a href="http://www.bodkin.ren/?p=133" target="_blank" rel="external">http://www.bodkin.ren/?p=133</a>，感谢其分享。<br><a id="more"></a><br>　　Xss平台的搭建过程并不复杂，虽然期间遇到了一些小问题，但也很快解决了，在此记录分享。</p>
+<h3 id="xss源码下载"><a href="#xss源码下载" class="headerlink" title="xss源码下载"></a>xss源码下载</h3><p>　　<a href="https://git.oschina.net/nMask/Resource/raw/master/xss.me.new.zip" target="_blank" rel="external">修改版</a><br>　　<a href="https://git.oschina.net/nMask/Resource/raw/master/xss.me.old.zip" target="_blank" rel="external">原版</a></p>
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><p>　　首先下载xssplatform源码，然后选择一台服务器安装wamp，这里之所以选择wamp来搭建环境，主要是想免去配置apache、mysql的麻烦，因为本文重点还是在于搭建xss平台的过程。（大神可以选择在linux上单独安装配置apache）</p>
+<p>　　服务器环境配置好以后，将xss源码放在wamp的www目录下，启动wamp，此时如果wamp运行正常，我们打开localhost/xss/应该可以看到登陆界面了，但此时还不能进行登陆或者注册，还需要进行多项配置。</p>
+<h3 id="apache配置"><a href="#apache配置" class="headerlink" title="apache配置"></a>apache配置</h3><p>　　打开wamp\bin\apache\apache2.4.9\conf\httpd.conf，为了后面搭建xss平台不出现错误，我们先将网站目录设置一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">将其中的c:/wamp/www/ 改为c:/wamp/www/xss/，重启apache。</div></pre></td></tr></table></figure></p>
+<p>　　这时打开localhost就可以看到登陆页面了，而不需要访问localhost/xss/路径。当然如果有特殊需要，必须设置二级目录的，那之后的一些路径配置，请都设置成二级目录，即在原来的路径前面加上目录名称，如/xss/index.php等。</p>
+<h3 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h3><p>　　打开localhost/phpmyadmin进入phpmyadmin管理界面，添加一个用户root,123456,为了安全起见，删除其他用户。然后添加一个数据库，名为poppy（具体数据库名称可查看xss.sql文件，里面有写），然后导入xss.sql文件即可。<br>　　更改oc_module模块域名，进入oc_module表，执行sql语句，改为自己的域名。（影响生成的xss poc）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UPDATE oc_module SET code=REPLACE(code,&quot;http://xsser.me&quot;,&quot;http://xxx.com&quot;);</div></pre></td></tr></table></figure></p>
+<h3 id="Xss源码配置"><a href="#Xss源码配置" class="headerlink" title="Xss源码配置"></a>Xss源码配置</h3><p>apache与数据库配置完以后，还需要配置xss源码。</p>
+<h4 id="config-php"><a href="#config-php" class="headerlink" title="config.php"></a>config.php</h4><p>打开根目录下的config.php文件，主要看以下这些配置。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/* 数据库连接 */</div><div class="line"><span class="variable">$config</span>[<span class="string">'dbHost'</span>]        =<span class="string">'localhost'</span>;            //数据库地址</div><div class="line"><span class="variable">$config</span>[<span class="string">'dbUser'</span>]        =<span class="string">'root'</span>;                //用户</div><div class="line"><span class="variable">$config</span>[<span class="string">'dbPwd'</span>]        =<span class="string">'123456'</span>;                //密码</div><div class="line"><span class="variable">$config</span>[<span class="string">'database'</span>]        =<span class="string">'poppy'</span>;            //数据库名</div><div class="line"><span class="variable">$config</span>[<span class="string">'charset'</span>]        =<span class="string">'utf8'</span>;                //数据库字符集</div><div class="line"><span class="variable">$config</span>[<span class="string">'tbPrefix'</span>]        =<span class="string">'oc_'</span>;                    //表名前缀</div><div class="line"><span class="variable">$config</span>[<span class="string">'dbType'</span>]        =<span class="string">'mysql'</span>;                //数据库类型(目前只支持mysql)</div><div class="line"></div><div class="line">/* 注册配置 */</div><div class="line"><span class="variable">$config</span>[<span class="string">'register'</span>]        =<span class="string">'invite'</span>;                //normal,正常;invite,只允许邀请注册;close,关闭注册功能</div><div class="line"><span class="variable">$config</span>[<span class="string">'mailauth'</span>]        =<span class="literal">false</span>;                    //注册时是否邮箱验证</div><div class="line"></div><div class="line">/* url配置 */</div><div class="line"><span class="variable">$config</span>[<span class="string">'urlroot'</span>]        =<span class="string">'http://localhost'</span>;//访问的url起始</div></pre></td></tr></table></figure></p>
+<p>修改配置如下：</p>
+<ul>
+<li>$config[‘database’]        =’poppy’;  #更改，保持跟数据名一致（数据库名字查看.sql文件）</li>
+<li>数据库账号密码可以选择更改，也可以保持不变。</li>
+<li>$config[‘register’]          =’normal’;             # 改为不需要邀请码。</li>
+<li>$config[‘urlroot’]        =’<a href="http://localhost" target="_blank" rel="external">http://localhost</a>‘; #改为本地</li>
+</ul>
+<h4 id="修改authtest-php"><a href="#修改authtest-php" class="headerlink" title="修改authtest.php"></a>修改authtest.php</h4><p>修改根目录下authtest.php文件，改成自己的域名或者ip。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">else</span> <span class="keyword">if</span> ((isset(<span class="variable">$_SERVER</span>[<span class="string">'PHP_AUTH_USER'</span>])) &amp;&amp; (isset(<span class="variable">$_SERVER</span>[<span class="string">'PHP_AUTH_PW'</span>])))&#123;</div><div class="line"></div><div class="line">    /* 变量值存在，检查其是否正确 */</div><div class="line"></div><div class="line">    header(<span class="string">"Location: http://xxx.com/index.php?do=api&amp;id=&#123;<span class="variable">$_GET</span>[id]&#125;&amp;username=&#123;<span class="variable">$_SERVER</span>[PHP_AUTH_USER]&#125;&amp;password=&#123;<span class="variable">$_SERVER</span>[PHP_AUTH_PW]&#125;"</span>); </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　修改完配置以后，打开localhost，注册一个账号。注册完成后oc_user表中会新增一个记录，手动将adminlevel改为1（即管理员权限，可以有权限下放邀请码）。</p>
+<p>完成以上步骤，平台差不多就可以用了，但如果遇到了一些其他问题，请继续往下看。</p>
+<h3 id="Xss-Url-404问题"><a href="#Xss-Url-404问题" class="headerlink" title="Xss_Url 404问题"></a>Xss_Url 404问题</h3><p>出现的问题：当访问<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://xxx.com/y42f59?1489555427</div></pre></td></tr></table></figure></p>
+<p>等自动生成的xss_poc时，会出现404错误，这是由于url重写没有生效的缘故，主要是因为中间件配置问题。以下就apache与iis中间件，给出解决方案。</p>
+<h4 id="apache解决方案"><a href="#apache解决方案" class="headerlink" title="apache解决方案"></a>apache解决方案</h4><p>首先在网站根目录添加.htaccess文件，文件内容如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;IfModule mod_rewrite.c&gt;</div><div class="line">RewriteEngine On</div><div class="line">RewriteBase /</div><div class="line">RewriteRule ^([0-9a-zA-Z]&#123;6&#125;)$ /index.php?<span class="keyword">do</span>=code&amp;urlKey=<span class="variable">$1</span> [L]</div><div class="line">RewriteRule ^<span class="keyword">do</span>/auth/(\w+?)(/domain/([\w\.]+?))?$  /index.php?<span class="keyword">do</span>=<span class="keyword">do</span>&amp;auth=<span class="variable">$1</span>&amp;domain=<span class="variable">$3</span> [L]</div><div class="line">RewriteRule ^register/(.*?)$ /index.php?<span class="keyword">do</span>=register&amp;key=<span class="variable">$1</span> [L]</div><div class="line">RewriteRule ^register-validate/(.*?)$ /index.php?<span class="keyword">do</span>=register&amp;act=validate&amp;key=<span class="variable">$1</span> [L]</div><div class="line">&lt;/IfModule&gt;</div></pre></td></tr></table></figure></p>
+<p>注意：如果网站需要域名+目录去访问的，如：www.xxx.com/xss/，则在以下代码/index.php前添加/xss/index.php。</p>
+<p>然后修改apache配置文件，允许url重写。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AllowOverride None</div></pre></td></tr></table></figure></p>
+<p>全部改为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AllowOverride All</div></pre></td></tr></table></figure></p>
+<p>这样，apache会根据根目录下的.htaccess文件去匹配url重写规则。</p>
+<p>做完以上2条配置后访问类似于此地址，就会显示xss_poc（js）内容了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://xxx.com/y42f59?1489555427</div></pre></td></tr></table></figure></p>
+<p>写文本时，我是在windows下做的测试，linux下配置方法应当一致。</p>
+<h4 id="iis解决方案"><a href="#iis解决方案" class="headerlink" title="iis解决方案"></a>iis解决方案</h4><p>参考：<a href="http://www.bodkin.ren/?p=133" target="_blank" rel="external">http://www.bodkin.ren/?p=133</a></p>
+<h3 id="邮件短信设置"><a href="#邮件短信设置" class="headerlink" title="邮件短信设置"></a>邮件短信设置</h3><ul>
+<li>修改文件\source\function.php 257行,把里面的邮箱账号密码换一下，host改为smtp.xx.com，如：smtp.qq.com</li>
+<li>飞信短信提醒功能，修改\source\api.php 72行手机号，可能只支持移动手机号。</li>
+</ul>
+<h3 id="老版本其他问题"><a href="#老版本其他问题" class="headerlink" title="老版本其他问题"></a>老版本其他问题</h3><p><em>新的源码不需要修改以下参数，老版本可能需要修改</em></p>
+<h4 id="修改注册页面提交按钮"><a href="#修改注册页面提交按钮" class="headerlink" title="修改注册页面提交按钮"></a>修改注册页面提交按钮</h4><p>修改themes\default\templates\register.html内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input id=<span class="string">"btnRegister"</span> <span class="built_in">type</span>=<span class="string">"button"</span> onclick=<span class="string">"Register()"</span> value=<span class="string">"提交注册"</span> /&gt;</div></pre></td></tr></table></figure></p>
+<p>修改为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input id=<span class="string">"btnRegister"</span> <span class="built_in">type</span>=<span class="string">"submit"</span> value=<span class="string">"提交注册"</span> /&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="邀请码生成"><a href="#邀请码生成" class="headerlink" title="邀请码生成"></a>邀请码生成</h4><p>（1）将文件source\user.php第10行和50行的权限控制注释掉<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//<span class="keyword">if</span>(<span class="variable">$user</span>-&gt;userId&lt;=0) ShowError(<span class="string">'未登录或已超时'</span>,<span class="variable">$url</span>[<span class="string">'login'</span>],<span class="string">'重新登录'</span>);</div><div class="line">//<span class="keyword">if</span>(<span class="variable">$user</span>-&gt;adminLevel&lt;=0) ShowError(<span class="string">'没有操作权限'</span>,URL_ROOT.<span class="string">'/index.php?do=user&amp;act=invite'</span>);</div></pre></td></tr></table></figure></p>
+<p>然后访问/index.php?do=user&amp;act=invite即可生成验证码<br>（2）注册一个用户test，进入数据库，将该用户的adminLevel修改为1，然后去掉（1）中添加到注释；并在第15行case ‘invite’:处添加权限控制：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="variable">$user</span>-&gt;adminLevel&lt;=0) ShowError(<span class="string">'没有操作权限'</span>,URL_ROOT.<span class="string">'/index.php'</span>);</div></pre></td></tr></table></figure></p>
+<p>（3）或者开放普通注册权限，修改文件/config.php的第18行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$config</span>[<span class="string">'register'</span>]=<span class="string">'invite'</span>;   //normal,正常;invite,只允许邀请注册;close,关闭注册功能</div></pre></td></tr></table></figure></p>
+<h4 id="删除cookie"><a href="#删除cookie" class="headerlink" title="删除cookie"></a>删除cookie</h4><p>　　修改文件themes\default\templates\project_view.html中的Delete()和MultiDelete()函数，将其中post的URL修改为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">'/xss/index.php?do=project&amp;act=delcontent&amp;r='</span></div></pre></td></tr></table></figure></p>
+<p>即根据实际的服务器路径，在前面添加’/xss’。</p>
+<h4 id="source-class-user-class-php"><a href="#source-class-user-class-php" class="headerlink" title="source\class\user.class.php"></a>source\class\user.class.php</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$this</span>-&gt;db-&gt;Execute(<span class="string">"UPDATE "</span>.<span class="variable">$this</span>-&gt;tbUser.<span class="string">" SET loginTime='"</span>.time().<span class="string">"'"</span>);</div><div class="line">修改为</div><div class="line"><span class="variable">$this</span>-&gt;db-&gt;Execute(<span class="string">"UPDATE "</span>.<span class="variable">$this</span>-&gt;tbUser.<span class="string">" SET loginTime='"</span>.time().<span class="string">"' where id=&#123;<span class="variable">$row</span>['id']&#125;"</span>);</div></pre></td></tr></table></figure>
+<h4 id="修改跳转提示时间"><a href="#修改跳转提示时间" class="headerlink" title="修改跳转提示时间"></a>修改跳转提示时间</h4><p>文件themes/default/templates/notice.html：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="string">"location.href='&#123;<span class="variable">$notice</span>.turnto&#125;'"</span>,3000);</div><div class="line">修改为</div><div class="line">setTimeout(<span class="string">"location.href='&#123;<span class="variable">$notice</span>.turnto&#125;'"</span>,500);</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/03/15/Xss平台搭建小记/">Xss平台搭建小记</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年03月15日 - 14:03</p>
+  <p><span>最后更新:</span>2017年07月25日 - 20:07</p>
+  <p><span>原始链接:</span><a href="/2017/03/15/Xss平台搭建小记/" title="Xss平台搭建小记">http://thief.one/2017/03/15/Xss平台搭建小记/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/03/15/Xss平台搭建小记/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xss/" rel="tag"><i class="fa fa-tag"></i>xss</a>
+          
+            <a href="/tags/xss平台/" rel="tag"><i class="fa fa-tag"></i>xss平台</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/13/Phantomjs-Api介绍/" rel="next" title="【phantomjs系列】Phantomjs Api介绍">
+                <i class="fa fa-chevron-left"></i> 【phantomjs系列】Phantomjs Api介绍
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/17/爬搜索引擎之寻你千百度/" rel="prev" title="爬取搜索引擎之寻你千百度">
+                爬取搜索引擎之寻你千百度 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#xss源码下载"><span class="nav-number">1.</span> <span class="nav-text">xss源码下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install"><span class="nav-number">2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apache配置"><span class="nav-number">3.</span> <span class="nav-text">apache配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库配置"><span class="nav-number">4.</span> <span class="nav-text">数据库配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xss源码配置"><span class="nav-number">5.</span> <span class="nav-text">Xss源码配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#config-php"><span class="nav-number">5.1.</span> <span class="nav-text">config.php</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改authtest-php"><span class="nav-number">5.2.</span> <span class="nav-text">修改authtest.php</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xss-Url-404问题"><span class="nav-number">6.</span> <span class="nav-text">Xss_Url 404问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#apache解决方案"><span class="nav-number">6.1.</span> <span class="nav-text">apache解决方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iis解决方案"><span class="nav-number">6.2.</span> <span class="nav-text">iis解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#邮件短信设置"><span class="nav-number">7.</span> <span class="nav-text">邮件短信设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#老版本其他问题"><span class="nav-number">8.</span> <span class="nav-text">老版本其他问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改注册页面提交按钮"><span class="nav-number">8.1.</span> <span class="nav-text">修改注册页面提交按钮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#邀请码生成"><span class="nav-number">8.2.</span> <span class="nav-text">邀请码生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除cookie"><span class="nav-number">8.3.</span> <span class="nav-text">删除cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source-class-user-class-php"><span class="nav-number">8.4.</span> <span class="nav-text">source\class\user.class.php</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改跳转提示时间"><span class="nav-number">8.5.</span> <span class="nav-text">修改跳转提示时间</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

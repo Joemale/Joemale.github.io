@@ -1,0 +1,1294 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="渗透神器,nmap," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="这个世界好比一座大熔炉，烧炼出一批又一批品质不同而且和原先的品质也不相同的灵魂　　本篇作为渗透神器系列第三篇，将介绍一款经典的端口扫描工具–nmap。目前市面上成熟的端口扫描器有很多，比如massscan(全网扫描器)，zenmap(nmap的GUI版)等，但我个人还是钟爱nmap，原因很简单，因为它很强大，并且支持扩展。Nmap最新几个版本中，加入了nmap script Engine(NSE)">
+<meta name="keywords" content="渗透神器,nmap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【渗透神器系列】nmap">
+<meta property="og:url" content="http://thief.one/2017/05/02/1/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="这个世界好比一座大熔炉，烧炼出一批又一批品质不同而且和原先的品质也不相同的灵魂　　本篇作为渗透神器系列第三篇，将介绍一款经典的端口扫描工具–nmap。目前市面上成熟的端口扫描器有很多，比如massscan(全网扫描器)，zenmap(nmap的GUI版)等，但我个人还是钟爱nmap，原因很简单，因为它很强大，并且支持扩展。Nmap最新几个版本中，加入了nmap script Engine(NSE)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-01T12:19:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【渗透神器系列】nmap">
+<meta name="twitter:description" content="这个世界好比一座大熔炉，烧炼出一批又一批品质不同而且和原先的品质也不相同的灵魂　　本篇作为渗透神器系列第三篇，将介绍一款经典的端口扫描工具–nmap。目前市面上成熟的端口扫描器有很多，比如massscan(全网扫描器)，zenmap(nmap的GUI版)等，但我个人还是钟爱nmap，原因很简单，因为它很强大，并且支持扩展。Nmap最新几个版本中，加入了nmap script Engine(NSE)">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/05/02/1/"/>
+
+  <title> 【渗透神器系列】nmap | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【渗透神器系列】nmap
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-02T14:55:27+08:00" content="2017-05-02">
+              2017-05-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/安全工具/" itemprop="url" rel="index">
+                    <span itemprop="name">安全工具</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/05/02/1/" class="leancloud_visitors" data-flag-title="【渗透神器系列】nmap">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">这个世界好比一座大熔炉，烧炼出一批又一批品质不同而且和原先的品质也不相同的灵魂</blockquote><br>　　本篇作为渗透神器系列第三篇，将介绍一款经典的端口扫描工具–nmap。目前市面上成熟的端口扫描器有很多，比如massscan(全网扫描器)，zenmap(nmap的GUI版)等，但我个人还是钟爱nmap，原因很简单，因为它很强大，并且支持扩展。Nmap最新几个版本中，加入了nmap script Engine(NSE)功能，支持扩展脚本，即可以在nmap中加载自定义的nse脚本，以达到扫描的目的。目前官方的nse脚本已达500多个，nse脚本地址<a href="https://nmap.org/nsedoc/" target="_blank" rel="external">https://nmap.org/nsedoc/</a>，或者查看<a href="https://github.com/nmap/nmap" target="_blank" rel="external">github库</a>。<br>　　本篇将会介绍如何编写以及使用nse脚本，以便能最大程度地发挥出nmap的强大功能（扩展功能），当然本文后本段也会简单介绍下nmap工具的基本使用方法以及参数设置。<br><a id="more"></a></p>
+<h3 id="NSE"><a href="#NSE" class="headerlink" title="NSE"></a>NSE</h3><p>　　nse全称是<em>nmap脚本引擎</em>，脚本后缀名为.nse，脚本用Lua语言编写，遵循特定的规则。nse脚本存放在nmap安装目录下的scripts目录下，目前官方提供的大概有500多个，功能涵盖了常用的漏洞检测、端口检测、基线检测等。</p>
+<h4 id="nse-script-exploit"><a href="#nse-script-exploit" class="headerlink" title="nse script exploit"></a>nse script exploit</h4><p>在scripts目录下新建一个文件，如：hello.nse，写入以下内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-- The Head Section --</div><div class="line">-- The Rule Section --</div><div class="line">portrule = <span class="keyword">function</span>(host, port)</div><div class="line"><span class="built_in">return</span> port.protocol == <span class="string">"tcp"</span> and port.number == 80 and port.state == <span class="string">"open"</span></div><div class="line">end</div><div class="line">-- The Action Section --</div><div class="line">action = <span class="keyword">function</span>(host, port)</div><div class="line"><span class="built_in">return</span> <span class="string">"Hello world"</span></div><div class="line">end</div></pre></td></tr></table></figure></p>
+<p>以上代码运行后，会检测目标ip是否开放了80端口，若开放则返回helloworld。<br>nse脚本遵循nmap api规范，其包含三部分内容，其中–开头的行为注释内容。</p>
+<h5 id="The-Head-Section"><a href="#The-Head-Section" class="headerlink" title="The Head Section"></a>The Head Section</h5><p>该部分包含一些元数据，主要描述脚本的功能，作者，影响力，类别及其他。</p>
+<h5 id="The-Rule-Section"><a href="#The-Rule-Section" class="headerlink" title="The Rule Section"></a>The Rule Section</h5><p>该部分定义脚本的一些规则，至少包含下面列表中的一个函数：</p>
+<ul>
+<li>portrule</li>
+<li>hostrule</li>
+<li>prerule</li>
+<li>postrule</li>
+</ul>
+<h5 id="The-Action-Section"><a href="#The-Action-Section" class="headerlink" title="The Action Section"></a>The Action Section</h5><p>该部分定义脚本逻辑，即满足条件后执行的内容，比如上面例子为输出helloworld。</p>
+<h4 id="调用内置库"><a href="#调用内置库" class="headerlink" title="调用内置库"></a>调用内置库</h4><p>NSE脚本可以调用内置库，比如http库、shortport库、nmap库等。<br>导入方式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">local</span> http = require <span class="string">"http"</span></div><div class="line"><span class="built_in">local</span> nmap = require <span class="string">"nmap"</span></div><div class="line"><span class="built_in">local</span> shortport = require <span class="string">"shortport"</span></div></pre></td></tr></table></figure></p>
+<p>更多nse-api参考：<a href="https://nmap.org/book/nse-api.html" target="_blank" rel="external">https://nmap.org/book/nse-api.html</a><br>更多lua语法参考：<a href="http://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="external">http://www.runoob.com/lua/lua-tutorial.html</a></p>
+<h4 id="nse-script-usage"><a href="#nse-script-usage" class="headerlink" title="nse script usage"></a>nse script usage</h4><p>当在scripts下面编写完hello.nse脚本后，如何加载使用呢？<br>方法一：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nmap --script-updatedb 更新脚本库</div><div class="line">nmap --script=hello    使用该脚本</div></pre></td></tr></table></figure></p>
+<p>方法二：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap --script=d:/..../hello.nse 绝对路径</div></pre></td></tr></table></figure></p>
+<p>其他参数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">-sC: 等价于–script=default，使用默认类别的脚本进行扫描 可更换其他类别</div><div class="line">–script=&lt;Lua scripts&gt;: &lt;Lua scripts&gt;使用某个或某类脚本进行扫描，支持通配符描述</div><div class="line">–script-args=&lt;n1=v1,[n2=v2,...]&gt;: 为脚本提供默认参数</div><div class="line">–script-args-file=filename: 使用文件来为脚本提供参数</div><div class="line">–script-trace: 显示脚本执行过程中发送与接收的数据</div><div class="line">–script-updatedb: 更新脚本数据库</div><div class="line">–script-help=&lt;scripts&gt;: 显示脚本的帮助信息，其中&lt;scripts&gt;部分可以逗号分隔的文件或脚本类别</div></pre></td></tr></table></figure></p>
+<h4 id="nse-example"><a href="#nse-example" class="headerlink" title="nse example"></a>nse example</h4><p>对目标机器进行扫描,同时对smb的用户进行枚举。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap  --script=smb-enum-users  target_ip</div></pre></td></tr></table></figure></p>
+<p>对目标机器所开启的smb共享进行枚举。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap  --script=smb-enum-shares target_ip</div></pre></td></tr></table></figure></p>
+<p>对目标机器的用户名和密码进行暴力猜测。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap  --script=smb-brute target_ip</div></pre></td></tr></table></figure></p>
+<p>对目标机器测试心脏滴血漏洞。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap -sV --script=ssl-heartbleed target_ip</div></pre></td></tr></table></figure></p>
+<p>再举几个硬件设备的例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">modbus-discover.nse （该脚本可以调用Modbus 43（2B功能码）功能码读取设备信息）</div><div class="line">modbus-enum.nse （Modbus TCP设备枚举脚本）</div><div class="line">s7-enumerate.nse （西门子S7 PLC设备发现脚本，可以枚举PLC的一些基本信息）</div><div class="line">enip-enumerate.nse （可以读取EtherNet/IP设备的基本信息）</div><div class="line">BACnet-discover-enumerate.nse （可以读取BACnet设备的基本信息）</div><div class="line">iec-identify.nse （IEC104协议asdu address枚举脚本）</div><div class="line">mms-identify.nse （IEC-61850-8-1协议信息枚举脚本）</div></pre></td></tr></table></figure></p>
+<h3 id="nmap-introduce"><a href="#nmap-introduce" class="headerlink" title="nmap introduce"></a>nmap introduce</h3><p>以上内容为nmap nse扩展脚本的基础知识，其中涉及到nse脚本编写的语法规则等，本篇暂不做详细介绍，可参考官方文档。以下内容为nmap基础使用，包含命令行参数等内容。</p>
+<h4 id="nmap-parameter"><a href="#nmap-parameter" class="headerlink" title="nmap parameter"></a>nmap parameter</h4><p>nmap参数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">nmap [Scan Type(s)] [Options] &#123;target specification&#125;</div><div class="line"></div><div class="line">scan <span class="built_in">type</span>(s) 用于指定扫描类型</div><div class="line">options 用于指定选项</div><div class="line">target specification 用于指定扫描目标</div><div class="line"></div><div class="line">-s 指定扫描类型</div><div class="line">如下：</div><div class="line">-sP (ping扫描) *存活主机探测</div><div class="line">-sS (TCP SYN扫描 隐身扫描)  *默认扫描方式</div><div class="line">-sT (tcp 扫描) * syn 不能用时就tcp扫描</div><div class="line">-sU （UDP 扫描）</div><div class="line">-sA  （ACK扫描） *三次握手 用于探测出防火墙过滤端口 实际渗透中没多大用</div><div class="line"></div><div class="line">-sV   （版本探测）</div><div class="line">-A    操作系统探测</div><div class="line">-O （启用操作系统检测）</div><div class="line">-v    详细</div><div class="line">选项说明</div><div class="line">-P0  [指定端口] (无ping扫描)</div><div class="line">-PU  [指定端口] (udp ping扫描)</div><div class="line">-PS [指定端口] (TCP SYN ping 扫描)</div><div class="line">-PA  [指定端口] (tcp ack ping扫描) </div><div class="line">-PI   使用真正的pingICMP <span class="built_in">echo</span>请求来扫描目标主机是否正在运行</div><div class="line"></div><div class="line">-iL 指定扫描主机列表</div><div class="line">-iR 随机选择目标</div><div class="line"></div><div class="line">--exclude 排除扫描目标</div><div class="line">--excludefile 排除文件中目标列表</div><div class="line"></div><div class="line">-n (不用域名解析)</div><div class="line">-R (为所有目标解析域名)</div><div class="line"></div><div class="line">-T  时间优化（每隔多久发一次包 ） -T5 最快 -T0 最慢</div><div class="line">-F  快速扫描</div><div class="line">-e  指定网络接口</div><div class="line">-M 设置tcp扫描线程</div></pre></td></tr></table></figure></p>
+<h4 id="nmap-output"><a href="#nmap-output" class="headerlink" title="nmap output"></a>nmap output</h4><p>输出结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">-oS  保存扫描结果输出</div><div class="line">-oN  把扫描结果重定向到一个可读的文件logfilename中</div><div class="line">-oM  每个结果一行输出</div><div class="line">-oA  同上</div><div class="line">--append-output 附在原来的结果前面</div></pre></td></tr></table></figure></p>
+<h4 id="nmap-status"><a href="#nmap-status" class="headerlink" title="nmap status"></a>nmap status</h4><p>nmap端口状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">open（开放的）</div><div class="line">closed（关闭的）</div><div class="line">filtered（被过滤的）不确定开放还是关闭</div><div class="line">unfiltered （未被过滤的）</div><div class="line">openfiltered （开放或者被过滤的）</div><div class="line">closedfiltered （关闭或者未被过滤的)</div></pre></td></tr></table></figure></p>
+<h4 id="nmap常用命令"><a href="#nmap常用命令" class="headerlink" title="nmap常用命令"></a>nmap常用命令</h4><p>以下命令部分收集于网络，部分来自个人总结。<br>轻量级扫描：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">nmap -sP 192.168.0.0/24   判断哪些主机存活</div><div class="line">nmap -sT 192.168.0.3   开放了哪些端口</div><div class="line">nmap -sS 192.168.0.127 开放了哪些端口（隐蔽扫描）</div><div class="line">nmap -sU 192.168.0.127 开放了哪些端口（UDP）</div><div class="line">nmap -sS -O  192.168.0.127 操作系统识别</div><div class="line">nmap -sT -p 80 -oG – 192.168.1.* | grep open    列出开放了指定端口的主机列表</div><div class="line">nmap -sV -p 80 thief.one  列出服务器类型(列出操作系统，开发端口，服务器类型,网站脚本类型等)</div></pre></td></tr></table></figure></p>
+<p>批量扫描：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap -sT -sV -O -P0 --open -n -oN result.txt -p80-89,8080-8099,8000-8009,7001-7009,9000-9099,21,443,873,2601,2604,3128,4440,6082,6379,8888,3389,9200,11211,27017,28017,389,8443,4848,8649,995,9440,9871,2222,2082,3311,18100,9956,1433,3306,1900,49705,50030,7778,5432,7080,5900,50070,5000,5560,10000 -iL ip.txt</div></pre></td></tr></table></figure></p>
+<p>批量扫描：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmap -sT -sV -p80-89,8080-8099,8000-8009,7001-7009,9000-9099,21,443,873,2601,2604,3128,4440,6082,6379,8888,3389,9200,11211,27017,28017,389,8443,4848,8649,995,9440,9871,2222,2082,3311,18100,9956,1433,3306,1900,49705,50030,7778,5432,7080,5900,50070,5000,5560,10000 --open --max-hostgroup 10 --max-parallelism 10 --max-rtt-timeout 1000ms --host-timeout 800s --max-scan-delay 2000ms -iL ~/Desktop/ip.txt -oN ~/Desktop/result/result.txt</div></pre></td></tr></table></figure></p>
+<h3 id="nmap-api"><a href="#nmap-api" class="headerlink" title="nmap api"></a>nmap api</h3><p>nmap支持很多语言的扩展，本文简单介绍下python中如何使用nmap。</p>
+<h4 id="python-nmap"><a href="#python-nmap" class="headerlink" title="python-nmap"></a>python-nmap</h4><p>安装：pip install python-nmap<br>作用：利用python调用nmap接口，实现端口扫描。<br>使用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import nmap</div><div class="line">&gt;&gt;&gt; nm = nmap.PortScanner()</div><div class="line">&gt;&gt;&gt; nm.scan(<span class="string">'127.0.0.1'</span>, <span class="string">'22-443'</span>)</div><div class="line">&gt;&gt;&gt; nm.command_line()</div></pre></td></tr></table></figure></p>
+<p>更多使用方法，参考：<a href="http://xael.org/pages/python-nmap-en.html" target="_blank" rel="external">http://xael.org/pages/python-nmap-en.html</a></p>
+<h3 id="传送门"><a href="#传送门" class="headerlink" title="传送门"></a>传送门</h3><p><a href="http://thief.one/2017/08/01/1/">【渗透神器系列】Metasploit</a><br><a href="http://thief.one/2017/07/12/1/">【渗透神器系列】DNS信息查询</a><br><a href="http://thief.one/2017/04/10/1/">【渗透神器系列】nc</a><br><a href="http://thief.one/2017/04/27/1">【渗透神器系列】Fiddler</a><br><a href="http://thief.one/2017/05/19/1">【渗透神器系列】搜索引擎</a><br><a href="http://thief.one/2017/02/09/WireShark%E8%BF%87%E6%BB%A4%E8%A7%84%E5%88%99/">【渗透神器系列】WireShark</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/05/02/1/">【渗透神器系列】nmap</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年05月02日 - 14:05</p>
+  <p><span>最后更新:</span>2017年08月01日 - 20:08</p>
+  <p><span>原始链接:</span><a href="/2017/05/02/1/" title="【渗透神器系列】nmap">http://thief.one/2017/05/02/1/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/05/02/1/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/渗透神器/" rel="tag"><i class="fa fa-tag"></i>渗透神器</a>
+          
+            <a href="/tags/nmap/" rel="tag"><i class="fa fa-tag"></i>nmap</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/27/1/" rel="next" title="【渗透神器系列】Fiddler">
+                <i class="fa fa-chevron-left"></i> 【渗透神器系列】Fiddler
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/04/1/" rel="prev" title="Docker基础总结">
+                Docker基础总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSE"><span class="nav-number">1.</span> <span class="nav-text">NSE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nse-script-exploit"><span class="nav-number">1.1.</span> <span class="nav-text">nse script exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#The-Head-Section"><span class="nav-number">1.1.1.</span> <span class="nav-text">The Head Section</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-Rule-Section"><span class="nav-number">1.1.2.</span> <span class="nav-text">The Rule Section</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-Action-Section"><span class="nav-number">1.1.3.</span> <span class="nav-text">The Action Section</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用内置库"><span class="nav-number">1.2.</span> <span class="nav-text">调用内置库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nse-script-usage"><span class="nav-number">1.3.</span> <span class="nav-text">nse script usage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nse-example"><span class="nav-number">1.4.</span> <span class="nav-text">nse example</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nmap-introduce"><span class="nav-number">2.</span> <span class="nav-text">nmap introduce</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nmap-parameter"><span class="nav-number">2.1.</span> <span class="nav-text">nmap parameter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nmap-output"><span class="nav-number">2.2.</span> <span class="nav-text">nmap output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nmap-status"><span class="nav-number">2.3.</span> <span class="nav-text">nmap status</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nmap常用命令"><span class="nav-number">2.4.</span> <span class="nav-text">nmap常用命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nmap-api"><span class="nav-number">3.</span> <span class="nav-text">nmap api</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#python-nmap"><span class="nav-number">3.1.</span> <span class="nav-text">python-nmap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传送门"><span class="nav-number">4.</span> <span class="nav-text">传送门</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

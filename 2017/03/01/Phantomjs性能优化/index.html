@@ -1,0 +1,1292 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Phantomjs," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="人生之路需要坚持，技术之道亦然写过爬虫的朋友应该都用过一个无头浏览器–phantomjs，使用它的原因很简单明了：能够高度模拟浏览器访问（对抗反爬虫），无头浏览（可以节省性能）。Phantomjs应用最广泛的应该还是用来执行js代码，比如写一个js脚本，利用phantomjs去执行，可以写一个页面截图、网页性能测试等等功能的。">
+<meta name="keywords" content="Phantomjs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【phantomjs系列】Selenium+Phantomjs性能优化">
+<meta property="og:url" content="http://thief.one/2017/03/01/Phantomjs性能优化/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="人生之路需要坚持，技术之道亦然写过爬虫的朋友应该都用过一个无头浏览器–phantomjs，使用它的原因很简单明了：能够高度模拟浏览器访问（对抗反爬虫），无头浏览（可以节省性能）。Phantomjs应用最广泛的应该还是用来执行js代码，比如写一个js脚本，利用phantomjs去执行，可以写一个页面截图、网页性能测试等等功能的。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-25T12:05:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【phantomjs系列】Selenium+Phantomjs性能优化">
+<meta name="twitter:description" content="人生之路需要坚持，技术之道亦然写过爬虫的朋友应该都用过一个无头浏览器–phantomjs，使用它的原因很简单明了：能够高度模拟浏览器访问（对抗反爬虫），无头浏览（可以节省性能）。Phantomjs应用最广泛的应该还是用来执行js代码，比如写一个js脚本，利用phantomjs去执行，可以写一个页面截图、网页性能测试等等功能的。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/03/01/Phantomjs性能优化/"/>
+
+  <title> 【phantomjs系列】Selenium+Phantomjs性能优化 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【phantomjs系列】Selenium+Phantomjs性能优化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-01T14:39:01+08:00" content="2017-03-01">
+              2017-03-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫技术/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/03/01/Phantomjs性能优化/" class="leancloud_visitors" data-flag-title="【phantomjs系列】Selenium+Phantomjs性能优化">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">人生之路需要坚持，技术之道亦然</blockquote><br>写过爬虫的朋友应该都用过一个无头浏览器–phantomjs，使用它的原因很简单明了：能够高度模拟浏览器访问（对抗反爬虫），无头浏览（可以节省性能）。Phantomjs应用最广泛的应该还是用来执行js代码，比如写一个js脚本，利用phantomjs去执行，可以写一个页面截图、网页性能测试等等功能的。<br><a id="more"></a><br>　　phantomjs也是爬虫界的一大神器，我最初使用它就是用来爬取一些动态加载的网页，效果俱佳。当然Phantomjs也不是完美无缺的，虽然作为无头浏览器其性能已经比其他基于浏览器内核的工具快多了，但跟普通的爬虫相比，速度仍是相差甚远。<br>　　关于phantomjs的安装使用网上一大推，这里也不在重复介绍，本篇文章重点在于介绍Phantomjs性能优化问题。因为我比较熟悉python语言，因此就借助此语言谈谈Phantomjs的性能优化功法。</p>
+<h3 id="基础篇（设置参数功法）"><a href="#基础篇（设置参数功法）" class="headerlink" title="基础篇（设置参数功法）"></a>基础篇（设置参数功法）</h3><p>　　Python中使用Phantomjs需要借助Selenium模块，Selenium本身也是用来做Web自动化测试的，正好封装了Phantomjs，因此我们可以借助它来使用Phantomjs。具体安装方法，这里不再介绍，Phantomjs在启动时可以设置参数，那么来看看如何通过设置参数，达到优化性能的目的。</p>
+<h4 id="代码测试"><a href="#代码测试" class="headerlink" title="代码测试"></a>代码测试</h4><p>访问单个网站的速度</p>
+<p>默认配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from selenium import webdriver</div><div class="line"></div><div class="line">d=webdriver.PhantomJS(<span class="string">"D:\python27\Scripts\phantomjs.exe"</span>,service_args=[])</div><div class="line">d.get(<span class="string">"http://thief.one"</span>)</div><div class="line">d.quit()</div></pre></td></tr></table></figure></p>
+<p>测试结果：3.2s</p>
+<p>修改配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from selenium import webdriver</div><div class="line"></div><div class="line">service_args=[]</div><div class="line">service_args.append(<span class="string">'--load-images=no'</span>)  <span class="comment">##关闭图片加载</span></div><div class="line">service_args.append(<span class="string">'--disk-cache=yes'</span>)  <span class="comment">##开启缓存</span></div><div class="line">service_args.append(<span class="string">'--ignore-ssl-errors=true'</span>) <span class="comment">##忽略https错误</span></div><div class="line"></div><div class="line">d=webdriver.PhantomJS(<span class="string">"D:\python27\Scripts\phantomjs.exe"</span>,service_args=service_args)</div><div class="line">d.get(<span class="string">"http://thief.one"</span>)</div><div class="line">d.quit()</div></pre></td></tr></table></figure></p>
+<p>测试结果：2.9s</p>
+<p>说明：从单个网站来看，合理设置参数可以提速0.3s（如果网站上图片等资源较多，则提升的效果会更明显）。</p>
+<h4 id="设置超时"><a href="#设置超时" class="headerlink" title="设置超时"></a>设置超时</h4><p>　　当利用爬虫访问一批网站时，遇到加载慢的网站往往会阻塞很久，遇到打不开的网站则会一直阻塞，严重影响了爬虫的性能，我们知道一般的爬虫，例如requests、urllib等模块可以设置timeout，也就是超时时间，phantomjs同样可以设置。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">from selenium import webdriver</div><div class="line"></div><div class="line">service_args=[]</div><div class="line">service_args.append(<span class="string">'--load-images=no'</span>)</div><div class="line">service_args.append(<span class="string">'--disk-cache=yes'</span>)</div><div class="line">service_args.append(<span class="string">'--ignore-ssl-errors=true'</span>)</div><div class="line"></div><div class="line">d=webdriver.PhantomJS(<span class="string">"D:\python27\Scripts\phantomjs.exe"</span>,service_args=service_args)</div><div class="line">d.implicitly_wait(10)        <span class="comment">##设置超时时间</span></div><div class="line">d.set_page_load_timeout(10)  <span class="comment">##设置超时时间</span></div><div class="line">d.get(<span class="string">"http://www.baidu.com"</span>)</div><div class="line">d.quit()</div></pre></td></tr></table></figure></p>
+<p>　　说明：如果phantomjs加载时间超过10s，则会触发异常。（虽然触发异常，但current_url仍然可以用来获取当前url，源码也可以获取，只不过是没有加载完全的源码。当然只针对加载慢的网站，完全无法访问的网站除外。）</p>
+<h3 id="中级篇（合理开关）"><a href="#中级篇（合理开关）" class="headerlink" title="中级篇（合理开关）"></a>中级篇（合理开关）</h3><p>　　在我使用phantomjs的一段时间内，通过不断调试，我发现phantomjs主要的性能消耗在于phantomjs进程的开启上。因为在python中使用phantomjs，相当于开启并调用phantomjs.exe（windows）执行一些操作，因此如果频繁的开启关闭phantomjs进程，则会非常消耗性能，因此要合理操作开关。</p>
+<h4 id="代码测试-1"><a href="#代码测试-1" class="headerlink" title="代码测试"></a>代码测试</h4><p>单线程访问百度10次：</p>
+<p>优化前：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">from selenium import webdriver</div><div class="line"></div><div class="line">def phantomjs_req(url):</div><div class="line">	service_args=[]</div><div class="line">	service_args.append(<span class="string">'--load-images=no'</span>)</div><div class="line">	service_args.append(<span class="string">'--disk-cache=yes'</span>)</div><div class="line">	service_args.append(<span class="string">'--ignore-ssl-errors=true'</span>)</div><div class="line"></div><div class="line">	d=webdriver.PhantomJS(<span class="string">"D:\python27\Scripts\phantomjs.exe"</span>,service_args=service_args)</div><div class="line">	d.get(url)</div><div class="line">	<span class="built_in">print</span> d.current_url</div><div class="line"></div><div class="line">	d.quit()</div><div class="line"></div><div class="line">url_list=[<span class="string">"http://www.baidu.com"</span>]*10</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> url_list:</div><div class="line">	phantomjs_req(i)</div></pre></td></tr></table></figure></p>
+<p>测试结果：28.2s，运行过程中,phantomjs进程不断开关。</p>
+<p>优化后：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">from selenium import webdriver</div><div class="line"></div><div class="line">def phantomjs_req(url):</div><div class="line">	d.get(url)</div><div class="line">	<span class="built_in">print</span> d.current_url</div><div class="line"></div><div class="line">service_args=[]</div><div class="line">service_args.append(<span class="string">'--load-images=no'</span>)</div><div class="line">service_args.append(<span class="string">'--disk-cache=yes'</span>)</div><div class="line">service_args.append(<span class="string">'--ignore-ssl-errors=true'</span>)</div><div class="line">d=webdriver.PhantomJS(<span class="string">"D:\python27\Scripts\phantomjs.exe"</span>,service_args=service_args)</div><div class="line"></div><div class="line">url_list=[<span class="string">"http://www.baidu.com"</span>]*10</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> url_list:</div><div class="line">	phantomjs_req(i)</div><div class="line"></div><div class="line">d.quit()</div></pre></td></tr></table></figure></p>
+<p>测试结果：4.2s</p>
+<p>　　说明：可以看到优化前与优化后代码的区别，在于将phantomjs开启关闭的操作放到了循环外面，使它始终只开关一次。可以看到性能的差别非常大，因此也可以看出phantomjs开关过程非常消耗时间。</p>
+<p><em>注意：此方法虽然节省了很大的开支，但会引起另外一个phantomjs的Bug（暂且称之为Bug），也就是phantomjs状态覆盖问题。当批量去访问一些网站时，会发现返回的结果与请求的网站不对应。关于此问题，请移步<a href="http://thief.one/2017/03/01/Phantomjs%E7%88%AC%E8%BF%87%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/">Phantomjs爬过的那些坑</a>。</em></p>
+<h3 id="高级篇（phantomjs并发问题）"><a href="#高级篇（phantomjs并发问题）" class="headerlink" title="高级篇（phantomjs并发问题）"></a>高级篇（phantomjs并发问题）</h3><p>　　通过前面的优化，我们发现phantomjs的性能提高了很多，但即便如此，以上代码也只是实现了单线程中的优化。当遇到大批量的网站时，并发是必须的选择，那么Phantomjs在并发中又改如何使用与优化呢？</p>
+<h4 id="优化之路"><a href="#优化之路" class="headerlink" title="优化之路"></a>优化之路</h4><p>在优化phantomjs并发性能的问题上，我也并没有一帆风顺，期间查阅了很多资料，也踩过了很多的坑。</p>
+<h5 id="不成熟的优化（一）"><a href="#不成熟的优化（一）" class="headerlink" title="不成熟的优化（一）"></a>不成熟的优化（一）</h5><p>起初我用了最直接了当的方法，企图开启phantomjs并发的性能。（运行一个phantomjs进程，进程内开启多线程）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">d=webdriver.PhantomJS()   </div><div class="line">def <span class="built_in">test</span>(url):</div><div class="line">     d.get(url)</div><div class="line"></div><div class="line">url_list=[<span class="string">"http://www.baidu.com"</span>]*10</div><div class="line"><span class="keyword">for</span> url <span class="keyword">in</span> url_list:</div><div class="line">     threading.Thread(target=<span class="built_in">test</span>,args=(url,)).start() </div><div class="line">d.quit()</div></pre></td></tr></table></figure></p>
+<p>　　然而运行连连出错，在查看了官网等资料后发现phantomjs是单线程的，因此如果按照上面的写法，那么不能使用多线程同时去执行，此次优化失败！</p>
+<h4 id="不成熟的优化（二）"><a href="#不成熟的优化（二）" class="headerlink" title="不成熟的优化（二）"></a>不成熟的优化（二）</h4><p>既然一个phantomjs只能支持单线程，那么我就开启多个phantomjs。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">def <span class="built_in">test</span>(url):</div><div class="line">     d=webdriver.PhantomJS()</div><div class="line">     d.get(url)</div><div class="line">     d.quit()</div><div class="line"></div><div class="line">url_list=[<span class="string">"http://www.baidu.com"</span>]*10</div><div class="line"><span class="keyword">for</span> url <span class="keyword">in</span> url_list:</div><div class="line">    threading.Thread(target=<span class="built_in">test</span>,args=(url,)).start()</div></pre></td></tr></table></figure></p>
+<p>　　终于我看到同时10个phantomjs进程被开启了，10个网站的请求可以并发执行了。然而当网站的数量为50个时，要同时运行50个phantomjs进程？No，这必定会搞垮服务器，此次优化失败！</p>
+<h4 id="不成熟的优化（三）"><a href="#不成熟的优化（三）" class="headerlink" title="不成熟的优化（三）"></a>不成熟的优化（三）</h4><p>　　经过以上2次失败，我开始思考，如何只开启10个phantomjs进程，然后每个phantomjs进程按顺序执行请求网站的操作呢?这样就相当于10个进程并发执行了。<br>终于在某个夜晚，我想出了以下代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def  <span class="built_in">test</span>():</div><div class="line">     d=webdriver.PhantomJS()</div><div class="line">     <span class="keyword">for</span> i <span class="keyword">in</span> url_list:</div><div class="line">        d.get(url)</div><div class="line">     d.quit()</div><div class="line"></div><div class="line">url_list=[<span class="string">"http://www.baidu.com"</span>]*50</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(10):</div><div class="line">     threading.Thread(target=<span class="built_in">test</span>).start()</div></pre></td></tr></table></figure></p>
+<p>　　成功开启了10个phantomjs进程，每个进程按顺序执行了50个网站的请求。等等，貌似这样设计，每个phantomjs进程都会去访问50次百度，这不是最初的要求，oh，No！</p>
+<h4 id="不算成熟但还可以的优化"><a href="#不算成熟但还可以的优化" class="headerlink" title="不算成熟但还可以的优化"></a>不算成熟但还可以的优化</h4><p>　　在第三阶段并发优化的雏形已经出来了，只不过还需要解决一个多线程共享资源的问题，这个可以用Queue模块解决。那么直接看优化后并发的代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line">__author__=<span class="string">"nMask"</span></div><div class="line">__Date__=<span class="string">"20170224"</span></div><div class="line">__Blog__=<span class="string">"http://thief.one"</span></div><div class="line"></div><div class="line">import Queue</div><div class="line">from selenium import webdriver</div><div class="line">import threading</div><div class="line">import time</div><div class="line"></div><div class="line">class conphantomjs:</div><div class="line">	phantomjs_max=1             <span class="comment">##同时开启phantomjs个数</span></div><div class="line">	jiange=0.00001                  <span class="comment">##开启phantomjs间隔</span></div><div class="line">	timeout=20                  <span class="comment">##设置phantomjs超时时间</span></div><div class="line">	path=<span class="string">"D:\python27\Scripts\phantomjs.exe"</span> <span class="comment">##phantomjs路径</span></div><div class="line">	service_args=[<span class="string">'--load-images=no'</span>,<span class="string">'--disk-cache=yes'</span>] <span class="comment">##参数设置</span></div><div class="line"></div><div class="line">	def __init__(self):</div><div class="line">		self.q_phantomjs=Queue.Queue()   <span class="comment">##存放phantomjs进程队列</span></div><div class="line"></div><div class="line">	def getbody(self,url):</div><div class="line">		<span class="string">''</span><span class="string">'</span></div><div class="line">		利用phantomjs获取网站源码以及url</div><div class="line">		'<span class="string">''</span></div><div class="line">		d=self.q_phantomjs.get()</div><div class="line"></div><div class="line">		try:</div><div class="line">			d.get(url)</div><div class="line">		except:</div><div class="line">			<span class="built_in">print</span> <span class="string">"Phantomjs Open url Error"</span></div><div class="line">		</div><div class="line">		url=d.current_url</div><div class="line">		</div><div class="line">		self.q_phantomjs.put(d)</div><div class="line">		</div><div class="line">		<span class="built_in">print</span> url</div><div class="line"></div><div class="line">	def open_phantomjs(self):</div><div class="line">		<span class="string">''</span><span class="string">'</span></div><div class="line">		多线程开启phantomjs进程</div><div class="line">		'<span class="string">''</span></div><div class="line">		def open_threading():</div><div class="line">			d=webdriver.PhantomJS(conphantomjs.path,service_args=conphantomjs.service_args) </div><div class="line">			d.implicitly_wait(conphantomjs.timeout)        <span class="comment">##设置超时时间</span></div><div class="line">			d.set_page_load_timeout(conphantomjs.timeout)  <span class="comment">##设置超时时间</span></div><div class="line">			</div><div class="line">			self.q_phantomjs.put(d) <span class="comment">#将phantomjs进程存入队列</span></div><div class="line"></div><div class="line">		th=[]</div><div class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> range(conphantomjs.phantomjs_max):</div><div class="line">			t=threading.Thread(target=open_threading)</div><div class="line">			th.append(t)</div><div class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> th:</div><div class="line">			i.start()</div><div class="line">			time.sleep(conphantomjs.jiange) <span class="comment">#设置开启的时间间隔</span></div><div class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> th:</div><div class="line">			i.join()</div><div class="line"></div><div class="line"></div><div class="line">	def close_phantomjs(self):</div><div class="line">		<span class="string">''</span><span class="string">'</span></div><div class="line">		多线程关闭phantomjs对象</div><div class="line">		'<span class="string">''</span></div><div class="line">		th=[]</div><div class="line">		def close_threading():</div><div class="line">			d=self.q_phantomjs.get()</div><div class="line">			d.quit()</div><div class="line"></div><div class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> range(self.q_phantomjs.qsize()):</div><div class="line">			t=threading.Thread(target=close_threading)</div><div class="line">			th.append(t)</div><div class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> th:</div><div class="line">			i.start()</div><div class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> th:</div><div class="line">			i.join()</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line">	<span class="string">''</span><span class="string">'</span></div><div class="line">	用法：</div><div class="line">	1.实例化类</div><div class="line">	2.运行open_phantomjs 开启phantomjs进程</div><div class="line">	3.运行getbody函数，传入url</div><div class="line">	4.运行close_phantomjs 关闭phantomjs进程</div><div class="line">	'<span class="string">''</span></div><div class="line">	cur=conphantomjs()</div><div class="line">	conphantomjs.phantomjs_max=10</div><div class="line">	cur.open_phantomjs()</div><div class="line">	<span class="built_in">print</span> <span class="string">"phantomjs num is "</span>,cur.q_phantomjs.qsize()</div><div class="line">	</div><div class="line">	url_list=[<span class="string">"http://www.baidu.com"</span>]*50</div><div class="line"></div><div class="line">	th=[]</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> url_list:</div><div class="line">		t=threading.Thread(target=cur.getbody,args=(i,))</div><div class="line">		th.append(t)</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> th:</div><div class="line">		i.start()</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> th:</div><div class="line">		i.join()</div><div class="line"></div><div class="line">	cur.close_phantomjs()</div><div class="line">	<span class="built_in">print</span> <span class="string">"phantomjs num is "</span>,cur.q_phantomjs.qsize()</div></pre></td></tr></table></figure></p>
+<h4 id="代码测试："><a href="#代码测试：" class="headerlink" title="代码测试："></a>代码测试：</h4><p>利用单线程优化后的代码访问50次百度：10.3s。<br>利用10个phantomjs并发访问50次百度：8.1s</p>
+<p>　　说明：并发优化后的代码同时开启了10个phantomjs进程，用于处理50次访问百度的请求。由于一个phantomjs同一时间不能处理2个url，也就是说不支持多线程处理，因此开启10个phantomjs进程就相当于程序的并发数量为10。如果除去开启10个phantomjs耗费的时间，总共执行50次访问的时间也就2s左右，速度快了不少。</p>
+<h3 id="终极篇"><a href="#终极篇" class="headerlink" title="终极篇"></a>终极篇</h3><p>　　高级篇中解决并发效率，我用的实际上是多进程，无论python同时开启多少个线程去让phantomjs进程执行操作，一个phantomjs进程同时也只能执行一个访问请求。因此并发的数量取决于开启phantomjs的数量，而phantomjs又是以进程的形式去运行的。<br>　　既然知道了性能的瓶颈所在，那么终极篇中，我们可以使用分布式+phantomjs多进程并发来提高性能。</p>
+<h3 id="替代方案"><a href="#替代方案" class="headerlink" title="替代方案"></a>替代方案</h3><p>以上的优化方案并不能从根本上解决phantomjs性能问题，更好的替代方案请移步：<br><a href="http://thief.one/2017/03/31/Phantomjs正确打开方式/">Phantomjs正确打开方式</a></p>
+<h3 id="传送门"><a href="#传送门" class="headerlink" title="传送门"></a>传送门</h3><blockquote>
+<p><a href="http://thief.one/2017/03/31/Phantomjs%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/">【phantomjs系列】phantomjs正确打开方式</a><br><a href="http://thief.one/2017/03/13/Phantomjs-Api%E4%BB%8B%E7%BB%8D/">【phantomjs系列】phantomjs api介绍</a><br><a href="http://thief.one/2017/03/01/Phantomjs%E7%88%AC%E8%BF%87%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/">【phantomjs系列】selenium+phantomjs爬过的那些坑</a><br><a href="http://thief.one/2017/03/01/Phantomjs%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">【phantomjs系列】selenium+phantomjs性能优化</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/03/01/Phantomjs性能优化/">【phantomjs系列】Selenium+Phantomjs性能优化</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年03月01日 - 14:03</p>
+  <p><span>最后更新:</span>2017年07月25日 - 20:07</p>
+  <p><span>原始链接:</span><a href="/2017/03/01/Phantomjs性能优化/" title="【phantomjs系列】Selenium+Phantomjs性能优化">http://thief.one/2017/03/01/Phantomjs性能优化/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/03/01/Phantomjs性能优化/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Phantomjs/" rel="tag"><i class="fa fa-tag"></i>Phantomjs</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/22/Shadowsocks折腾记/" rel="next" title="Shadowsocks折腾记">
+                <i class="fa fa-chevron-left"></i> Shadowsocks折腾记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/01/Phantomjs爬过的那些坑/" rel="prev" title="【phantomjs系列】Selenium+Phantomjs爬过的那些坑">
+                【phantomjs系列】Selenium+Phantomjs爬过的那些坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础篇（设置参数功法）"><span class="nav-number">1.</span> <span class="nav-text">基础篇（设置参数功法）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码测试"><span class="nav-number">1.1.</span> <span class="nav-text">代码测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置超时"><span class="nav-number">1.2.</span> <span class="nav-text">设置超时</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中级篇（合理开关）"><span class="nav-number">2.</span> <span class="nav-text">中级篇（合理开关）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码测试-1"><span class="nav-number">2.1.</span> <span class="nav-text">代码测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级篇（phantomjs并发问题）"><span class="nav-number">3.</span> <span class="nav-text">高级篇（phantomjs并发问题）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优化之路"><span class="nav-number">3.1.</span> <span class="nav-text">优化之路</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#不成熟的优化（一）"><span class="nav-number">3.1.1.</span> <span class="nav-text">不成熟的优化（一）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不成熟的优化（二）"><span class="nav-number">3.2.</span> <span class="nav-text">不成熟的优化（二）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不成熟的优化（三）"><span class="nav-number">3.3.</span> <span class="nav-text">不成熟的优化（三）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不算成熟但还可以的优化"><span class="nav-number">3.4.</span> <span class="nav-text">不算成熟但还可以的优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码测试："><span class="nav-number">3.5.</span> <span class="nav-text">代码测试：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#终极篇"><span class="nav-number">4.</span> <span class="nav-text">终极篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替代方案"><span class="nav-number">5.</span> <span class="nav-text">替代方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传送门"><span class="nav-number">6.</span> <span class="nav-text">传送门</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

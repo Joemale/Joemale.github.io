@@ -1,0 +1,1347 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="即使跌倒了，你要懂得抓一把沙子在手里。　　随着对安全技术探索的逐步深入，我深刻体会到掌握linux系统对于安全研究的重要性。而掌握Linux系统首先必须得学会一些常用的linux命令，其次再去掌握一些linux常用工具，最后再是深入理解linux系统内核等。因此本篇作为该系列的第一篇，主要用来记录分享一些自己常用且基础的Linux命令。">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【玩转Linux系列】Linux基础命令">
+<meta property="og:url" content="http://thief.one/2017/08/08/1/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="即使跌倒了，你要懂得抓一把沙子在手里。　　随着对安全技术探索的逐步深入，我深刻体会到掌握linux系统对于安全研究的重要性。而掌握Linux系统首先必须得学会一些常用的linux命令，其次再去掌握一些linux常用工具，最后再是深入理解linux系统内核等。因此本篇作为该系列的第一篇，主要用来记录分享一些自己常用且基础的Linux命令。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-11T07:04:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【玩转Linux系列】Linux基础命令">
+<meta name="twitter:description" content="即使跌倒了，你要懂得抓一把沙子在手里。　　随着对安全技术探索的逐步深入，我深刻体会到掌握linux系统对于安全研究的重要性。而掌握Linux系统首先必须得学会一些常用的linux命令，其次再去掌握一些linux常用工具，最后再是深入理解linux系统内核等。因此本篇作为该系列的第一篇，主要用来记录分享一些自己常用且基础的Linux命令。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/08/08/1/"/>
+
+  <title> 【玩转Linux系列】Linux基础命令 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【玩转Linux系列】Linux基础命令
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-08T20:21:20+08:00" content="2017-08-08">
+              2017-08-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术研究/" itemprop="url" rel="index">
+                    <span itemprop="name">技术研究</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/08/08/1/" class="leancloud_visitors" data-flag-title="【玩转Linux系列】Linux基础命令">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">即使跌倒了，你要懂得抓一把沙子在手里。<br></blockquote><br>　　随着对安全技术探索的逐步深入，我深刻体会到掌握linux系统对于安全研究的重要性。而掌握Linux系统首先必须得学会一些常用的linux命令，其次再去掌握一些linux常用工具，最后再是深入理解linux系统内核等。因此本篇作为该系列的第一篇，主要用来记录分享一些自己常用且基础的Linux命令。<br><a id="more"></a></p>
+<h3 id="命令帮助"><a href="#命令帮助" class="headerlink" title="命令帮助"></a>命令帮助</h3><h4 id="解析命令的意思-whatis、info"><a href="#解析命令的意思-whatis、info" class="headerlink" title="解析命令的意思(whatis、info)"></a>解析命令的意思(whatis、info)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">whatis whoami 解析命令的意思</div><div class="line">info whoami   详细解析命令的意思</div></pre></td></tr></table></figure>
+<h4 id="寻找命令的安装路径-which、whereis"><a href="#寻找命令的安装路径-which、whereis" class="headerlink" title="寻找命令的安装路径(which、whereis)"></a>寻找命令的安装路径(which、whereis)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">which</span> whoami  寻找命令的位置</div><div class="line">whereis whoami 寻找程序的位置</div></pre></td></tr></table></figure>
+<h3 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h3><h4 id="目录查看-ls"><a href="#目录查看-ls" class="headerlink" title="目录查看(ls)"></a>目录查看(ls)</h4><p>查看目录结构<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tree</div></pre></td></tr></table></figure></p>
+<p>查看当前目录下所有子文件夹排序后的大小<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">du -sh `ls` | sort</div></pre></td></tr></table></figure></p>
+<p>查看目录下文件个数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find ./ | wc -l</div></pre></td></tr></table></figure></p>
+<p>按时间排序，以列表的方式显示目录项<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls -lrt</div></pre></td></tr></table></figure></p>
+<p>给每项文件前面增加一个id编号<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls | cat -n</div></pre></td></tr></table></figure></p>
+<p>显示可阅读的文件大小：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ll -h</div></pre></td></tr></table></figure></p>
+<h4 id="文件目录权限-chmod、chown"><a href="#文件目录权限-chmod、chown" class="headerlink" title="文件目录权限(chmod、chown)"></a>文件目录权限(chmod、chown)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">改变文件的拥有者 chown</div><div class="line">改变文件读、写、执行等属性 chmod</div><div class="line">递归子目录修改： chown -R tuxapp <span class="built_in">source</span>/</div><div class="line">增加脚本可执行权限： chmod a+x myscript</div></pre></td></tr></table></figure>
+<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><h4 id="文件创建删除-touch、echo、rm-f"><a href="#文件创建删除-touch、echo、rm-f" class="headerlink" title="文件创建删除(touch、echo、rm -f)"></a>文件创建删除(touch、echo、rm -f)</h4><p>删除日志文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm *<span class="built_in">log</span> (等价: <span class="variable">$find</span> ./ -name “*<span class="built_in">log</span>” -<span class="built_in">exec</span> rm &#123;&#125; ;)</div></pre></td></tr></table></figure></p>
+<h4 id="文件查看-du-sh"><a href="#文件查看-du-sh" class="headerlink" title="文件查看(du -sh)"></a>文件查看(du -sh)</h4><p>查看文件大小<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">du -sh  文件名</div></pre></td></tr></table></figure></p>
+<p>统计文件行数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wc -l test.txt</div></pre></td></tr></table></figure></p>
+<h4 id="文件内容查看-cat、head、tail"><a href="#文件内容查看-cat、head、tail" class="headerlink" title="文件内容查看(cat、head、tail)"></a>文件内容查看(cat、head、tail)</h4><p>显示时同时显示行号<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat -n  （如：cat test.txt | cat -n）</div></pre></td></tr></table></figure></p>
+<p>动态查看文件内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail -f filename <span class="comment">#当有内容写入文件中再输出</span></div></pre></td></tr></table></figure></p>
+<p>正向逆向查看文件内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">head -1 filename <span class="comment"># 第1行内容</span></div><div class="line">tail -5 filename <span class="comment"># 倒数5行内容</span></div></pre></td></tr></table></figure></p>
+<h4 id="JSON格式化输出-jq"><a href="#JSON格式化输出-jq" class="headerlink" title="JSON格式化输出(jq)"></a>JSON格式化输出(jq)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat test.json | jq</div></pre></td></tr></table></figure>
+<p>也可以使用python模块：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat test.json | python -m json.tool</div></pre></td></tr></table></figure></p>
+<h4 id="文件搜索-find"><a href="#文件搜索-find" class="headerlink" title="文件搜索(find)"></a>文件搜索(find)</h4><p>linux 复制特定后缀文件（保持目录结构）:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar cvf my_txt_files.tar `find . -<span class="built_in">type</span> f -name <span class="string">"*.jsp*"</span>`</div></pre></td></tr></table></figure></p>
+<p>递归当前目录及子目录并删除所有.log文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find ./ -name <span class="string">"*.log"</span> -<span class="built_in">exec</span> rm &#123;&#125; \;</div></pre></td></tr></table></figure></p>
+<p>否定参数查找所有非txt文本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . ! -name <span class="string">"*.txt"</span> -<span class="built_in">print</span></div></pre></td></tr></table></figure></p>
+<p>按类型搜索<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -<span class="built_in">type</span> d -<span class="built_in">print</span>  //只列出所有目录</div></pre></td></tr></table></figure></p>
+<p>最近7天内被访问过的所有文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -atime -7 -<span class="built_in">type</span> f -<span class="built_in">print</span></div></pre></td></tr></table></figure></p>
+<h4 id="文件内容搜索-grep"><a href="#文件内容搜索-grep" class="headerlink" title="文件内容搜索(grep)"></a>文件内容搜索(grep)</h4><p>查看成功登陆ssh的IP地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">centos</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `grep <span class="string">'sshd'</span> /var/<span class="built_in">log</span>/secure* | grep -oE  <span class="string">'\&lt;([1-9]|[1-9][0-9]|1[0-9]&#123;2&#125;|2[01][0-9]|22[0-3])\&gt;(\.\&lt;([0-9]|[0-9][0-9]|1[0-9]&#123;2&#125;|2[0-4][0-9]|25[0-5])\&gt;)&#123;2&#125;\.\&lt;([1-9]|[0-9][0-9]|1[0-9]&#123;2&#125;|2[0-4][0-9]|25[0-4])\&gt;'</span> | sort  | uniq`; <span class="keyword">do</span> curl  -s --header <span class="string">"X-Forwarded-For: <span class="variable">$i</span>"</span> http://1212.ip138.com/ic.asp |iconv -c -f GB2312 -t utf-8 | grep -o -P <span class="string">'(?&lt;=\&lt;center\&gt;您的IP是：).*(?=&lt;\/center)'</span> ; <span class="keyword">done</span></div><div class="line"></div><div class="line">ubuntu：</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `grep <span class="string">'sshd'</span> /var/<span class="built_in">log</span>/auth.log* |grep <span class="string">'Accepted'</span> |grep ftp| grep -oE  <span class="string">'\&lt;([1-9]|[1-9][0-9]|1[0-9]&#123;2&#125;|2[01][0-9]|22[0-3])\&gt;(\.\&lt;([0-9]|[0-9][0-9]|1[0-9]&#123;2&#125;|2[0-4][0-9]|25[0-5])\&gt;)&#123;2&#125;\.\&lt;([1-9]|[0-9][0-9]|1[0-9]&#123;2&#125;|2[0-4][0-9]|25[0-4])\&gt;'</span> | sort  | uniq`; <span class="keyword">do</span> curl  -s --header <span class="string">"X-Forwarded-For: <span class="variable">$i</span>"</span> http://1212.ip138.com/ic.asp |iconv -c -f GB2312 -t utf-8 | grep -o -P <span class="string">'(?&lt;=\&lt;center\&gt;您的IP是：).*(?=&lt;\/center)'</span> ; <span class="keyword">done</span></div></pre></td></tr></table></figure></p>
+<p>递归目录搜索返回文本内容存在class字符串的行号<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep <span class="string">"class"</span> . -R -n</div></pre></td></tr></table></figure></p>
+<p>非匹配(-v)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps -ef | grep -v <span class="string">"python"</span>  <span class="comment">#匹配除了python进程</span></div></pre></td></tr></table></figure></p>
+<h4 id="文件内容排序-sort"><a href="#文件内容排序-sort" class="headerlink" title="文件内容排序(sort)"></a>文件内容排序(sort)</h4><ul>
+<li>-n 按数字进行排序 VS -d 按字典序进行排序</li>
+<li>-r 逆序排序</li>
+<li>-k N 指定按第N列排序</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sort -nrk 1 data.txt</div><div class="line">sort -bd data // 忽略像空格之类的前导空白字符</div></pre></td></tr></table></figure>
+<h4 id="消除重复行-uniq"><a href="#消除重复行-uniq" class="headerlink" title="消除重复行(uniq)"></a>消除重复行(uniq)</h4><p>消除重复行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sort unsort.txt | uniq</div></pre></td></tr></table></figure></p>
+<p>统计各行在文件中出现的次数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sort unsort.txt | uniq -c</div></pre></td></tr></table></figure></p>
+<p>找出重复行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sort unsort.txt | uniq -d</div></pre></td></tr></table></figure></p>
+<h3 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h3><p>查看磁盘空间利用大小<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">df -h</div></pre></td></tr></table></figure></p>
+<p>挂载U盘<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fdisk -l 查看U盘路径</div><div class="line">monut /dev/sdb4 /mnt  挂载U盘</div><div class="line"><span class="built_in">cd</span> /mnt 进入U盘</div><div class="line">umount /mnt  退出U盘</div></pre></td></tr></table></figure></p>
+<h3 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h3><p>杀死python相关的进程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ps -ef | grep python | cut -d <span class="string">' '</span> -f 2 | xargs <span class="built_in">kill</span></div><div class="line">或者</div><div class="line">pkill -9 python  <span class="comment">#-9表示强制删除，pkill以进程名字匹配</span></div></pre></td></tr></table></figure></p>
+<p>查看进程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps -ef | less</div></pre></td></tr></table></figure></p>
+<p>查看端口占用的进程状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lsof -i:3306</div></pre></td></tr></table></figure></p>
+<h3 id="网络管理"><a href="#网络管理" class="headerlink" title="网络管理"></a>网络管理</h3><p>查看网络连接<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netstat -an | less</div></pre></td></tr></table></figure></p>
+<p>查看网络路由<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">route -n</div></pre></td></tr></table></figure></p>
+<p>只查看ip信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ifconfig | grep inet</div></pre></td></tr></table></figure></p>
+<h3 id="系统管理"><a href="#系统管理" class="headerlink" title="系统管理"></a>系统管理</h3><p>查看系统位数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">getconf LONG_BIT</div></pre></td></tr></table></figure></p>
+<p>查看系统版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lsb_release -a</div></pre></td></tr></table></figure></p>
+<p>查看hosts文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /etc/hosts</div></pre></td></tr></table></figure></p>
+<p>查看CPU的核的个数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat /proc/cpuinfo | grep processor | wc -l</div></pre></td></tr></table></figure></p>
+<p>查看系统信息<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">uname -a</div><div class="line">uname -m 显示机器的处理器架构</div><div class="line">uname -r 显示正在使用的内核版本</div><div class="line">cat /proc/cpuinfo 显示CPUinfo的信息</div><div class="line">cat /proc/meminfo 校验内存使用</div><div class="line">cat /proc/version 显示内核的版本</div><div class="line">cat /proc/net/dev 显示网络适配器及统计</div><div class="line">cat /proc/mounts 显示已加载的文件系统</div></pre></td></tr></table></figure></p>
+<h3 id="性能管理"><a href="#性能管理" class="headerlink" title="性能管理"></a>性能管理</h3><h4 id="CPU-sar"><a href="#CPU-sar" class="headerlink" title="CPU(sar)"></a>CPU(sar)</h4><p>查看CPU使用率<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sar -u</div></pre></td></tr></table></figure></p>
+<p>查看CPU平均负载<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sar -q 1 2</div></pre></td></tr></table></figure></p>
+<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><p>查看内存使用情况<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sar -r 1 2</div><div class="line">或者</div><div class="line">free -m</div></pre></td></tr></table></figure></p>
+<h4 id="网络流量监控-iftop"><a href="#网络流量监控-iftop" class="headerlink" title="网络流量监控(iftop)"></a>网络流量监控(iftop)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo iftop -i eth1 -B <span class="comment">#-i 指定网卡，-B以byte显示，可以使用-h查看帮助信息</span></div></pre></td></tr></table></figure>
+<h4 id="服务器性能查看-htop"><a href="#服务器性能查看-htop" class="headerlink" title="服务器性能查看(htop)"></a>服务器性能查看(htop)</h4><p>top的加强版，推荐安装使用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">htop</div></pre></td></tr></table></figure></p>
+<h4 id="网络流量-dstat"><a href="#网络流量-dstat" class="headerlink" title="网络流量(dstat)"></a>网络流量(dstat)</h4><p>推荐使用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dstat</div></pre></td></tr></table></figure></p>
+<h3 id="其他内容"><a href="#其他内容" class="headerlink" title="其他内容"></a>其他内容</h3><h4 id="管道和重定向-、-、-amp-amp-、-gt-、-gt-gt"><a href="#管道和重定向-、-、-amp-amp-、-gt-、-gt-gt" class="headerlink" title="管道和重定向(|、||、&amp;&amp;、&gt;、&gt;&gt;)"></a>管道和重定向(|、||、&amp;&amp;、&gt;、&gt;&gt;)</h4><ul>
+<li>批处理命令连接执行，使用 |</li>
+<li>串联使用分号 ;</li>
+<li>前面成功，则执行后面一条，否则不执行:&amp;&amp;</li>
+<li>前面失败，则后一条执行: ||</li>
+<li><em>&gt;</em>覆盖原有内容</li>
+<li><em>&gt;&gt;</em>文件后追加内容</li>
+</ul>
+<p>重定向<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> <span class="built_in">test</span> &gt; test.txt <span class="comment">#覆盖原有内容</span></div><div class="line"><span class="built_in">echo</span> <span class="built_in">test</span> &gt;&gt; test.txt <span class="comment">#文件后追加内容</span></div></pre></td></tr></table></figure></p>
+<p>清空文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">:&gt; test.txt</div></pre></td></tr></table></figure></p>
+<p>nohup输出重定向<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nohup python revice_true_link.py &gt; ./<span class="built_in">log</span>/true_link.log &amp;</div></pre></td></tr></table></figure></p>
+<h4 id="Bash快捷键"><a href="#Bash快捷键" class="headerlink" title="Bash快捷键"></a>Bash快捷键</h4><ul>
+<li>Ctl-U   删除光标到行首的所有字符,在某些设置下,删除全行</li>
+<li>Ctl-W   删除当前光标到前边的最近一个空格之间的字符</li>
+<li>Ctl-H   backspace,删除光标前边的字符</li>
+<li>Ctl-R   匹配最相近的一个文件，然后输出</li>
+<li>Ctl-a   光标移动到行首</li>
+<li>Ctl-e   光标移动到行尾</li>
+</ul>
+<h4 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h4><p>访问远程资源，下载资源</p>
+<ul>
+<li>wget　　作用：下载远程文件  如：<a href="http://www.xxx.com/1.txt" target="_blank" rel="external">http://www.xxx.com/1.txt</a></li>
+<li>curl　　作用：访问网页，返回包内容</li>
+</ul>
+<h4 id="程序运行"><a href="#程序运行" class="headerlink" title="程序运行"></a>程序运行</h4><ul>
+<li>watch 运行的脚本 -n 秒数　　（几秒钟执行一次，不加n默认为2秒）</li>
+<li>nohup 要运行的程序 &amp;　　(让程序在后台运行，忽略所有挂断信号)</li>
+</ul>
+<h3 id="Linux学习网站"><a href="#Linux学习网站" class="headerlink" title="Linux学习网站"></a>Linux学习网站</h3><ul>
+<li><a href="http://linuxtools-rst.readthedocs.io/zh_CN/latest/" target="_blank" rel="external">http://linuxtools-rst.readthedocs.io/zh_CN/latest/</a></li>
+<li><a href="http://man.linuxde.net/" target="_blank" rel="external">http://man.linuxde.net/</a></li>
+</ul>
+<h3 id="本文内容参考"><a href="#本文内容参考" class="headerlink" title="本文内容参考"></a>本文内容参考</h3><p><a href="http://linuxtools-rst.readthedocs.io/zh_CN/latest/" target="_blank" rel="external">http://linuxtools-rst.readthedocs.io/zh_CN/latest/</a></p>
+<h3 id="传送门"><a href="#传送门" class="headerlink" title="传送门"></a>传送门</h3><p><a href="https://thief.one/2017/08/09/2/">【玩转linux系统】Linux内网渗透</a><br><a href="https://thief.one/2017/08/09/1/">【玩转linux系列】Vim使用</a><br><a href="https://thief.one/2017/08/11/1/">【玩转linux系列】shell编程</a></p>
+<p><em>注：本文内容部分来自互联网整理，部分来自个人经验总结；本文将持续收集更新，欢迎留言补充！</em></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/08/08/1/">【玩转Linux系列】Linux基础命令</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年08月08日 - 20:08</p>
+  <p><span>最后更新:</span>2017年10月11日 - 15:10</p>
+  <p><span>原始链接:</span><a href="/2017/08/08/1/" title="【玩转Linux系列】Linux基础命令">http://thief.one/2017/08/08/1/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/08/08/1/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i>linux</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/01/1/" rel="next" title="【渗透神器系列】Metasploit">
+                <i class="fa fa-chevron-left"></i> 【渗透神器系列】Metasploit
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/09/1/" rel="prev" title="【玩转linux系列】Vim使用">
+                【玩转linux系列】Vim使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令帮助"><span class="nav-number">1.</span> <span class="nav-text">命令帮助</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解析命令的意思-whatis、info"><span class="nav-number">1.1.</span> <span class="nav-text">解析命令的意思(whatis、info)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#寻找命令的安装路径-which、whereis"><span class="nav-number">1.2.</span> <span class="nav-text">寻找命令的安装路径(which、whereis)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录管理"><span class="nav-number">2.</span> <span class="nav-text">目录管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目录查看-ls"><span class="nav-number">2.1.</span> <span class="nav-text">目录查看(ls)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件目录权限-chmod、chown"><span class="nav-number">2.2.</span> <span class="nav-text">文件目录权限(chmod、chown)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件管理"><span class="nav-number">3.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件创建删除-touch、echo、rm-f"><span class="nav-number">3.1.</span> <span class="nav-text">文件创建删除(touch、echo、rm -f)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件查看-du-sh"><span class="nav-number">3.2.</span> <span class="nav-text">文件查看(du -sh)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件内容查看-cat、head、tail"><span class="nav-number">3.3.</span> <span class="nav-text">文件内容查看(cat、head、tail)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON格式化输出-jq"><span class="nav-number">3.4.</span> <span class="nav-text">JSON格式化输出(jq)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件搜索-find"><span class="nav-number">3.5.</span> <span class="nav-text">文件搜索(find)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件内容搜索-grep"><span class="nav-number">3.6.</span> <span class="nav-text">文件内容搜索(grep)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件内容排序-sort"><span class="nav-number">3.7.</span> <span class="nav-text">文件内容排序(sort)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消除重复行-uniq"><span class="nav-number">3.8.</span> <span class="nav-text">消除重复行(uniq)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘管理"><span class="nav-number">4.</span> <span class="nav-text">磁盘管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程管理"><span class="nav-number">5.</span> <span class="nav-text">进程管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络管理"><span class="nav-number">6.</span> <span class="nav-text">网络管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统管理"><span class="nav-number">7.</span> <span class="nav-text">系统管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能管理"><span class="nav-number">8.</span> <span class="nav-text">性能管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU-sar"><span class="nav-number">8.1.</span> <span class="nav-text">CPU(sar)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存"><span class="nav-number">8.2.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络流量监控-iftop"><span class="nav-number">8.3.</span> <span class="nav-text">网络流量监控(iftop)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器性能查看-htop"><span class="nav-number">8.4.</span> <span class="nav-text">服务器性能查看(htop)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络流量-dstat"><span class="nav-number">8.5.</span> <span class="nav-text">网络流量(dstat)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他内容"><span class="nav-number">9.</span> <span class="nav-text">其他内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#管道和重定向-、-、-amp-amp-、-gt-、-gt-gt"><span class="nav-number">9.1.</span> <span class="nav-text">管道和重定向(|、||、&&、>、>>)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bash快捷键"><span class="nav-number">9.2.</span> <span class="nav-text">Bash快捷键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源下载"><span class="nav-number">9.3.</span> <span class="nav-text">资源下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序运行"><span class="nav-number">9.4.</span> <span class="nav-text">程序运行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux学习网站"><span class="nav-number">10.</span> <span class="nav-text">Linux学习网站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本文内容参考"><span class="nav-number">11.</span> <span class="nav-text">本文内容参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传送门"><span class="nav-number">12.</span> <span class="nav-text">传送门</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

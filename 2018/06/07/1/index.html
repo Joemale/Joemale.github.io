@@ -1,0 +1,1289 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="chrome_remote_interface,headless chrome," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="高考加油！  　　如果要问有哪些抓包神器或者流量分析工具？以下几款工具是必须要提的，burpsuite（跨平台）、fiddler（windows下抓包神器）、wireshark（经典网络抓包工具）、justniffer（与前面几个使用代理获取流量不一样的是，justniffer是基于网卡获取流量）等。以上这几款工具之前我有单独成文介绍过，如有需要可点击蓝色链接移步。　　那么如果问有哪些程序化的抓包">
+<meta name="keywords" content="chrome_remote_interface,headless chrome">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用chrome_remote_interface实现程序化、自动化Web安全测试">
+<meta property="og:url" content="http://thief.one/2018/06/07/1/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="高考加油！  　　如果要问有哪些抓包神器或者流量分析工具？以下几款工具是必须要提的，burpsuite（跨平台）、fiddler（windows下抓包神器）、wireshark（经典网络抓包工具）、justniffer（与前面几个使用代理获取流量不一样的是，justniffer是基于网卡获取流量）等。以上这几款工具之前我有单独成文介绍过，如有需要可点击蓝色链接移步。　　那么如果问有哪些程序化的抓包">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://thief.one/upload_image/20180607/1.png">
+<meta property="og:image" content="http://thief.one/upload_image/20180607/2.png">
+<meta property="og:image" content="http://thief.one/upload_image/20180607/3.png">
+<meta property="og:updated_time" content="2018-06-07T09:00:27.519Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用chrome_remote_interface实现程序化、自动化Web安全测试">
+<meta name="twitter:description" content="高考加油！  　　如果要问有哪些抓包神器或者流量分析工具？以下几款工具是必须要提的，burpsuite（跨平台）、fiddler（windows下抓包神器）、wireshark（经典网络抓包工具）、justniffer（与前面几个使用代理获取流量不一样的是，justniffer是基于网卡获取流量）等。以上这几款工具之前我有单独成文介绍过，如有需要可点击蓝色链接移步。　　那么如果问有哪些程序化的抓包">
+<meta name="twitter:image" content="http://thief.one/upload_image/20180607/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2018/06/07/1/"/>
+
+  <title> 利用chrome_remote_interface实现程序化、自动化Web安全测试 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                利用chrome_remote_interface实现程序化、自动化Web安全测试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-07T15:22:18+08:00" content="2018-06-07">
+              2018-06-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/爬虫技术/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2018/06/07/1/" class="leancloud_visitors" data-flag-title="利用chrome_remote_interface实现程序化、自动化Web安全测试">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote class="blockquote-center">高考加油！</blockquote>
+
+<p>　　如果要问有哪些抓包神器或者流量分析工具？以下几款工具是必须要提的，burpsuite（跨平台）、<a href="https://thief.one/2017/04/27/1/">fiddler</a>（windows下抓包神器）、<a href="https://thief.one/2017/02/09/WireShark%E8%BF%87%E6%BB%A4%E8%A7%84%E5%88%99/">wireshark</a>（经典网络抓包工具）、<a href="https://thief.one/2017/09/27/1/">justniffer</a>（与前面几个使用代理获取流量不一样的是，justniffer是基于网卡获取流量）等。以上这几款工具之前我有单独成文介绍过，如有需要可点击蓝色链接移步。<br>　　那么如果问有哪些程序化的抓包工具？（注明一下这里的程序化指的是可编程）首先burpsuite算一个，因为我们可以开发扩展工具（<a href="https://thief.one/2018/05/04/1/">burpsuite插件开发之检测越权访问漏洞</a>）；另外fiddle也算一个，可以编辑配置文件，达到扩展功能，之前也介绍过。<br>　　那么如果问有哪些即可以实现程序化又可以实现自动化的抓包工具？（注明一下这里的自动化是指自动产生流量）这个问题有点拗口，你可能会想为什么一个抓包工具要负责产生流量，流量交给爬虫岂不是更好？这个问题暂且放一放，继续往下看。<br><a id="more"></a></p>
+<h3 id="自动化安全测试"><a href="#自动化安全测试" class="headerlink" title="自动化安全测试"></a>自动化安全测试</h3><p>　　平常我们经常会使用burpsuite等工具检测一个网站的安全性，检测方法不外乎使用浏览器访问网站且把流量代理到burpsuite上，然后在burpsuite上通过拦截、修改、重放流量等方式测试网站安全性。然而当要测试的网站非常多时，有没有一个更自动化、更省力的方式去测试呢？方案肯定是有的，简单来说要实现自动化web安全测试无非要解决几个问题，首先是流量怎么产生？然后是怎么从流量中分析出漏洞？</p>
+<h4 id="自动化测试方案：主动扫描器"><a href="#自动化测试方案：主动扫描器" class="headerlink" title="自动化测试方案：主动扫描器"></a>自动化测试方案：主动扫描器</h4><p>　　市面上基于爬虫的主动扫描器就是一种自动化安全测试工具，首先它的流量是通过爬虫爬取url主动产生的，然后利用一些漏洞插件去构造不同的访问请求。短板：目前市面上扫描器爬虫大多基于web1.0，无法加载js渲染网页，而现在越来越多的网站使用web2.0技术实现前后端数据交互。</p>
+<h4 id="自动化测试方案：被动扫描器"><a href="#自动化测试方案：被动扫描器" class="headerlink" title="自动化测试方案：被动扫描器"></a>自动化测试方案：被动扫描器</h4><p>　　一些大厂内部自研的被动扫描器，首先它的流量不是通过爬虫主动获取的，而是通过监听交换机等网络设备的网卡流量，然后利用一些漏洞插件去分析流量中存在漏洞的点。短板：适合大厂各业务线安全检查不适合测试某个特定的网站，因为需要人为访问网站产生流量。</p>
+<h4 id="自动化测试方案：selenium-流量获取工具-漏洞插件"><a href="#自动化测试方案：selenium-流量获取工具-漏洞插件" class="headerlink" title="自动化测试方案：selenium+流量获取工具+漏洞插件"></a>自动化测试方案：selenium+流量获取工具+漏洞插件</h4><p>　　selenium是一款网站自动化测试工具，可以程序化的操作浏览器，实现自动化产生流量。再结合抓包工具以及漏洞检测插件，应该就可以解决流量获取以及漏洞检测的问题。短板：用selenium只能实现一些简单的浏览器操作，对于检测复杂的网站系统，似乎不够用，而且速度很慢，性能很差。</p>
+<h4 id="自动化测试方案：chrome-remote-interface-漏洞插件"><a href="#自动化测试方案：chrome-remote-interface-漏洞插件" class="headerlink" title="自动化测试方案：chrome_remote_interface+漏洞插件"></a>自动化测试方案：chrome_remote_interface+漏洞插件</h4><p>　　之前我介绍过<a href="https://thief.one/2018/03/06/1/">headless chrome</a>，也介绍过<a href="https://thief.one/2017/03/31/Phantomjs%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/">phantomjs</a>等web2.0爬虫工具，目前推荐去学习使用headless-chrome。headless chrome工具是用来自动加载js，获取渲染后的页面源码，解决web2.0爬虫之困。而chrome_remote_interface是一个更底层的工具，可以用来分析协议，简单说就是可以分析整个渲染过程，以及截取分析过程中的流量。就类似您打开了chrome浏览器的审查元素功能，然后刷新一下页面，查看一下network信息。<br><img src="/upload_image/20180607/1.png" alt=""></p>
+<h3 id="chrome-remote-interface介绍"><a href="#chrome-remote-interface介绍" class="headerlink" title="chrome_remote_interface介绍"></a>chrome_remote_interface介绍</h3><p>chrome_remote_interface是一个开源项目，<a href="https://github.com/cyrus-and/chrome-remote-interface" target="_blank" rel="external">项目地址</a>，并且支持命令行、编码两种方式，且使用node.js开发。</p>
+<h4 id="安装使用"><a href="#安装使用" class="headerlink" title="安装使用"></a>安装使用</h4><p>因为chrome_remote_interface是基于nodejs的，因此需要安装npm包管理工具。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install npm -y</div></pre></td></tr></table></figure></p>
+<p>然后创建一个目录，初始化一个项目<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm init</div></pre></td></tr></table></figure></p>
+<p>在目录下安装chrome_remote_interface<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install chrome-remote-interface</div></pre></td></tr></table></figure></p>
+<p>创建一个简单的nodejs程序(nmask.js)：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">const CDP = require(<span class="string">'chrome-remote-interface'</span>);</div><div class="line"></div><div class="line">// node nmask.js https://nmask.cn</div><div class="line"></div><div class="line">var options = process.argv;</div><div class="line">var target_url = options[2];</div><div class="line"></div><div class="line">CDP((client) =&gt; &#123;</div><div class="line">    // extract domains</div><div class="line">    const &#123;Network, Page&#125; = client;</div><div class="line">    </div><div class="line">    // setup handlers</div><div class="line">    Network.requestWillBeSent((params) =&gt; &#123;</div><div class="line">        console.log(params.request.url);</div><div class="line">    &#125;);</div><div class="line">    Page.loadEventFired(() =&gt; &#123;</div><div class="line">        client.close();</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    // <span class="built_in">enable</span> events <span class="keyword">then</span> start!</div><div class="line">    Promise.all([</div><div class="line">        Network.enable(),</div><div class="line">        Page.enable()</div><div class="line">    ]).<span class="keyword">then</span>(() =&gt; &#123;</div><div class="line">        <span class="built_in">return</span> Page.navigate(&#123;url: target_url&#125;);//输出请求的url</div><div class="line">    &#125;).catch((err) =&gt; &#123;</div><div class="line">        console.error(err);</div><div class="line">        client.close();</div><div class="line">    &#125;);</div><div class="line">&#125;).on(<span class="string">'error'</span>, (err) =&gt; &#123;</div><div class="line">    console.error(err);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>说明：在运行这段程序前，必须要在系统上安装chrome以及启动chrome headless监听模式，具体怎么安装chrome headless可以移步：<a href="https://thief.one/2018/03/06/1/">headless chrome and api</a><br>启动chrome headless监听模式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chrome --headless --remote-debugging-port=9222</div><div class="line">或者</div><div class="line">google-chrome --headless --remote-debugging-port=9222</div></pre></td></tr></table></figure></p>
+<p>然后另外开启一个窗口，运行nodejs：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node nmask.js https://thief.one</div></pre></td></tr></table></figure></p>
+<p>运行结果如下：(输出渲染过程中请求的所有url)<br><img src="/upload_image/20180607/2.png" alt=""></p>
+<h3 id="chrome-remote-interface-for-python"><a href="#chrome-remote-interface-for-python" class="headerlink" title="chrome_remote_interface for python"></a>chrome_remote_interface for python</h3><p>　　由于chrome_remote_interface是nodejs实现的，因此对于不熟悉nodejs的朋友来说coding成本比较高。然而好在已经有外国友人用python封装了一个工具，<a href="https://github.com/wasiher/chrome_remote_interface_python" target="_blank" rel="external">项目地址</a>，虽然目前此项目尚处于初级阶段，但实实在在地解决了我的问题。</p>
+<h4 id="安装使用-1"><a href="#安装使用-1" class="headerlink" title="安装使用"></a>安装使用</h4><p>基于是用python3.5开发的，那么就clone一下项目，直接安装吧：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/wasiher/chrome-remote-interface-python.git</div><div class="line">python3 setup.py install</div></pre></td></tr></table></figure></p>
+<p>编写一个python版的程序(nmask.py)：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! -*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">__author__="nMask"</div><div class="line">__Date__="7 Jun 2018"</div><div class="line">__Blog__="https://thief.one"</div><div class="line">__version__="1.0"</div><div class="line">__py_version__="3.5"</div><div class="line"></div><div class="line">'<span class="string">''</span></div><div class="line"></div><div class="line">import asyncio</div><div class="line">import chrome_remote_interface</div><div class="line"></div><div class="line"></div><div class="line">class callbacks(object):</div><div class="line">    <span class="string">''</span><span class="string">' callback class '</span><span class="string">''</span></div><div class="line"></div><div class="line">    target_url = <span class="string">''</span></div><div class="line">    result = []</div><div class="line"></div><div class="line">    async def start(tabs):</div><div class="line">        await tabs.add()</div><div class="line"></div><div class="line">    async def tab_start(tabs, tab):</div><div class="line">        await tab.Page.enable()</div><div class="line">        await tab.Network.enable()</div><div class="line">        await tab.Page.navigate(url=callbacks.target_url)</div><div class="line"></div><div class="line">    async def network__response_received(tabs, tab, requestId, loaderId, timestamp, <span class="built_in">type</span>, response, **kwargs):</div><div class="line">        <span class="string">''</span><span class="string">'</span></div><div class="line">        print(response.requestHeaders)</div><div class="line">        print(dir(response))</div><div class="line">        more response attribute https://chromedevtools.github.io/devtools-protocol/tot/Network#type-Response</div><div class="line">        '<span class="string">''</span></div><div class="line">        try:</div><div class="line">            body = tabs.helpers.old_helpers.unpack_response_body(await tab.Network.get_response_body(requestId=requestId))</div><div class="line">        except tabs.FailResponse as e:</div><div class="line">            <span class="built_in">print</span>(<span class="string">'[Error]'</span>, e)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="built_in">print</span>(response.url,response.status,len(body))</div><div class="line">            callbacks.result.append((response.url,response.status,len(body)))</div><div class="line"></div><div class="line">    async def page__frame_stopped_loading(tabs, tab, **kwargs):</div><div class="line">        <span class="built_in">print</span>(<span class="string">"[Info]Finish"</span>)</div><div class="line">        tabs.terminate()</div><div class="line"></div><div class="line">    async def any(tabs, tab, callback_name, parameters):</div><div class="line">        pass</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line">    callbacks.target_url = <span class="string">"http://www.baidu.com"</span></div><div class="line">    asyncio.get_event_loop().run_until_complete(chrome_remote_interface.Tabs.run(<span class="string">'localhost'</span>, 9222, callbacks))</div><div class="line">    <span class="built_in">print</span>(callbacks.result)</div></pre></td></tr></table></figure></p>
+<p>说明：同样的在运行这段代码前，先运行chrome headless监听程序。</p>
+<p>然后运行该程序：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python nmask.py</div></pre></td></tr></table></figure></p>
+<p><img src="/upload_image/20180607/3.png" alt=""></p>
+<p>说明：运行程序，最终得到渲染过程中请求的url、响应码、响应内容长度。</p>
+<h3 id="Chrome-Debugging-Protocol"><a href="#Chrome-Debugging-Protocol" class="headerlink" title="Chrome Debugging Protocol"></a>Chrome Debugging Protocol</h3><p>　　无论是nodejs版本的chrome-remote-interface还是python版本的，实现的底层都是基于Chrome Debugging Protocol接口，<a href="https://chromedevtools.github.io/devtools-protocol/" target="_blank" rel="external">官方文档</a>，因此在使用chrome-remote-interface过程中，可以查询一下这个文档。比如python版本中network__response_received函数，是封装了Chrome Debugging Protocol接口Network.ResponseReceived函数，而此函数接受的参数，以及一些属性方法等都可以在该文档中查询。</p>
+<h3 id="解决文章开头的问题"><a href="#解决文章开头的问题" class="headerlink" title="解决文章开头的问题"></a>解决文章开头的问题</h3><p>　　文章开头还留了一个问题，有哪些即可以实现程序化又可以实现自动化的抓包工具？想想chrome-remote-interface能干啥？其一可以使用nodejs、python（可能还有其他语言封装的项目）编程，底层接口文档比较完善；其二用它来写web2.0爬虫，访问页面产生流量，当然区别web1.0爬虫，这里的流量是完整的流量，相当于人工打开浏览器访问网页；其三可以获取流量，并且进行分析。第一点功能实现了程序化，第二三点功能实现了自动化。<br>　　最后让我们回过头看一下前文提到的自动化测试方案–主动扫描器，其短板就是没法解决web2.0爬虫的困境，而chrome-remote-interface恰恰可以解决，发挥下想象力，其前途应该无限！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2018/06/07/1/">利用chrome_remote_interface实现程序化、自动化Web安全测试</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2018年06月07日 - 15:06</p>
+  <p><span>最后更新:</span>2018年06月07日 - 17:06</p>
+  <p><span>原始链接:</span><a href="/2018/06/07/1/" title="利用chrome_remote_interface实现程序化、自动化Web安全测试">http://thief.one/2018/06/07/1/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2018/06/07/1/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/chrome-remote-interface/" rel="tag"><i class="fa fa-tag"></i>chrome_remote_interface</a>
+          
+            <a href="/tags/headless-chrome/" rel="tag"><i class="fa fa-tag"></i>headless chrome</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/01/1/" rel="next" title="Supervisord管理进程实践">
+                <i class="fa fa-chevron-left"></i> Supervisord管理进程实践
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/21/1/" rel="prev" title="Python3.5协程学习研究">
+                Python3.5协程学习研究 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动化安全测试"><span class="nav-number">1.</span> <span class="nav-text">自动化安全测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自动化测试方案：主动扫描器"><span class="nav-number">1.1.</span> <span class="nav-text">自动化测试方案：主动扫描器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动化测试方案：被动扫描器"><span class="nav-number">1.2.</span> <span class="nav-text">自动化测试方案：被动扫描器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动化测试方案：selenium-流量获取工具-漏洞插件"><span class="nav-number">1.3.</span> <span class="nav-text">自动化测试方案：selenium+流量获取工具+漏洞插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动化测试方案：chrome-remote-interface-漏洞插件"><span class="nav-number">1.4.</span> <span class="nav-text">自动化测试方案：chrome_remote_interface+漏洞插件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chrome-remote-interface介绍"><span class="nav-number">2.</span> <span class="nav-text">chrome_remote_interface介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装使用"><span class="nav-number">2.1.</span> <span class="nav-text">安装使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chrome-remote-interface-for-python"><span class="nav-number">3.</span> <span class="nav-text">chrome_remote_interface for python</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装使用-1"><span class="nav-number">3.1.</span> <span class="nav-text">安装使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chrome-Debugging-Protocol"><span class="nav-number">4.</span> <span class="nav-text">Chrome Debugging Protocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决文章开头的问题"><span class="nav-number">5.</span> <span class="nav-text">解决文章开头的问题</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1305 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,多线程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="术业有专攻，如是而已当初在刚学习python多线程时，上网搜索资料几乎都是一片倒的反应python没有真正意义上的多线程，python多线程就是鸡肋。当时不明所以，只是了解到python带有GIL解释器锁的概念，同一时刻只能有一个线程在运行，遇到IO操作才会释放切换。那么，python多线程是否真的很鸡肋呢？要解决这个疑惑，我想必须亲自动手测试。">
+<meta name="keywords" content="python,多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python多线程鸡年不鸡肋">
+<meta property="og:url" content="http://thief.one/2017/02/17/Python多线程鸡年不鸡肋/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="术业有专攻，如是而已当初在刚学习python多线程时，上网搜索资料几乎都是一片倒的反应python没有真正意义上的多线程，python多线程就是鸡肋。当时不明所以，只是了解到python带有GIL解释器锁的概念，同一时刻只能有一个线程在运行，遇到IO操作才会释放切换。那么，python多线程是否真的很鸡肋呢？要解决这个疑惑，我想必须亲自动手测试。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-25T12:05:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python多线程鸡年不鸡肋">
+<meta name="twitter:description" content="术业有专攻，如是而已当初在刚学习python多线程时，上网搜索资料几乎都是一片倒的反应python没有真正意义上的多线程，python多线程就是鸡肋。当时不明所以，只是了解到python带有GIL解释器锁的概念，同一时刻只能有一个线程在运行，遇到IO操作才会释放切换。那么，python多线程是否真的很鸡肋呢？要解决这个疑惑，我想必须亲自动手测试。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/02/17/Python多线程鸡年不鸡肋/"/>
+
+  <title> Python多线程鸡年不鸡肋 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python多线程鸡年不鸡肋
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-17T13:22:14+08:00" content="2017-02-17">
+              2017-02-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/编程之道/" itemprop="url" rel="index">
+                    <span itemprop="name">编程之道</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/02/17/Python多线程鸡年不鸡肋/" class="leancloud_visitors" data-flag-title="Python多线程鸡年不鸡肋">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">术业有专攻，如是而已</blockquote><br>当初在刚学习python多线程时，上网搜索资料几乎都是一片倒的反应python没有真正意义上的多线程，python多线程就是鸡肋。当时不明所以，只是了解到python带有GIL解释器锁的概念，同一时刻只能有一个线程在运行，遇到IO操作才会释放切换。那么，python多线程是否真的很鸡肋呢？要解决这个疑惑，我想必须亲自动手测试。<br><a id="more"></a><br>　　经过对比python与java的多线程测试，我发现python多线程的效率确实不如java，但远还没有达到鸡肋的程度，那么跟其他机制相比较呢？</p>
+<h3 id="观点：用多进程替代多线程需求"><a href="#观点：用多进程替代多线程需求" class="headerlink" title="观点：用多进程替代多线程需求"></a>观点：用多进程替代多线程需求</h3><p>　　辗转了多篇博文，我看到了一些网友的观点，觉得应该使用python多进程来代替多线程的需求，因为多进程不受GIL的限制。于是我便动手使用多进程去解决一些并发问题，期间也遇到了一些坑，所幸大部分查找资料解决了，然后对多进程做了简单汇总介绍<a href="http://thief.one/2016/11/23/Python-multiprocessing/">Python多进程</a>。<br>　　那么是否多进程能完全替代多线程呢？别急，我们继续往下看。</p>
+<h3 id="观点：协程为最佳方案"><a href="#观点：协程为最佳方案" class="headerlink" title="观点：协程为最佳方案"></a>观点：协程为最佳方案</h3><p>　　协程的概念目前来说是比较火热的，协程不同于线程的地方在于协程不是操作系统进行切换，而是由程序员编码进行切换的，也就是说切换是由程序员控制的，这样就没有了线程所谓的安全问题。协程的概念非常广而深，本文暂不做具体介绍，以后会单独成文。</p>
+<h3 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h3><p>　　好了，网上的观点无非是使用多进程或者协程来代替多线程（当然换编程语言，换解释器之类方法除外），那么我们就来测试下这三者的性能之差。既然要公平测试，就应该考虑IO密集型与CPU密集型的问题，所以分两组数据进行测试。</p>
+<h4 id="IO密集型测试"><a href="#IO密集型测试" class="headerlink" title="IO密集型测试"></a>IO密集型测试</h4><p>　　测试IO密集型，我选择最常用的爬虫功能，计算爬虫访问bing所需要的时间。（主要测试多线程与协程，单线程与多进程就不测了，因为没有必要）<br>测试代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! -*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line">from gevent import monkey;monkey.patch_all()</div><div class="line">import gevent</div><div class="line">import time</div><div class="line">import threading</div><div class="line">import urllib2</div><div class="line"></div><div class="line">def urllib2_(url):</div><div class="line">	try:</div><div class="line">		urllib2.urlopen(url,timeout=10).<span class="built_in">read</span>()</div><div class="line">	except Exception,e:</div><div class="line">		<span class="built_in">print</span> e</div><div class="line"></div><div class="line">def gevent_(urls):</div><div class="line">	<span class="built_in">jobs</span>=[gevent.spawn(urllib2_,url) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</div><div class="line">	gevent.joinall(<span class="built_in">jobs</span>,timeout=10)</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">jobs</span>:</div><div class="line">		i.join()</div><div class="line"></div><div class="line">def thread_(urls):</div><div class="line">	a=[]</div><div class="line">	<span class="keyword">for</span> url <span class="keyword">in</span> urls:</div><div class="line">		t=threading.Thread(target=urllib2_,args=(url,))</div><div class="line">		a.append(t)</div><div class="line"></div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> a:</div><div class="line">		i.start()</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> a:</div><div class="line">		i.join()</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line">	urls=[<span class="string">"https://www.bing.com/"</span>]*10      </div><div class="line">	t1=time.time()</div><div class="line">	gevent_(urls)</div><div class="line">	t2=time.time()</div><div class="line">	<span class="built_in">print</span> <span class="string">'gevent-time:%s'</span> % str(t2-t1)</div><div class="line">	thread_(urls)</div><div class="line">	t4=time.time()</div><div class="line">	<span class="built_in">print</span> <span class="string">'thread-time:%s'</span> % str(t4-t2)</div></pre></td></tr></table></figure></p>
+<p>测试结果：<br>访问10次<br>gevent-time:0.380326032639<br>thread-time:0.376606941223<br>访问50次<br>gevent-time:1.3358900547<br>thread-time:1.59564089775<br>访问100次<br>gevent-time:2.42984986305<br>thread-time:2.5669670105<br>访问300次<br>gevent-time:6.66330099106<br>thread-time:10.7605059147<br>从结果可以看出，当并发数不断增大时，协程的效率确实比多线程要高，但在并发数不是那么高时，两者差异不大。</p>
+<h4 id="CPU密集型"><a href="#CPU密集型" class="headerlink" title="CPU密集型"></a>CPU密集型</h4><p>CPU密集型，我选择科学计算的一些功能，计算所需时间。（主要测试单线程、多线程、协程、多进程）<br>测试代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! -*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line">from multiprocessing import Process as pro</div><div class="line">from multiprocessing.dummy import Process as thr</div><div class="line">from gevent import monkey;monkey.patch_all()</div><div class="line">import gevent</div><div class="line"></div><div class="line">def run(i):</div><div class="line">	lists=range(i)</div><div class="line">	list(<span class="built_in">set</span>(lists))</div><div class="line">	</div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line">	<span class="string">''</span><span class="string">'</span></div><div class="line">	多进程</div><div class="line">	'<span class="string">''</span></div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(30):      <span class="comment">##10-2.1s 20-3.8s 30-5.9s</span></div><div class="line">		t=pro(target=run,args=(5000000,))</div><div class="line">		t.start()</div><div class="line"></div><div class="line">	<span class="string">''</span><span class="string">'</span></div><div class="line">	多线程</div><div class="line">	'<span class="string">''</span></div><div class="line">	<span class="comment"># for i in range(30):    ##10-3.8s  20-7.6s  30-11.4s</span></div><div class="line">	<span class="comment"># 	t=thr(target=run,args=(5000000,))</span></div><div class="line">	<span class="comment"># 	t.start()</span></div><div class="line"></div><div class="line">	<span class="string">''</span><span class="string">'</span></div><div class="line">	协程</div><div class="line">	'<span class="string">''</span></div><div class="line">	<span class="comment"># jobs=[gevent.spawn(run,5000000) for i in range(30)]  ##10-4.0s 20-7.7s 30-11.5s</span></div><div class="line">	<span class="comment"># gevent.joinall(jobs)</span></div><div class="line">	<span class="comment"># for i in jobs:</span></div><div class="line">	<span class="comment"># 	i.join()</span></div><div class="line"></div><div class="line">	<span class="string">''</span><span class="string">'</span></div><div class="line">	单线程</div><div class="line">	'<span class="string">''</span></div><div class="line">	<span class="comment"># for i in range(30):  ##10-3.5s  20-7.6s 30-11.3s</span></div><div class="line">	<span class="comment"># 	run(5000000)</span></div></pre></td></tr></table></figure></p>
+<p>测试结果：</p>
+<ul>
+<li>并发10次：【多进程】2.1s   【多线程】3.8s   【协程】4.0s  【单线程】3.5s</li>
+<li>并发20次：【多进程】3.8s   【多线程】7.6s   【协程】7.7s  【单线程】7.6s</li>
+<li>并发30次：【多进程】5.9s   【多线程】11.4s  【协程】11.5s 【单线程】11.3s </li>
+</ul>
+<p>　　可以看到，在CPU密集型的测试下，多进程效果明显比其他的好，多线程、协程与单线程效果差不多。这是因为只有多进程完全使用了CPU的计算能力。在代码运行时，我们也能够看到，只有多进程可以将CPU使用率占满。</p>
+<h3 id="本文结论"><a href="#本文结论" class="headerlink" title="本文结论"></a>本文结论</h3><p>　　从两组数据我们不难发现，python多线程并没有那么鸡肋。如若不然，Python3为何不去除GIL呢？对于此问题，Python社区也有两派意见，这里不再论述，我们应该尊重Python之父的决定。<br>　　至于何时该用多线程，何时用多进程，何时用协程？想必答案已经很明显了。<br>　　当我们需要编写并发爬虫等IO密集型的程序时，应该选用多线程或者协程（亲测差距不是特别明显）；当我们需要科学计算，设计CPU密集型程序，应该选用多进程。当然以上结论的前提是，不做分布式，只在一台服务器上测试。<br>　　答案已经给出，本文是否就此收尾？既然已经论述Python多线程尚有用武之地，那么就来介绍介绍其用法吧。</p>
+<h3 id="Multiprocessing-dummy模块"><a href="#Multiprocessing-dummy模块" class="headerlink" title="Multiprocessing.dummy模块"></a>Multiprocessing.dummy模块</h3><p>Multiprocessing.dummy用法与多进程Multiprocessing用法类似，只是在import包的时候，加上.dummy。<br>用法参考<a href="http://thief.one/2016/11/23/Python-multiprocessing/">Multiprocessing用法</a></p>
+<h3 id="threading模块"><a href="#threading模块" class="headerlink" title="threading模块"></a>threading模块</h3><p>　　这是python自带的threading多线程模块，其创建多线程主要有2种方式。一种为继承threading类，另一种使用threading.Thread函数，接下来将会分别介绍这两种用法。</p>
+<h4 id="Usage【1】"><a href="#Usage【1】" class="headerlink" title="Usage【1】"></a>Usage【1】</h4><p>利用threading.Thread()函数创建线程。<br>代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">def run(i):</div><div class="line">	<span class="built_in">print</span> i</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(10):</div><div class="line">	t=threading.Thread(target=run,args=(i,))</div><div class="line">	t.start()</div></pre></td></tr></table></figure></p>
+<p>　　说明：Thread()函数有2个参数，一个是target，内容为子线程要执行的函数名称；另一个是args，内容为需要传递的参数。创建完子线程，将会返回一个对象，调用对象的start方法，可以启动子线程。</p>
+<p>线程对象的方法：</p>
+<ul>
+<li>Start()                                 开始线程的执行</li>
+<li>Run()                                  定义线程的功能的函数</li>
+<li>Join(timeout=None)           程序挂起，直到线程结束；如果给了timeout，则最多阻塞timeout秒</li>
+<li>getName()                          返回线程的名字</li>
+<li>setName()                           设置线程的名字</li>
+<li>isAlive()                               布尔标志，表示这个线程是否还在运行</li>
+<li>isDaemon()                         返回线程的daemon标志</li>
+<li>setDaemon(daemonic)        把线程的daemon标志设为daemonic（一定要在start（）函数前调用）</li>
+<li>t.setDaemon(True)               把父线程设置为守护线程，当父进程结束时，子进程也结束。</li>
+</ul>
+<p>threading类的方法：</p>
+<ul>
+<li>threading.enumerate()        正在运行的线程数量</li>
+</ul>
+<h4 id="Usage【2】"><a href="#Usage【2】" class="headerlink" title="Usage【2】"></a>Usage【2】</h4><p>通过继承threading类，创建线程。<br>代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">import threading</div><div class="line"></div><div class="line">class <span class="built_in">test</span>(threading.Thread):</div><div class="line">    def __init__(self):</div><div class="line">        threading.Thread.__init__(self)</div><div class="line"></div><div class="line">    def run(self):</div><div class="line">        try:</div><div class="line">            <span class="built_in">print</span> <span class="string">"code one"</span></div><div class="line">        except:</div><div class="line">            pass</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(10):</div><div class="line">    cur=<span class="built_in">test</span>()</div><div class="line">    cur.start()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(10):</div><div class="line">    cur.join()</div></pre></td></tr></table></figure></p>
+<p>说明：此方法继承了threading类，并且重构了run函数功能。</p>
+<h3 id="获取线程返回值问题"><a href="#获取线程返回值问题" class="headerlink" title="获取线程返回值问题"></a>获取线程返回值问题</h3><p>　　有时候，我们往往需要获取每个子线程的返回值。然而通过调用普通函数，获取return值的方式在多线程中并不适用。因此需要一种新的方式去获取子线程返回值。<br>代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">import threading</div><div class="line"></div><div class="line">class <span class="built_in">test</span>(threading.Thread):</div><div class="line">    def __init__(self):</div><div class="line">        threading.Thread.__init__(self)</div><div class="line"></div><div class="line">    def run(self):</div><div class="line">        self.tag=1</div><div class="line"></div><div class="line">    def get_result(self):</div><div class="line">        <span class="keyword">if</span> self.tag==1:</div><div class="line">            <span class="built_in">return</span> True</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="built_in">return</span> False</div><div class="line"></div><div class="line">f=<span class="built_in">test</span>()</div><div class="line">f.start()</div><div class="line"><span class="keyword">while</span> f.isAlive():</div><div class="line">    <span class="built_in">continue</span></div><div class="line"><span class="built_in">print</span> f.get_result()</div></pre></td></tr></table></figure></p>
+<p>　　说明：多线程获取返回值的首要问题，就是子线程什么时候结束？我们应该什么时候去获取返回值？可以使用isAlive()方法判断子线程是否存活。</p>
+<h3 id="控制线程运行数目"><a href="#控制线程运行数目" class="headerlink" title="控制线程运行数目"></a>控制线程运行数目</h3><p>当需要执行的任务非常多时，我们往往需要控制线程的数量，threading类自带有控制线程数量的方法。<br>代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">import threading</div><div class="line"></div><div class="line">maxs=10  <span class="comment">##并发的线程数量</span></div><div class="line">threadLimiter=threading.BoundedSemaphore(maxs)</div><div class="line">class <span class="built_in">test</span>(threading.Thread):</div><div class="line">    def __init__(self):</div><div class="line">        threading.Thread.__init__(self)</div><div class="line"></div><div class="line">    def run(self):</div><div class="line">        threadLimiter.acquire()  <span class="comment">#获取</span></div><div class="line">        try:</div><div class="line">            <span class="built_in">print</span> <span class="string">"code one"</span></div><div class="line">        except:</div><div class="line">            pass</div><div class="line">        finally:</div><div class="line">            threadLimiter.release() <span class="comment">#释放</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(100):</div><div class="line">    cur=<span class="built_in">test</span>()</div><div class="line">    cur.start()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(100):</div><div class="line">    cur.join()</div></pre></td></tr></table></figure></p>
+<p>说明：以上程序可以控制多线程并发数为10，超过这个数量会引发异常。<br>除了自带的方法，我们还可以设计其他方案：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">threads=[]</div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">创建所有线程</div><div class="line">'<span class="string">''</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(10):</div><div class="line">	t=threading.Thread(target=run,args=(i,))</div><div class="line">	threads.append(t)</div><div class="line"><span class="string">''</span><span class="string">'</span></div><div class="line">启动列表中的线程</div><div class="line">'<span class="string">''</span></div><div class="line"><span class="keyword">for</span> t <span class="keyword">in</span> threads:</div><div class="line">    t.start()</div><div class="line">    <span class="keyword">while</span> True:</div><div class="line">        <span class="comment">#判断正在运行的线程数量,如果小于5则退出while循环,</span></div><div class="line">        <span class="comment">#进入for循环启动新的进程.否则就一直在while循环进入死循环</span></div><div class="line">        <span class="keyword">if</span>(len(threading.enumerate())&lt;5):</div><div class="line">            <span class="built_in">break</span></div></pre></td></tr></table></figure></p>
+<p>以上两种方式皆可以，本人更喜欢用下面那种方式。</p>
+<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import threadpool</div><div class="line">def ThreadFun(arg1,arg2):</div><div class="line">    pass</div><div class="line">def main():</div><div class="line">    device_list=[object1,object2,object3......,objectn]<span class="comment">#需要处理的设备个数</span></div><div class="line">    task_pool=threadpool.ThreadPool(8)<span class="comment">#8是线程池中线程的个数</span></div><div class="line">    request_list=[]<span class="comment">#存放任务列表</span></div><div class="line">    <span class="comment">#首先构造任务列表</span></div><div class="line">    <span class="keyword">for</span> device <span class="keyword">in</span> device_list:</div><div class="line">        request_list.append(threadpool.makeRequests(ThreadFun,[((device, ), &#123;&#125;)]))</div><div class="line">    <span class="comment">#将每个任务放到线程池中，等待线程池中线程各自读取任务，然后进行处理，使用了map函数，不了解的可以去了解一下。</span></div><div class="line">    map(task_pool.putRequest,request_list)</div><div class="line">    <span class="comment">#等待所有任务处理完成，则返回，如果没有处理完，则一直阻塞</span></div><div class="line">    task_pool.poll()</div><div class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<p><em>多进程问题，可以赶赴<a href="http://thief.one/2016/11/23/Python-multiprocessing/">Python多进程</a>现场，其他关于多线程问题，可以下方留言讨论</em></p>
+<p>申明：本文谈不上原创，其中借鉴了网上很多大牛的文章，本人只是在此测试论述Python多线程相关问题，并简单介绍Python多线程的基本用法，为新手朋友解惑。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/02/17/Python多线程鸡年不鸡肋/">Python多线程鸡年不鸡肋</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年02月17日 - 13:02</p>
+  <p><span>最后更新:</span>2017年07月25日 - 20:07</p>
+  <p><span>原始链接:</span><a href="/2017/02/17/Python多线程鸡年不鸡肋/" title="Python多线程鸡年不鸡肋">http://thief.one/2017/02/17/Python多线程鸡年不鸡肋/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/02/17/Python多线程鸡年不鸡肋/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i>python</a>
+          
+            <a href="/tags/多线程/" rel="tag"><i class="fa fa-tag"></i>多线程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/16/解决Python2-x编码之殇/" rel="next" title="Python2编码之殇">
+                <i class="fa fa-chevron-left"></i> Python2编码之殇
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/20/Python协程/" rel="prev" title="Python协程">
+                Python协程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#观点：用多进程替代多线程需求"><span class="nav-number">1.</span> <span class="nav-text">观点：用多进程替代多线程需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#观点：协程为最佳方案"><span class="nav-number">2.</span> <span class="nav-text">观点：协程为最佳方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试数据"><span class="nav-number">3.</span> <span class="nav-text">测试数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IO密集型测试"><span class="nav-number">3.1.</span> <span class="nav-text">IO密集型测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU密集型"><span class="nav-number">3.2.</span> <span class="nav-text">CPU密集型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本文结论"><span class="nav-number">4.</span> <span class="nav-text">本文结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiprocessing-dummy模块"><span class="nav-number">5.</span> <span class="nav-text">Multiprocessing.dummy模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#threading模块"><span class="nav-number">6.</span> <span class="nav-text">threading模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Usage【1】"><span class="nav-number">6.1.</span> <span class="nav-text">Usage【1】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Usage【2】"><span class="nav-number">6.2.</span> <span class="nav-text">Usage【2】</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取线程返回值问题"><span class="nav-number">7.</span> <span class="nav-text">获取线程返回值问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制线程运行数目"><span class="nav-number">8.</span> <span class="nav-text">控制线程运行数目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池"><span class="nav-number">9.</span> <span class="nav-text">线程池</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

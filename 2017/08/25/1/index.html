@@ -1,0 +1,1312 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="celery," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Quitters never win and winners never quit退缩者永无胜利，胜利者永不退缩。　　之前在分布式消息队列上我一直使用rabbitmq+pika组合，然而由于对rabbitmq与pika理解不深，因此使用过程中遇到了很多坑。直到最近我决定重新研究下分布式消息队列，当然这次抛弃了pika，而选用celery。　　回想之前我对pika与celery有过一些疑问，两者有何">
+<meta name="keywords" content="celery">
+<meta property="og:type" content="article">
+<meta property="og:title" content="celery分布式消息队列">
+<meta property="og:url" content="http://thief.one/2017/08/25/1/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="Quitters never win and winners never quit退缩者永无胜利，胜利者永不退缩。　　之前在分布式消息队列上我一直使用rabbitmq+pika组合，然而由于对rabbitmq与pika理解不深，因此使用过程中遇到了很多坑。直到最近我决定重新研究下分布式消息队列，当然这次抛弃了pika，而选用celery。　　回想之前我对pika与celery有过一些疑问，两者有何">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://thief.one/upload_image/20170825/1.png">
+<meta property="og:image" content="http://thief.one/upload_image/20170825/2.png">
+<meta property="og:image" content="http://thief.one/upload_image/20170825/3.png">
+<meta property="og:image" content="http://thief.one/upload_image/20170825/4.png">
+<meta property="og:updated_time" content="2018-06-25T10:21:04.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="celery分布式消息队列">
+<meta name="twitter:description" content="Quitters never win and winners never quit退缩者永无胜利，胜利者永不退缩。　　之前在分布式消息队列上我一直使用rabbitmq+pika组合，然而由于对rabbitmq与pika理解不深，因此使用过程中遇到了很多坑。直到最近我决定重新研究下分布式消息队列，当然这次抛弃了pika，而选用celery。　　回想之前我对pika与celery有过一些疑问，两者有何">
+<meta name="twitter:image" content="http://thief.one/upload_image/20170825/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/08/25/1/"/>
+
+  <title> celery分布式消息队列 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                celery分布式消息队列
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-25T17:58:59+08:00" content="2017-08-25">
+              2017-08-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/编程之道/" itemprop="url" rel="index">
+                    <span itemprop="name">编程之道</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/08/25/1/" class="leancloud_visitors" data-flag-title="celery分布式消息队列">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">Quitters never win and winners never quit<br>退缩者永无胜利，胜利者永不退缩。</blockquote><br>　　之前在分布式消息队列上我一直使用rabbitmq+pika组合，然而由于对rabbitmq与pika理解不深，因此使用过程中遇到了很多坑。直到最近我决定重新研究下分布式消息队列，当然这次抛弃了pika，而选用celery。<br>　　回想之前我对pika与celery有过一些疑问，两者有何区别？又有何相同点？经过几天的研究，目前总算是清晰了一点，因此在此对celery+rabbitmq做个记录。<br><a id="more"></a></p>
+<h3 id="安装celery"><a href="#安装celery" class="headerlink" title="安装celery"></a>安装celery</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install celery</div></pre></td></tr></table></figure>
+<p>说明：celery只支持python2.7及以上版本，建议在虚拟环境中安装，如何构造虚拟环境可参考：<a href="https://thief.one/2017/08/24/2/">python虚拟环境</a></p>
+<h3 id="Celery是如何工作的？"><a href="#Celery是如何工作的？" class="headerlink" title="Celery是如何工作的？"></a>Celery是如何工作的？</h3><p>我在此模拟几个角色来解释下celery+rabbitmq是如何工作的，脑洞来自网络，这里借鉴扩展一番。</p>
+<p>假设目前D公司要开半年度工作会议，会议上要指定下半年工作计划，参会人员有老板（下发任务者）、部门主管（celery分配任务者）、部门员工（工作者）、老板秘书（沟通协调者，rabbitmq）。</p>
+<h4 id="工作内容是什么？"><a href="#工作内容是什么？" class="headerlink" title="工作内容是什么？"></a>工作内容是什么？</h4><p>　　那么这场会议首先需要确定的是下半年的具体工作内容，这里就称之为“任务内容”。比如老板说我们下半年要开发出一个大数据平台，部门主管举手称赞，表示赞同，于是便愉快地定下了我们具体的工作任务（task），当然开发一个平台算是这个项目的总任务，其中可以细分成很多小的任务，比如大数据算法怎么写？界面怎么设计等。</p>
+<h4 id="工作者在哪里？"><a href="#工作者在哪里？" class="headerlink" title="工作者在哪里？"></a>工作者在哪里？</h4><p>　　在确定了具体工作任务后，老板便把这个项目交给了部门主管（celery），而部门主管此时要确定谁去完成这项任务，它可以指定某个人（worker），也可以多个人。</p>
+<h4 id="发布工作者在哪里？"><a href="#发布工作者在哪里？" class="headerlink" title="发布工作者在哪里？"></a>发布工作者在哪里？</h4><p>　　毫无疑问发布工作任务的人是老板（下发任务者），他指定了部门主管（celery）什么时候去完成哪些任务，并要求获取反馈信息。但有一点需要注意，老板只管布置任务，但不参与具体的任务分配，那这个任务分配的功能交给谁，没错就是部门主管，即celery。</p>
+<h4 id="老板与员工如何沟通项目？"><a href="#老板与员工如何沟通项目？" class="headerlink" title="老板与员工如何沟通项目？"></a>老板与员工如何沟通项目？</h4><p>　　项目之初，老板通过电话将任务传递给部门主管，部门主管通过部门会议将任务分配给员工，过段时间再将任务结果反馈给老板。然而随着任务越来越多，部门主管就发现了一个问题，任务太多了，每个任务还要反馈结果，记不住，也容易弄乱，导致效率下降。<br>　　在召开会议商量了一番后，老板秘书站起来说：“我有个提议，老板每天将布置的任务写成一张纸条放到我这，然后部门主管每天早上来取并交给员工，至于纸条上的任务如何分配，部门主管决定就行，但是要将结果同样写一张纸条反馈给我，我再交给老板。这样老板只负责下发任务，我只负责保管任务纸条，部门主管只负责分配任务并获取反馈，员工只负责按任务工作。大家职责都很明确，效率肯定会更高。”至此，老板与员工的沟通问题也解决了。</p>
+<h3 id="演示代码"><a href="#演示代码" class="headerlink" title="演示代码"></a>演示代码</h3><p>celery_con.py<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">from celery import Celery</div><div class="line">import time</div><div class="line"></div><div class="line">app = Celery(backend=<span class="string">'amqp'</span>, broker=<span class="string">'amqp://guest:guest@127.0.0.1:5672'</span>)</div></pre></td></tr></table></figure></p>
+<p>说明：celery_con.py的作用是连接rabbitmq，注意这里是利用celery连接的rabbitmq。映射到场景中，就是秘书与主管，秘书与老板之间传递信息的通道。</p>
+<p>task.py（任务内容）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">from celery_con import app</div><div class="line"></div><div class="line">@app.task</div><div class="line">def <span class="built_in">test</span>(x, y):</div><div class="line">    time.sleep(5)</div><div class="line">    <span class="built_in">return</span> x + y</div><div class="line"></div><div class="line"></div><div class="line">@app.task</div><div class="line">def scan(x,y):</div><div class="line">    time.sleep(1)</div><div class="line">    <span class="built_in">return</span> x-y</div></pre></td></tr></table></figure></p>
+<p>说明：task.py的功能是定制具体的任务，即“任务内容”，映射到场景中便是“开发一个大数据平台”，其中算法要怎么写？界面要如何设计等等。</p>
+<p>celery（部门主管）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">celery -A task worker -c 2</div></pre></td></tr></table></figure></p>
+<p>说明：此命令为开启work，分配任务；task就是task.py脚本的名称，表示work为task任务服务；-c 2表示同时开启2个work。映射到场景中，便是部门主管实时向秘书获取纸条，并分配给员工。</p>
+<p>run.py（老板）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">from task import <span class="built_in">test</span>,scan</div><div class="line"></div><div class="line">res=test.delay(2,2)</div><div class="line"><span class="built_in">print</span> res.get()</div></pre></td></tr></table></figure></p>
+<p>说明：run.py的作用是下发消息到rabbitmq队列中，映射到场景中即老板将任务写在纸条上交给秘书。</p>
+<p>运行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python run.py</div></pre></td></tr></table></figure></p>
+<p>而这里的秘书指的就是rabbitmq。</p>
+<h3 id="celery与pika的区别"><a href="#celery与pika的区别" class="headerlink" title="celery与pika的区别"></a>celery与pika的区别</h3><p>　　简单来说，pika其实就是用来连接rabbitmq服务的一个python客户端模块，而rabbitmq本身只有消息存储功能，并没有任务的分配调度。当然在用pika连接rabbitmq的过程也可以任务分配，这需要利用pika模块自己写一个调度代码，也就是相当于自己写一个celery模块。<br>　　celery就是用来分配任务的，主要是做异步任务队列的，但是celery不具备存储的功能，因此需要一种介质去存储消息，所以常常与rabbitmq一起用。</p>
+<h3 id="celery高级用法"><a href="#celery高级用法" class="headerlink" title="celery高级用法"></a>celery高级用法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from task import scan</div><div class="line"></div><div class="line">r=scan.s(2,2)</div><div class="line">res=r.delay()</div><div class="line"><span class="built_in">print</span> res.get()</div></pre></td></tr></table></figure>
+<h4 id="并发下发任务"><a href="#并发下发任务" class="headerlink" title="并发下发任务"></a>并发下发任务</h4><p>并发的下发任务，也可以使用for循环。这里指的并发，并不是所有任务一起执行，而是所有任务都下发到队列，而执行的并发数量，取决于work的数量。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">from celery import group</div><div class="line">from task import scan</div><div class="line">g=group( scan.s(i,i) <span class="keyword">for</span> i <span class="keyword">in</span> range(10)).delay()</div><div class="line"><span class="built_in">print</span> g.get()</div></pre></td></tr></table></figure></p>
+<h4 id="指定下发的队列"><a href="#指定下发的队列" class="headerlink" title="指定下发的队列"></a>指定下发的队列</h4><p>有时候我们会遇到多个任务，而每个任务的执行对象不一样，因此需要创建不同的队列去存储任务，这时就需要我们在创建任务、消费任务时指定队列的名称。</p>
+<h5 id="配置celery"><a href="#配置celery" class="headerlink" title="配置celery"></a>配置celery</h5><p>celery_con.py<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">from celery import Celery,platforms</div><div class="line"></div><div class="line">RABBITMQ_IP=<span class="string">"127.0.0.1"</span></div><div class="line">RABBITMQ_PORT=<span class="string">"5672"</span></div><div class="line">RABBITMQ_USER=<span class="string">""</span></div><div class="line">RABBITMQ_PASS=<span class="string">""</span></div><div class="line"></div><div class="line">app = Celery(</div><div class="line">    backend=<span class="string">'amqp'</span>, </div><div class="line">    broker=<span class="string">'amqp://&#123;&#125;:&#123;&#125;@&#123;&#125;:&#123;&#125;'</span>.format(</div><div class="line">        RABBITMQ_USER,</div><div class="line">        RABBITMQ_PASS,</div><div class="line">        RABBITMQ_IP,</div><div class="line">        RABBITMQ_PORT,</div><div class="line">        ),</div><div class="line">    CELERY_ROUTES = &#123;</div><div class="line">    <span class="string">'worker.test1'</span>: &#123;<span class="string">'queue'</span>: <span class="string">'test1'</span>&#125;,</div><div class="line">    <span class="string">'worker.test2'</span>: &#123;<span class="string">'queue'</span>: <span class="string">'test2'</span>&#125;,</div><div class="line">    <span class="string">'worker.test3'</span>: &#123;<span class="string">'queue'</span>: <span class="string">'test3'</span>&#125;,</div><div class="line">    &#125;,</div><div class="line">    )</div><div class="line"></div><div class="line"><span class="comment"># 允许celery以root权限启动</span></div><div class="line">platforms.C_FORCE_ROOT = True</div><div class="line"></div><div class="line">app.conf.update(</div><div class="line">CELERY_TASK_SERIALIZER=<span class="string">'json'</span>,</div><div class="line">CELERY_RESULT_SERIALIZER=<span class="string">'json'</span>,</div><div class="line">CELERY_IGNORE_RESULT = True,</div><div class="line">CELERYD_PREFETCH_MULTIPLIER = 10,</div><div class="line">CELERYD_MAX_TASKS_PER_CHILD = 200,</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<h5 id="指定任务内容"><a href="#指定任务内容" class="headerlink" title="指定任务内容"></a>指定任务内容</h5><p>task.py<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from celery_con import app</div><div class="line">@app.task</div><div class="line">def <span class="built_in">test</span>(x, y):</div><div class="line">    time.sleep(5)</div><div class="line">    <span class="built_in">return</span> x + y</div><div class="line">@app.task</div><div class="line">def scan(x,y):</div><div class="line">    time.sleep(1)</div><div class="line">    <span class="built_in">return</span> x-y</div></pre></td></tr></table></figure></p>
+<h5 id="下发任务"><a href="#下发任务" class="headerlink" title="下发任务"></a>下发任务</h5><p>push_task.py<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">from celery import group</div><div class="line">from task import scan</div><div class="line">g=group( scan.s(i,i) <span class="keyword">for</span> i <span class="keyword">in</span> range(10)).apply_async(queue=<span class="string">'test1'</span>)</div><div class="line"><span class="built_in">print</span> g.get()</div></pre></td></tr></table></figure></p>
+<p>说明：下发任务时，将会把任务存入rabbitmq的test1队列中。</p>
+<h5 id="启动work处理任务"><a href="#启动work处理任务" class="headerlink" title="启动work处理任务"></a>启动work处理任务</h5><p>celery_start_work.sh<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">celery -A task worker --queue=test1</div></pre></td></tr></table></figure></p>
+<p>说明：worker工作者将会从rabbitmq的test1队列中获取数据。</p>
+<h3 id="celery-rabbitmq优化"><a href="#celery-rabbitmq优化" class="headerlink" title="celery+rabbitmq优化"></a>celery+rabbitmq优化</h3><h4 id="忽略结果"><a href="#忽略结果" class="headerlink" title="忽略结果"></a>忽略结果</h4><p>我查看rabbitmqweb页面，发现celery每执行一个任务都会产生一个队列，这个队列存放的是这个任务执行的状态，而且这个队列很占内存，只有当客户端执行获取的操作，队列才会消失。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@app.task(ignore_result=True)  <span class="comment">#忽略结果，这样就不会产生queue了</span></div></pre></td></tr></table></figure></p>
+<h3 id="celery定时任务（计划任务）"><a href="#celery定时任务（计划任务）" class="headerlink" title="celery定时任务（计划任务）"></a>celery定时任务（计划任务）</h3><p>一般情况下，我们会使用linux系统自带的crontab做计划任务，然而在celery中可以用自身的定时任务功能创建计划任务。</p>
+<h4 id="创建celery-con-py"><a href="#创建celery-con-py" class="headerlink" title="创建celery_con.py"></a>创建celery_con.py</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">from celery import Celery</div><div class="line">from celery.schedules import crontab <span class="comment"># 计划任务模块</span></div><div class="line"></div><div class="line">RABBITMQ_IP=<span class="string">""</span></div><div class="line">RABBITMQ_PORT=<span class="string">""</span></div><div class="line">RABBITMQ_USER=<span class="string">""</span></div><div class="line">RABBITMQ_PASS=<span class="string">""</span></div><div class="line"></div><div class="line">app = Celery(</div><div class="line">    backend=<span class="string">'amqp'</span>,</div><div class="line">    broker=<span class="string">'amqp://&#123;&#125;:&#123;&#125;@&#123;&#125;:&#123;&#125;'</span>.format(</div><div class="line">        RABBITMQ_USER,</div><div class="line">        RABBITMQ_PASS,</div><div class="line">        RABBITMQ_IP,</div><div class="line">        RABBITMQ_PORT,</div><div class="line">        ),</div><div class="line">    )</div><div class="line"></div><div class="line">app.conf.update(</div><div class="line"><span class="comment"># 定时任务</span></div><div class="line">beat_schedule=&#123;</div><div class="line">        <span class="comment"># 定时任务1</span></div><div class="line">        <span class="string">"crontab_1"</span>: &#123;</div><div class="line">            <span class="string">"task"</span>: <span class="string">"celery_work.run"</span>, <span class="comment"># 执行的任务，即celery_work文件的run函数</span></div><div class="line">            <span class="string">"schedule"</span>: crontab(minute=<span class="string">'*/1'</span>), <span class="comment"># 每分钟执行一次</span></div><div class="line">            <span class="string">"args"</span>: (<span class="string">"celery_crontab_test"</span>,) <span class="comment"># 执行任务传入的参数</span></div><div class="line">        &#125;,</div><div class="line">        <span class="comment"># 定时任务2</span></div><div class="line">        <span class="comment"># ......</span></div><div class="line">    &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>说明：关键点在于在app.conf.update里面设置beat_schedule（计划任务），task表示要执行的任务名称，schedule代表计划任务的执行周期，args代表执行任务时所需要传入的参数。schedule具体配置可参考：<br><a href="http://docs.celeryproject.org/en/latest/reference/celery.schedules.html#celery.schedules.crontab" target="_blank" rel="external">http://docs.celeryproject.org/en/latest/reference/celery.schedules.html#celery.schedules.crontab</a></p>
+<h4 id="创建celery-work-py"><a href="#创建celery-work-py" class="headerlink" title="创建celery_work.py"></a>创建celery_work.py</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from celery_con import app</div><div class="line"></div><div class="line">@app.task</div><div class="line">def run(msg):</div><div class="line">    <span class="built_in">print</span> msg</div></pre></td></tr></table></figure>
+<p>说明：导入celery的配置，利用装饰器给run函数设置为celery任务。</p>
+<h4 id="执行celery定时任务"><a href="#执行celery定时任务" class="headerlink" title="执行celery定时任务"></a>执行celery定时任务</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">celery -A celery_work worker -B</div></pre></td></tr></table></figure>
+<p>说明：-A代表执行的任务名称(与work文件名称一样)，-B表示执行周期任务，只能有一个进程，不能启动多个。</p>
+<p>执行结果是，每隔一分钟，输出：celery_crontab_test<br><img src="/upload_image/20170825/1.png" alt=""></p>
+<h3 id="celery-rabbitmq-优先级任务"><a href="#celery-rabbitmq-优先级任务" class="headerlink" title="celery+rabbitmq 优先级任务"></a>celery+rabbitmq 优先级任务</h3><p>rabbitmq在3.5版本开始支持队列优先级，注意一定要将rabbitmq版本升级为3.5以后的，不然用不了优先级。需要说明一下，这里的优先级有两种，第一种是同一个队列，队列中不同的消息可以设置优先级；第二种是不同队列之间设置优先级。</p>
+<h4 id="同一个队列不同消息优先级"><a href="#同一个队列不同消息优先级" class="headerlink" title="同一个队列不同消息优先级"></a>同一个队列不同消息优先级</h4><p>对应需求：在work执行常规任务的时候，需要让work执行一些应急任务（突发），因此将一些突发任务push到同一个队列中，但要排在队列首位（优先级高），即先让work执行应急任务。</p>
+<h5 id="先在web界面创建一个优先级队列"><a href="#先在web界面创建一个优先级队列" class="headerlink" title="先在web界面创建一个优先级队列"></a>先在web界面创建一个优先级队列</h5><p><img src="/upload_image/20170825/2.png" alt=""><br>可以看到hello队列有Pri标志，表示是一个优先级队列。<br><img src="/upload_image/20170825/3.png" alt=""></p>
+<h5 id="创建celery配置文件：-config-py"><a href="#创建celery配置文件：-config-py" class="headerlink" title="创建celery配置文件：(config.py)"></a>创建celery配置文件：(config.py)</h5><p>文件写入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">from celery import Celery</div><div class="line">from kombu import Exchange, Queue</div><div class="line"></div><div class="line">RABBITMQ_IP=<span class="string">""</span></div><div class="line">RABBITMQ_PORT=<span class="string">""</span></div><div class="line">RABBITMQ_USER=<span class="string">""</span></div><div class="line">RABBITMQ_PASS=<span class="string">""</span></div><div class="line"></div><div class="line">app = Celery(</div><div class="line">    backend=<span class="string">'amqp'</span>, </div><div class="line">    broker=<span class="string">'amqp://&#123;&#125;:&#123;&#125;@&#123;&#125;:&#123;&#125;'</span>.format(</div><div class="line">        RABBITMQ_USER,</div><div class="line">        RABBITMQ_PASS,</div><div class="line">        RABBITMQ_IP,</div><div class="line">        RABBITMQ_PORT,</div><div class="line">        ),</div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment"># 相关配置写在这里</span></div><div class="line">app.conf.update(</div><div class="line">    CELERY_ACKS_LATE = True,</div><div class="line">    CELERYD_PREFETCH_MULTIPLIER = 1,</div><div class="line">    CELERYD_MAX_TASKS_PER_CHILD = 500,</div><div class="line">    CELERY_ENABLE_REMOTE_CONTROL = False,</div><div class="line">    CELERYD_TASK_TIME_LIMIT = 60,</div><div class="line">    CELERY_DEFAULT_QUEUE = <span class="string">'hello'</span>,</div><div class="line">    CELERY_QUEUES = (</div><div class="line">    Queue(<span class="string">'hello'</span>, Exchange(<span class="string">'hello'</span>), routing_key=<span class="string">'hello'</span>,queue_arguments=&#123;<span class="string">'x-max-priority'</span>: 10&#125;),   <span class="comment"># 队列名称为hello</span></div><div class="line">    ),</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<h5 id="创建一个简单的测试task：-task-py"><a href="#创建一个简单的测试task：-task-py" class="headerlink" title="创建一个简单的测试task：(task.py)"></a>创建一个简单的测试task：(task.py)</h5><p>文件写入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import time</div><div class="line">from config import app</div><div class="line"></div><div class="line">@app.task(ignore_result=True)</div><div class="line">def run(task):</div><div class="line">    <span class="built_in">print</span> task</div><div class="line">    time.sleep(1)</div></pre></td></tr></table></figure></p>
+<h5 id="创建一个push任务的py：-push-task-py"><a href="#创建一个push任务的py：-push-task-py" class="headerlink" title="创建一个push任务的py：(push_task.py)"></a>创建一个push任务的py：(push_task.py)</h5><p>文件写入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from celery import group</div><div class="line">from task import run</div><div class="line"></div><div class="line">group( run.s(<span class="string">"111111111"</span>,) <span class="keyword">for</span> i <span class="keyword">in</span> range(10)).apply_async(queue=<span class="string">'hello'</span>,priority=1) <span class="comment"># priority=1 用来设置消息优先级</span></div><div class="line">group( run.s(<span class="string">"999999999"</span>,) <span class="keyword">for</span> i <span class="keyword">in</span> range(10)).apply_async(queue=<span class="string">'hello'</span>,priority=9) <span class="comment"># priority=1 用来设置消息优先级</span></div><div class="line"></div><div class="line"><span class="comment"># 或者也可以用下面的方式push任务：</span></div><div class="line"><span class="comment"># for i in range(10):</span></div><div class="line"><span class="comment">#     run.apply_async(args=['111'],queue="hello",priority=1)</span></div><div class="line"><span class="comment">#     run.apply_async(args=['999'],queue="hello",priority=9)</span></div></pre></td></tr></table></figure></p>
+<h5 id="利用celery创建worker"><a href="#利用celery创建worker" class="headerlink" title="利用celery创建worker"></a>利用celery创建worker</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">celery -A task worker -Q hello</div></pre></td></tr></table></figure>
+<p><img src="/upload_image/20170825/4.png" alt=""><br>说明：从结果可以看出，worker优先执行了优先级为9的消息。</p>
+<h4 id="不同队列之间的优先级"><a href="#不同队列之间的优先级" class="headerlink" title="不同队列之间的优先级"></a>不同队列之间的优先级</h4><p>对应需求：worker将会获取多个队列中的任务并执行，但对某些队列的执行优先级高，某些队列执行的优先级低。</p>
+<p><em>暂没有找到实现方案，网上的方案测试都不成功！</em></p>
+<p><em>以上内容是个人理解的celery用法以及一些原理，如有谬误，欢迎指正，谢谢！</em></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/08/25/1/">celery分布式消息队列</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年08月25日 - 17:08</p>
+  <p><span>最后更新:</span>2018年06月25日 - 18:06</p>
+  <p><span>原始链接:</span><a href="/2017/08/25/1/" title="celery分布式消息队列">http://thief.one/2017/08/25/1/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/08/25/1/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/celery/" rel="tag"><i class="fa fa-tag"></i>celery</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/24/2/" rel="next" title="python虚拟环境">
+                <i class="fa fa-chevron-left"></i> python虚拟环境
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/31/1/" rel="prev" title="crontab计划任务">
+                crontab计划任务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装celery"><span class="nav-number">1.</span> <span class="nav-text">安装celery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Celery是如何工作的？"><span class="nav-number">2.</span> <span class="nav-text">Celery是如何工作的？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容是什么？"><span class="nav-number">2.1.</span> <span class="nav-text">工作内容是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工作者在哪里？"><span class="nav-number">2.2.</span> <span class="nav-text">工作者在哪里？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布工作者在哪里？"><span class="nav-number">2.3.</span> <span class="nav-text">发布工作者在哪里？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#老板与员工如何沟通项目？"><span class="nav-number">2.4.</span> <span class="nav-text">老板与员工如何沟通项目？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#演示代码"><span class="nav-number">3.</span> <span class="nav-text">演示代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#celery与pika的区别"><span class="nav-number">4.</span> <span class="nav-text">celery与pika的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#celery高级用法"><span class="nav-number">5.</span> <span class="nav-text">celery高级用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#并发下发任务"><span class="nav-number">5.1.</span> <span class="nav-text">并发下发任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定下发的队列"><span class="nav-number">5.2.</span> <span class="nav-text">指定下发的队列</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#配置celery"><span class="nav-number">5.2.1.</span> <span class="nav-text">配置celery</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#指定任务内容"><span class="nav-number">5.2.2.</span> <span class="nav-text">指定任务内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#下发任务"><span class="nav-number">5.2.3.</span> <span class="nav-text">下发任务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动work处理任务"><span class="nav-number">5.2.4.</span> <span class="nav-text">启动work处理任务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#celery-rabbitmq优化"><span class="nav-number">6.</span> <span class="nav-text">celery+rabbitmq优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#忽略结果"><span class="nav-number">6.1.</span> <span class="nav-text">忽略结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#celery定时任务（计划任务）"><span class="nav-number">7.</span> <span class="nav-text">celery定时任务（计划任务）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建celery-con-py"><span class="nav-number">7.1.</span> <span class="nav-text">创建celery_con.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建celery-work-py"><span class="nav-number">7.2.</span> <span class="nav-text">创建celery_work.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行celery定时任务"><span class="nav-number">7.3.</span> <span class="nav-text">执行celery定时任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#celery-rabbitmq-优先级任务"><span class="nav-number">8.</span> <span class="nav-text">celery+rabbitmq 优先级任务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同一个队列不同消息优先级"><span class="nav-number">8.1.</span> <span class="nav-text">同一个队列不同消息优先级</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#先在web界面创建一个优先级队列"><span class="nav-number">8.1.1.</span> <span class="nav-text">先在web界面创建一个优先级队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建celery配置文件：-config-py"><span class="nav-number">8.1.2.</span> <span class="nav-text">创建celery配置文件：(config.py)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建一个简单的测试task：-task-py"><span class="nav-number">8.1.3.</span> <span class="nav-text">创建一个简单的测试task：(task.py)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建一个push任务的py：-push-task-py"><span class="nav-number">8.1.4.</span> <span class="nav-text">创建一个push任务的py：(push_task.py)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用celery创建worker"><span class="nav-number">8.1.5.</span> <span class="nav-text">利用celery创建worker</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不同队列之间的优先级"><span class="nav-number">8.2.</span> <span class="nav-text">不同队列之间的优先级</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>

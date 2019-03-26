@@ -1,0 +1,1395 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+
+<!-- 自动推送链接到百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-101844534-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-101844534-2');
+</script>
+
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 1px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql,数据库," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="nMask's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Take control of your own desting命运掌握在自己手上　　最近由于项目需要，特地研究了下mysql数据库。虽然大学期间曾学习过mysql，但由于之前开发一直用rethinkdb以及mongodb数据库，因此对mysql已经有些生疏了。最近在使用期间也遇到了很多坑，但幸好最终还是靠着强大的Google解决了所有问题。因此在此记录下mysql相关问题的一些笔记，其中可能会涉">
+<meta name="keywords" content="mysql,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql相关笔记">
+<meta property="og:url" content="http://thief.one/2017/07/26/1/index.html">
+<meta property="og:site_name" content="nMask&#39;s Blog">
+<meta property="og:description" content="Take control of your own desting命运掌握在自己手上　　最近由于项目需要，特地研究了下mysql数据库。虽然大学期间曾学习过mysql，但由于之前开发一直用rethinkdb以及mongodb数据库，因此对mysql已经有些生疏了。最近在使用期间也遇到了很多坑，但幸好最终还是靠着强大的Google解决了所有问题。因此在此记录下mysql相关问题的一些笔记，其中可能会涉">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://thief.one/upload_image/20171020/1.png">
+<meta property="og:updated_time" content="2018-04-18T08:10:41.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql相关笔记">
+<meta name="twitter:description" content="Take control of your own desting命运掌握在自己手上　　最近由于项目需要，特地研究了下mysql数据库。虽然大学期间曾学习过mysql，但由于之前开发一直用rethinkdb以及mongodb数据库，因此对mysql已经有些生疏了。最近在使用期间也遇到了很多坑，但幸好最终还是靠着强大的Google解决了所有问题。因此在此记录下mysql相关问题的一些笔记，其中可能会涉">
+<meta name="twitter:image" content="http://thief.one/upload_image/20171020/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://thief.one/2017/07/26/1/"/>
+
+  <title> Mysql相关笔记 | nMask's Blog </title>
+
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d22cd975ccc2d560e0a480fec5629325";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nMask's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">那一年，风陵渡口.......</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://home.nmask.cn" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-count">
+          <a href="/count" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            琅琊榜
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-collect_url">
+          <a href="/SecWeb" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            导航
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-xss">
+          <a href="/atom.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Rss订阅
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-wechat">
+          <a href="/uploads/wechat-qcode.jpg" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            微信公众号
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Mysql相关笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-26T14:45:30+08:00" content="2017-07-26">
+              2017-07-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术研究/" itemprop="url" rel="index">
+                    <span itemprop="name">技术研究</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/07/26/1/" class="leancloud_visitors" data-flag-title="Mysql相关笔记">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">热度 </span>
+               <span class="leancloud-visitors-count"></span>
+               <span>℃</span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><blockquote class="blockquote-center">Take control of your own desting<br>命运掌握在自己手上</blockquote><br>　　最近由于项目需要，特地研究了下mysql数据库。虽然大学期间曾学习过mysql，但由于之前开发一直用rethinkdb以及mongodb数据库，因此对mysql已经有些生疏了。最近在使用期间也遇到了很多坑，但幸好最终还是靠着强大的Google解决了所有问题。因此在此记录下mysql相关问题的一些笔记，其中可能会涉及Mysql安全相关的问题，比如利用mysql导出shell、mysql提权等，权当备份。<br><a id="more"></a></p>
+<h2 id="Install-Mysql"><a href="#Install-Mysql" class="headerlink" title="Install Mysql"></a>Install Mysql</h2><h3 id="for-ubuntu"><a href="#for-ubuntu" class="headerlink" title="for ubuntu"></a>for ubuntu</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mysql-server</div><div class="line">sudo apt-get install phpmyadmin</div></pre></td></tr></table></figure>
+<p>Ubuntu上安装mysql几乎都是自动安装的，在安装过程中可以选择额外安装php／apache2。</p>
+<h3 id="for-centos"><a href="#for-centos" class="headerlink" title="for centos"></a>for centos</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</div><div class="line">rpm -ivh mysql-community-release-el7-5.noarch.rpm</div><div class="line">yum install mysql-community-server</div><div class="line">yum install phpmyadmin</div><div class="line">yum install httpd</div></pre></td></tr></table></figure>
+<h2 id="Mysql基础命令"><a href="#Mysql基础命令" class="headerlink" title="Mysql基础命令"></a>Mysql基础命令</h2><p>想要mysql玩得6，mysql命令行必须会用，或者说sql必须会，一起复习一下吧。</p>
+<h3 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h3><p>查看数据库：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show databases;</div></pre></td></tr></table></figure></p>
+<p>使用数据库：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">use  数据库名称;</div></pre></td></tr></table></figure></p>
+<p>新建数据库：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE DATABASE mydb;</div></pre></td></tr></table></figure></p>
+<p>删除数据库：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DROP DATABASE mydb;</div></pre></td></tr></table></figure></p>
+<h3 id="数据库表操作"><a href="#数据库表操作" class="headerlink" title="数据库表操作"></a>数据库表操作</h3><p>查看当前数据库表：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show tables;</div></pre></td></tr></table></figure></p>
+<p>创建数据表：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">CREATE TABLE teacher(</div><div class="line">id int primary key auto_increment,</div><div class="line">name varchar(20),</div><div class="line">gender char(1),</div><div class="line">age int(2),</div><div class="line">birth date,</div><div class="line">description varchar(100),</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>查看表结构：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">desc  表名;</div></pre></td></tr></table></figure></p>
+<p>删除表（DROP TABLE语句）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DROP TABLE teacher;</div></pre></td></tr></table></figure></p>
+<p>注：drop table 语句会删除该的所有记录及表结构</p>
+<p>修改表结构（ALTER TABLE语句）：</p>
+<ul>
+<li>alter table test add column job varchar(10); –添加表列</li>
+<li>alter table test rename test1; –修改表名</li>
+<li>alter table test drop column name; –删除表列</li>
+<li>alter table test modify address char(10) –修改表列类型（改类型）</li>
+<li>alter table test change address address1  char(40) –修改表列类型（改名字和类型，和下面的一行效果一样）</li>
+<li>alter table test change column address address1 varchar(30)–修改表列名（改名字和类型）</li>
+</ul>
+<h3 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h3><p>添加数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INSERT INTO 表名(字段1,字段2,字段3) values(值，值，值);</div></pre></td></tr></table></figure></p>
+<p>查询数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from 表名;</div></pre></td></tr></table></figure></p>
+<p>修改数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UPDATE 表名 SET 字段1名=值,字段2名=值,字段3名=值 <span class="built_in">where</span> 字段名=值;</div></pre></td></tr></table></figure></p>
+<p>删除数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DELETE FROM 表名;</div></pre></td></tr></table></figure></p>
+<p><em>以上命令是最最基础的，但也是最常用的</em></p>
+<h2 id="常用Sql语句"><a href="#常用Sql语句" class="headerlink" title="常用Sql语句"></a>常用Sql语句</h2><h3 id="获取固定数量的结果"><a href="#获取固定数量的结果" class="headerlink" title="获取固定数量的结果"></a>获取固定数量的结果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from table <span class="built_in">limit</span> m,n</div></pre></td></tr></table></figure>
+<p>说明：其中m是指记录开始的index，从0开始，表示第一条记录；n是指从第m+1条开始，取n条。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from table <span class="built_in">limit</span> 0,n</div></pre></td></tr></table></figure></p>
+<p>说明：查询前n条结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from table <span class="built_in">limit</span> m,-1</div></pre></td></tr></table></figure></p>
+<p>说明：查询m行以后的结果。</p>
+<h3 id="查询字符串"><a href="#查询字符串" class="headerlink" title="查询字符串"></a>查询字符串</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT * FROM table WHERE name like <span class="string">'%PHP%'</span></div></pre></td></tr></table></figure>
+<p>说明：%表示模糊查询，%php表示以php结尾的所有结果，%php%表示包含php的所有结果。</p>
+<h3 id="非空查询"><a href="#非空查询" class="headerlink" title="非空查询"></a>非空查询</h3><p>查询address字段不为空的结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT * FROM table WHERE address &lt;&gt;<span class="string">''</span></div></pre></td></tr></table></figure></p>
+<h3 id="判断查询"><a href="#判断查询" class="headerlink" title="判断查询"></a>判断查询</h3><p>查询age在0-18之间的结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT * FROM table WHERE age BETWEEN 0 AND 18</div></pre></td></tr></table></figure></p>
+<h3 id="查询结果的数量"><a href="#查询结果的数量" class="headerlink" title="查询结果的数量"></a>查询结果的数量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select count(*) from table</div></pre></td></tr></table></figure>
+<h3 id="查询结果不显示重复记录"><a href="#查询结果不显示重复记录" class="headerlink" title="查询结果不显示重复记录"></a>查询结果不显示重复记录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT DISTINCT 字段名 FROM 表名 WHERE 查询条件</div></pre></td></tr></table></figure>
+<p>注:SQL语句中的DISTINCT必须与WHERE子句联合使用，否则输出的信息不会有变化 ,且字段不能用*代替。</p>
+<h3 id="查询排序"><a href="#查询排序" class="headerlink" title="查询排序"></a>查询排序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">SELECT 字段名 FROM tb_stu WHERE 条件 ORDER BY 字段 DESC 降序</div><div class="line">SELECT 字段名 FROM tb_stu WHERE 条件 ORDER BY 字段 ASC  升序</div></pre></td></tr></table></figure>
+<p>注:对字段进行排序时若不指定排序方式，则默认为ASC升序。</p>
+<h3 id="多条件查询排序"><a href="#多条件查询排序" class="headerlink" title="多条件查询排序"></a>多条件查询排序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT 字段名 FROM tb_stu WHERE 条件 ORDER BY 字段1 ASC 字段2 DESC</div></pre></td></tr></table></figure>
+<h3 id="全文检索"><a href="#全文检索" class="headerlink" title="全文检索"></a>全文检索</h3><p>使用全文检索前，先要建立字段索引，比如我要这样查询：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">match(`name`,`name2`) aganst(<span class="string">"abc"</span>  IN BOOLEAN MODE)</div></pre></td></tr></table></figure></p>
+<p>即查询name或者name2字段中存在字符串abc的记录，则需要事先将name与name2字段做联合的索引，类似于这样：<br><img src="/upload_image/20171020/1.png" alt=""></p>
+<h4 id="多表全文检索"><a href="#多表全文检索" class="headerlink" title="多表全文检索"></a>多表全文检索</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from a left join b on a.pid = b.pid WHERE MATCH(`id`,`ip`) AGAINST(<span class="string">"abc"</span> IN BOOLEAN MODE) OR MATCH(`name`,`port`) AGAINST(<span class="string">"123"</span> IN BOOLEAN MODE)</div></pre></td></tr></table></figure>
+<p>说明：其中字符串abc也可以用%s代替，参数化构造sql语句。值得注意的是，默认情况下mysql只支持4个字符以上的全文索引。即搜索”nginx”是可以的，但是搜索”tcp”就不行。解决方案是通过修改/etc/my.conf配置文件，增加一行ft_min_word_len = 2，然后重启mysql，重新建索引（但是我测试失败了）。</p>
+<h4 id="全文检索模糊匹配与精确匹配"><a href="#全文检索模糊匹配与精确匹配" class="headerlink" title="全文检索模糊匹配与精确匹配"></a>全文检索模糊匹配与精确匹配</h4><p>当我们搜索:thief.one，若不用双引号包括，则会匹配出存在thief、one的结果，因为默认会使用.来分割字符串，搜索就变成了存在thief或者one的字符串，因此精确搜索为:”thief.one”就可以解决，因为把其当成了一个完整的字符串。</p>
+<h3 id="多表联合查询"><a href="#多表联合查询" class="headerlink" title="多表联合查询"></a>多表联合查询</h3><p>多表查询有三种方式：交叉查询、等值查询、外部查询（左连接、右连接）<br>参考：<a href="http://blog.csdn.net/hguisu/article/details/5731880" target="_blank" rel="external">http://blog.csdn.net/hguisu/article/details/5731880</a></p>
+<h4 id="交叉连接查询"><a href="#交叉连接查询" class="headerlink" title="交叉连接查询"></a>交叉连接查询</h4><p>交叉查询可将2表中所有的数据都查出，比较耗时。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SELECT * FROM table1 CROSS JOIN table2   </div><div class="line">SELECT * FROM table1 JOIN table2   </div><div class="line">SELECT * FROM table1,table2</div></pre></td></tr></table></figure></p>
+<h4 id="等值连接查询"><a href="#等值连接查询" class="headerlink" title="等值连接查询"></a>等值连接查询</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT * FROM table1 INNER JOIN table2</div></pre></td></tr></table></figure>
+<h4 id="外部连接查询"><a href="#外部连接查询" class="headerlink" title="外部连接查询"></a>外部连接查询</h4><p>这种查询是最常用的，查找出a与b表中公有的，另外查出只有a表或b表独有的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">select id, name from user left join techer on user.id = teacher.id</div><div class="line">select id, name from user right join techer on user.id = teacher.id</div></pre></td></tr></table></figure></p>
+<h4 id="三表查询"><a href="#三表查询" class="headerlink" title="三表查询"></a>三表查询</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select id, name from user left join techer on user.id = teacher.id left join home on teacher.id=home.id</div></pre></td></tr></table></figure>
+<h4 id="导出数据库为sql文件"><a href="#导出数据库为sql文件" class="headerlink" title="导出数据库为sql文件"></a>导出数据库为sql文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -uusername -ppassword db_name &gt; file_name.sql</div></pre></td></tr></table></figure>
+<h2 id="Mysql使用权限问题"><a href="#Mysql使用权限问题" class="headerlink" title="Mysql使用权限问题"></a>Mysql使用权限问题</h2><h3 id="mysql初始化设置密码"><a href="#mysql初始化设置密码" class="headerlink" title="mysql初始化设置密码"></a>mysql初始化设置密码</h3><p>当我们刚在服务器上安装完mysql，默认是可以无密码登陆的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -u root</div></pre></td></tr></table></figure></p>
+<p>当然，我们肯定要为mysql设置密码，那么怎么设置最方便呢？<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;use mysql;</div><div class="line">&gt;&gt;update user <span class="built_in">set</span> host = <span class="string">'%'</span> <span class="built_in">where</span> user = <span class="string">'root'</span>;</div><div class="line">&gt;&gt;UPDATE user SET Password=PASSWORD(<span class="string">'nmask'</span>) <span class="built_in">where</span> USER=<span class="string">'root'</span>;</div><div class="line">&gt;&gt;flush privileges;</div></pre></td></tr></table></figure></p>
+<p>注意：这里需要注意一点，以上命令输入成功之后，仍然无法用root账号密码登陆，这是为什么呢？因为默认root账户有好几个，会影响设置密码的这个root账户，需要将其余几个root账户都删除。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;delete from user <span class="built_in">where</span> user=<span class="string">'root'</span> and host!=<span class="string">'%'</span>;</div><div class="line">&gt;&gt;flush privileges;</div></pre></td></tr></table></figure></p>
+<p>重启mysql，应该可以使用设置了密码的root账户登陆了。</p>
+<h3 id="忘记密码？安全模式"><a href="#忘记密码？安全模式" class="headerlink" title="忘记密码？安全模式"></a>忘记密码？安全模式</h3><p>如果忘记了mysql密码怎么办？没事，可以进入安全模式，重设密码。</p>
+<p>首先，我们停掉MySQL服务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service mysqld stop</div></pre></td></tr></table></figure></p>
+<p>以安全模式启动MySQL：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo mysqld_safe --skip-grant-tables --skip-networking &amp;</div></pre></td></tr></table></figure></p>
+<p>注意我们加了–skip-networking，避免远程无密码登录 MySQL。这样我们就可以直接用root登录，无需密码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -u root</div></pre></td></tr></table></figure></p>
+<p>接着重设密码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt; use mysql;  </div><div class="line">mysql&gt; update user <span class="built_in">set</span> password=PASSWORD(<span class="string">"nmask"</span>) <span class="built_in">where</span> User=<span class="string">'root'</span>;  </div><div class="line">mysql&gt; flush privileges;</div></pre></td></tr></table></figure></p>
+<p>重设完毕后，我们退出，然后启动 MySQL 服务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service mysql restart</div></pre></td></tr></table></figure></p>
+<p>参考：<a href="http://www.ghostchina.com/how-to-reset-mysqls-root-password/" target="_blank" rel="external">http://www.ghostchina.com/how-to-reset-mysqls-root-password/</a></p>
+<h3 id="只能本地连接mysql，远程机器连接不了？"><a href="#只能本地连接mysql，远程机器连接不了？" class="headerlink" title="只能本地连接mysql，远程机器连接不了？"></a>只能本地连接mysql，远程机器连接不了？</h3><p>当我在服务器上搭建好mysql，输入以下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@ ~]<span class="comment"># mysql -u root -p</span></div><div class="line">Enter password:</div><div class="line">mysql&gt;</div></pre></td></tr></table></figure></p>
+<p>当输入mysql密码，出现mysql&gt;提示后，说明已经成功登陆mysql。</p>
+<p>我满心欢喜地打开自己的mac，准备远程连接服务器上的mysql，结果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[Mac~]mysql -u root -p -h 192.168.2.2</div><div class="line">Enter password: </div><div class="line">ERROR 1045 (28000): Access denied <span class="keyword">for</span> user <span class="string">'root'</span>@<span class="string">'192.168.2.2'</span> (using password: YES)</div></pre></td></tr></table></figure></p>
+<p>显示登陆失败，原因是mysql默认只支持本地登陆，不支持远程登陆。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>第一步，登陆mysql（服务器本地登陆，因为远程登陆不了），查看user表（内置表）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; use mysql;  <span class="comment">#选择mysql数据库（mysql是数据库名称）</span></div><div class="line">mysql&gt; select host,user,password from user; <span class="comment">#(查看user表中的内容)</span></div><div class="line">+-----------+------------+-------------------------------------------+</div><div class="line">| host      | user       | password                                  |</div><div class="line">+-----------+------------+-------------------------------------------+</div><div class="line">| localhost | root       | *21D8392A6B4CA12B9D194ED3E245258C4BE56DBA |</div><div class="line">| 127.0.0.1 | root       | *930D8392A6B4CA12B9D194ED3E245258C4BE56DB |</div><div class="line">+-----------+------------+-------------------------------------------+</div><div class="line">5 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt;</div></pre></td></tr></table></figure></p>
+<p>可以看到，user表中目前只有一个root用户，并且host为127.0.0.1/localhost，也就是说root用户目前只支持本地ip访问连接。</p>
+<p>第二步，修改表内容</p>
+<p>增加一个用户，将host设置为%<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;CREATE USER <span class="string">'nmask'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>;</div></pre></td></tr></table></figure></p>
+<p>或者更改root用户的host字段内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;update user <span class="built_in">set</span> host = <span class="string">'%'</span> <span class="built_in">where</span> user = <span class="string">'root'</span>;</div></pre></td></tr></table></figure></p>
+<p>更改root用户的密码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UPDATE user SET Password=PASSWORD(<span class="string">'nmask'</span>) <span class="built_in">where</span> USER=<span class="string">'root'</span>;</div></pre></td></tr></table></figure></p>
+<p>注意：初始化安装mysql时，默认可能只能用root用户登录，但默认root没有设置密码，因此一开始可以先给root用户添加一个密码进行登录。</p>
+<p>flush(必须要flush，使之生效)：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt;flush privileges;</div></pre></td></tr></table></figure></p>
+<p>查看用户<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select host,user from mysql.user;</div></pre></td></tr></table></figure></p>
+<p>再看下user表内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select host,user,password from user;</div><div class="line">+-----------+------------+-------------------------------------------+</div><div class="line">| host      | user       | password                                  |</div><div class="line">+-----------+------------+-------------------------------------------+</div><div class="line">| localhost | root       | *21D8392A6B4CA12B9D194ED3E245258C4BE56DBA |</div><div class="line">| 127.0.0.1 | root       | *930D8392A6B4CA12B9D194ED3E245258C4BE56DB |</div><div class="line">| %         | nmask      | *435A8F39F0791250895CA1DE2068FDC2CB477122 |</div><div class="line">+-----------+------------+-------------------------------------------+</div><div class="line">5 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</div></pre></td></tr></table></figure></p>
+<p>可以看到user表中增加了一个用户nmask，host为%。</p>
+<p>重启Mysql：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/mysqld restart</div></pre></td></tr></table></figure></p>
+<p>此时再用nmask用户远程连接下Mysql：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql -u nmask -p -h 192.168.2.2</div><div class="line">Enter password: </div><div class="line">mysql&gt;</div></pre></td></tr></table></figure></p>
+<p>连接成功，因为此用户host内容为%，表示允许任何主机访问此mysql服务。</p>
+<h3 id="用户权限很低"><a href="#用户权限很低" class="headerlink" title="用户权限很低"></a>用户权限很低</h3><p>当我用nmask账号登陆后，发现权限很低，具体表现为只能看到information_schema数据库。</p>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>在添加此用户时，就赋予其权限<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql&gt;INSERT INTO user</div><div class="line">    -&gt;     VALUES(<span class="string">'%'</span>,<span class="string">'nmask'</span>,PASSWORD(<span class="string">'123456'</span>),</div><div class="line">    -&gt;     <span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>,<span class="string">'Y'</span>);</div><div class="line">mysql&gt;flush privileges;</div></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt;CREATE USER <span class="string">'nmask'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span>;</div><div class="line">mysql&gt;GRANT ALL PRIVILEGES ON *.* TO <span class="string">'nmask'</span>@<span class="string">'%'</span> WITH GRANT OPTION;</div><div class="line">mysql&gt;flush privileges;</div></pre></td></tr></table></figure></p>
+<p>如果是phpmyadmin，可以通过root用户登陆后，进入user表进行修改。</p>
+<p>最后重启Mysql：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/mysqld restart</div></pre></td></tr></table></figure></p>
+<h3 id="自定义授权问题"><a href="#自定义授权问题" class="headerlink" title="自定义授权问题"></a>自定义授权问题</h3><p>如果想nmask使用123456密码从任何主机连接到mysql服务器，其他密码不行，则可以：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql&gt;GRANT ALL PRIVILEGES ON *.* TO <span class="string">'nmask'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123456'</span> WITH GRANT OPTION;</div><div class="line">mysql&gt;flush privileges;</div></pre></td></tr></table></figure></p>
+<p>如果想允许用户nmask只能从ip为10.0.0.1的主机连接到mysql服务器，并只能使用123456作为密码。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql&gt;GRANT ALL PRIVILEGES ON *.* TO <span class="string">'nmask'</span>@<span class="string">'10.0.0.1'</span> IDENTIFIED BY <span class="string">'123456'</span> WITH GRANT OPTION;</div><div class="line">mysql&gt;flush privileges;</div></pre></td></tr></table></figure></p>
+<p>最后重启Mysql：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/mysqld restart</div></pre></td></tr></table></figure></p>
+<h3 id="只能连接localhost？"><a href="#只能连接localhost？" class="headerlink" title="只能连接localhost？"></a>只能连接localhost？</h3><p>连接报错信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR 2003 (HY000): Can<span class="string">'t connect to MySQL server on '</span>192.168.10.2<span class="string">' (111) 不能用192.168.10.2去连接。</span></div></pre></td></tr></table></figure></p>
+<h4 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h4><p>修改/etc/my.cnf内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bind_address=127.0.0.1 改成 bind_address=192.168.10.2</div></pre></td></tr></table></figure></p>
+<p>重启mysql服务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo /etc/init.d/mysqld restart</div></pre></td></tr></table></figure></p>
+<p><em>脱坑秘籍：通过mysql命令行修改内容后，要记得plush；如果还不生效，尝试restart mysql服务</em></p>
+<h3 id="报错：too-many-connections"><a href="#报错：too-many-connections" class="headerlink" title="报错：too many connections"></a>报错：too many connections</h3><p>一般mysql默认最大连接数是100，当mysql连接数超过这个时，会报错此错；解决方案可以更改/etc/my.cof文件，更改最大连接上限。<br>在[mysqld]中新增max_connections=N，如果你没有这个文件请从编译源码中的support-files文件夹中复制你所需要的*.cnf文件为到 /etc/my.cnf<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[mysqld]</div><div class="line">port = 3306</div><div class="line">socket = /tmp/mysql.sock</div><div class="line">skip-locking</div><div class="line">key_buffer = 160M</div><div class="line">max_allowed_packet = 1M</div><div class="line">table_cache = 64</div><div class="line">sort_buffer_size = 512K</div><div class="line">net_buffer_length = 8K</div><div class="line">read_buffer_size = 256K</div><div class="line">read_rnd_buffer_size = 512K</div><div class="line">myisam_sort_buffer_size = 8M</div><div class="line">max_connections=1000</div></pre></td></tr></table></figure></p>
+<h3 id="mysql服务重启出错"><a href="#mysql服务重启出错" class="headerlink" title="mysql服务重启出错"></a>mysql服务重启出错</h3><p>mysql重启如果出错，可以先查看日志，在/var/log/mysql.log中查看具体的错误。<br>一般来说，可能是权限问题，如果mysql是mysql用户权限，则需要切换到sudo su mysql用户下去启动mysql服务。</p>
+<h3 id="phpmyadmin-403问题"><a href="#phpmyadmin-403问题" class="headerlink" title="phpmyadmin 403问题"></a>phpmyadmin 403问题</h3><p>安装完phpmyadmin与apache以后，访问<a href="http://localhost/phpmyadmin路径显示403。" target="_blank" rel="external">http://localhost/phpmyadmin路径显示403。</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/httpd/conf.d/phpMyAdmin.conf</div></pre></td></tr></table></figure></p>
+<p>编辑phpmyadmin.conf文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;Directory /usr/share/phpMyAdmin/&gt;</div><div class="line">   AddDefaultCharset UTF-8</div><div class="line"></div><div class="line">   &lt;IfModule mod_authz_core.c&gt;</div><div class="line">     <span class="comment"># Apache 2.4</span></div><div class="line">     &lt;RequireAny&gt;</div><div class="line">       <span class="comment">#Require ip 127.0.0.1</span></div><div class="line">       <span class="comment">#Require ip ::1</span></div><div class="line">       Require all granted</div><div class="line">     &lt;/RequireAny&gt;</div><div class="line">   &lt;/IfModule&gt;</div><div class="line">   &lt;IfModule !mod_authz_core.c&gt;</div><div class="line">     <span class="comment"># Apache 2.2</span></div><div class="line">     Order Deny,Allow</div><div class="line">     Deny from All</div><div class="line">     Allow from 127.0.0.1</div><div class="line">     Allow from ::1</div><div class="line">   &lt;/IfModule&gt;</div><div class="line">&lt;/Directory&gt;</div></pre></td></tr></table></figure></p>
+<p>另外补充一下，如果要更改apache的端口，则可更改/etc/httpd/conf/httpd.conf文件。</p>
+<h2 id="Mysql性能优化"><a href="#Mysql性能优化" class="headerlink" title="Mysql性能优化"></a>Mysql性能优化</h2><h3 id="mysql-insert加速"><a href="#mysql-insert加速" class="headerlink" title="mysql insert加速"></a>mysql insert加速</h3><p>　　insert是操作数据库最常用的动作，当有大量数据需要插入数据库时，性能至关重要，即插入数据的速度。mysql insert性能优化参考：<a href="http://blog.jobbole.com/29432/" target="_blank" rel="external">http://blog.jobbole.com/29432/</a></p>
+<h4 id="方案：一条SQL语句插入多条数据（亲测有效）"><a href="#方案：一条SQL语句插入多条数据（亲测有效）" class="headerlink" title="方案：一条SQL语句插入多条数据（亲测有效）"></a>方案：一条SQL语句插入多条数据（亲测有效）</h4><p>将sql语句修改成以下类型，即一条sql语句插入多条数据，可大大提高插入效率。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `<span class="built_in">type</span>`) VALUES (<span class="string">'0'</span>, <span class="string">'userid_0'</span>, <span class="string">'content_0'</span>, 0), (<span class="string">'1'</span>, <span class="string">'userid_1'</span>, <span class="string">'content_1'</span>, 1);</div></pre></td></tr></table></figure></p>
+<p>修改后的插入操作能够提高程序的插入效率。这里第二种SQL执行效率高的主要原因有两个，一是减少SQL语句解析的操作， 只需要解析一次就能进行数据的插入操作，二是SQL语句较短，可以减少网络传输的IO。</p>
+<h4 id="方案：在事务中进行插入处理"><a href="#方案：在事务中进行插入处理" class="headerlink" title="方案：在事务中进行插入处理"></a>方案：在事务中进行插入处理</h4><p>插入改成以下内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">START TRANSACTION;</div><div class="line">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `<span class="built_in">type</span>`) VALUES (<span class="string">'0'</span>, <span class="string">'userid_0'</span>, <span class="string">'content_0'</span>, 0);</div><div class="line">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `<span class="built_in">type</span>`) VALUES (<span class="string">'1'</span>, <span class="string">'userid_1'</span>, <span class="string">'content_1'</span>, 1);</div><div class="line">...</div><div class="line">COMMIT;</div></pre></td></tr></table></figure></p>
+<p>　　使用事务可以提高数据的插入效率，这是因为进行一个INSERT操作时，MySQL内部会建立一个事务，在事务内进行真正插入处理。通过使用事务可以减少创建事务的消耗，所有插入都在执行后才进行提交操作。</p>
+<p>注意事项：</p>
+<ol>
+<li>SQL语句是有长度限制，在进行数据合并在同一SQL中务必不能超过SQL长度限制，通过max_allowed_packet配置可以修改，默认是1M。</li>
+<li>事务需要控制大小，事务太大可能会影响执行的效率。MySQL有innodb_log_buffer_size配置项，超过这个值会日志会使用磁盘数据，这时，效率会有所下降。所以比较好的做法是，在事务大小达到配置项数据级前进行事务提交。</li>
+</ol>
+<h2 id="Mysql特殊字符编码问题"><a href="#Mysql特殊字符编码问题" class="headerlink" title="Mysql特殊字符编码问题"></a>Mysql特殊字符编码问题</h2><h3 id="存储报错"><a href="#存储报错" class="headerlink" title="存储报错"></a>存储报错</h3><p>有时会碰到在往mysql中存储一些特殊字符时（微信、qq表情等），会提示编码报错，类似如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(1366, <span class="string">"Incorrect string value: '\\xF0\\x9F\\x9A\\x80 D...’ for</span></div></pre></td></tr></table></figure></p>
+<h3 id="存储特殊编码解决方案"><a href="#存储特殊编码解决方案" class="headerlink" title="存储特殊编码解决方案"></a>存储特殊编码解决方案</h3><p>首先得明确，需要将mysql的utf8编码改成utf8mb4，utf8mb4是对utf8的补充，让其可以保存一些特殊字符。</p>
+<h4 id="修改数据库编码"><a href="#修改数据库编码" class="headerlink" title="修改数据库编码"></a>修改数据库编码</h4><p>可以选择数据库，然后点击操作，排序规则改为：utf8mb4_general_ci</p>
+<h4 id="修改数据表编码"><a href="#修改数据表编码" class="headerlink" title="修改数据表编码"></a>修改数据表编码</h4><p>选中数据表，点击操作，修改排序规则为：utf8mb4_general_ci</p>
+<h4 id="修改数据字段编码"><a href="#修改数据字段编码" class="headerlink" title="修改数据字段编码"></a>修改数据字段编码</h4><p>选择字段，点击修改，排序规则改为：utf8mb4_general_ci</p>
+<h4 id="修改代码中连接mysql的编码："><a href="#修改代码中连接mysql的编码：" class="headerlink" title="修改代码中连接mysql的编码："></a>修改代码中连接mysql的编码：</h4><p>这里以python为例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql_charset=<span class="string">"utf8mb4"</span></div></pre></td></tr></table></figure></p>
+<p>说明：必须要以上4个编码都改成utf8mb4，才不会报错。</p>
+<h2 id="Python操作Mysql"><a href="#Python操作Mysql" class="headerlink" title="Python操作Mysql"></a>Python操作Mysql</h2><p>利用python开发时，经常会用到跟mysql相关的操作，这时候需要利用第三方库，MySQLdb。</p>
+<h3 id="MySQLdb安装"><a href="#MySQLdb安装" class="headerlink" title="MySQLdb安装"></a>MySQLdb安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install mysql-python</div></pre></td></tr></table></figure>
+<p>或者<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install python-mysqldb</div></pre></td></tr></table></figure></p>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>导入模块<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import MySQLdb</div></pre></td></tr></table></figure></p>
+<p>连接mysql数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">conn=MySQLdb.connect(host=<span class="string">"localhost"</span>,user=<span class="string">"root"</span>,passwd=<span class="string">"root"</span>,db=<span class="string">"test"</span>,charset=<span class="string">"utf8"</span>,connect_timeout=10)  <span class="comment">#connec_timeout连接超时时间  </span></div><div class="line">cursor = conn.cursor()</div></pre></td></tr></table></figure></p>
+<p>创建表结构<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sql = <span class="string">"create table if not exists user(name varchar(128) primary key, created int(10))"</span>  </div><div class="line">cursor.execute(sql)</div></pre></td></tr></table></figure></p>
+<p>往表中写入数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sql = <span class="string">"insert into user(name,created) values(%s,%s)"</span>     </div><div class="line">param = (<span class="string">"aaa"</span>,int(time.time()))      </div><div class="line">n = cursor.execute(sql,param)      </div><div class="line">cursor.close()</div><div class="line">conn.commit()    <span class="comment">#必须要commit，不然数据只会缓存在本地，而不会真正的插入数据库</span></div></pre></td></tr></table></figure></p>
+<p>往表中写入多行数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sql = <span class="string">"insert into user(name,created) values(%s,%s)"</span>     </div><div class="line">param = ((<span class="string">"bbb"</span>,int(time.time())), (<span class="string">"ccc"</span>,33), (<span class="string">"ddd"</span>,44) )  </div><div class="line">n = cursor.executemany(sql,param)</div></pre></td></tr></table></figure></p>
+<p>更新表中数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sql = <span class="string">"update user set name=%s where name='aaa'"</span>     </div><div class="line">param = (<span class="string">"zzz"</span>)      </div><div class="line">n = cursor.execute(sql,param)</div></pre></td></tr></table></figure></p>
+<p>查询表中数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">n = cursor.execute(<span class="string">"select * from user"</span>)      </div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> cursor.fetchall():      </div><div class="line">    <span class="built_in">print</span> row  </div><div class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> row:      </div><div class="line">        <span class="built_in">print</span> r</div></pre></td></tr></table></figure></p>
+<p>删除表中数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sql = <span class="string">"delete from user where name=%s"</span>     </div><div class="line">param =(<span class="string">"bbb"</span>)      </div><div class="line">n = cursor.execute(sql,param)</div></pre></td></tr></table></figure></p>
+<p>删除表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sql = <span class="string">"drop table if exists user"</span>  </div><div class="line">cursor.execute(sql)</div></pre></td></tr></table></figure></p>
+<p>提交commit<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conn.commit()</div></pre></td></tr></table></figure></p>
+<p>关闭连接<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conn.close()</div></pre></td></tr></table></figure></p>
+<h3 id="Python操作mysql优化问题"><a href="#Python操作mysql优化问题" class="headerlink" title="Python操作mysql优化问题"></a>Python操作mysql优化问题</h3><p>1、commit操作放在最后，或者循环外面<br>2、使用executemany，插入多条数据</p>
+<h2 id="时间墙"><a href="#时间墙" class="headerlink" title="时间墙"></a>时间墙</h2><p>@2017.07.28　　添加mysql权限问题内容<br>@2017.07.29　　添加mysql基础命令、mysql性能优化、python操作mysql</p>
+<p><em>本文将会持续添加mysql有关的问题</em></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017/07/26/1/">Mysql相关笔记</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 nMask 的个人博客">nMask</a></p>
+  <p><span>发布时间:</span>2017年07月26日 - 14:07</p>
+  <p><span>最后更新:</span>2018年04月18日 - 16:04</p>
+  <p><span>原始链接:</span><a href="/2017/07/26/1/" title="Mysql相关笔记">http://thief.one/2017/07/26/1/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://thief.one/2017/07/26/1/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="nMask wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/wx.jpeg" alt="nMask WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zfb.jpeg" alt="nMask Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i>mysql</a>
+          
+            <a href="/tags/数据库/" rel="tag"><i class="fa fa-tag"></i>数据库</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/12/1/" rel="next" title="【渗透神器系列】DNS信息查询">
+                <i class="fa fa-chevron-left"></i> 【渗透神器系列】DNS信息查询
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/01/1/" rel="prev" title="【渗透神器系列】Metasploit">
+                【渗透神器系列】Metasploit <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk2Ny80NTQ0">
+      </div>
+  
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="nMask" />
+          <p class="site-author-name" itemprop="name">nMask</p>
+          <p class="site-description motion-element" itemprop="description">风陵渡口</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">130</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">138</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/tengzhangchao" rel="external nofollow" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/nmask" rel="external nofollow" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://home.nmask.cn" rel="external nofollow" target="_blank" title="Home">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Home
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://tool.nmask.cn" rel="external nofollow" target="_blank" title="Tool">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Tool
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://english.nmask.cn" rel="external nofollow" target="_blank" title="学英语">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  学英语
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://book.nmask.cn" rel="external nofollow" target="_blank" title="Book">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Book
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://movie.nmask.cn" rel="external nofollow" target="_blank" title="Movie">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Movie
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://limbo.gift" title="Yzf(Web渗透)" target="_blank">Yzf(Web渗透)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.kongdewei.cn/" title="草莓(软件破解)" target="_blank">草莓(软件破解)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://jusene.me/" title="Jusense(安全运维)" target="_blank">Jusense(安全运维)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hacksec.cn" title="血梦博客(网络安全)" target="_blank">血梦博客(网络安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://eth.space/" title="Mr.kua(信息安全)" target="_blank">Mr.kua(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coco413.com" title="Coco413(信息安全)" target="_blank">Coco413(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.warmeng.com" title="warmeng(web安全)" target="_blank">warmeng(web安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://o-my-chenjian.com/" title="chenjian(python开发)" target="_blank">chenjian(python开发)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://im1gd.me/" title="Im1gD'Blog(信息安全)" target="_blank">Im1gD'Blog(信息安全)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.leavesongs.com/" title="phithon'Blog(离别歌)" target="_blank">phithon'Blog(离别歌)</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://coao.co/" title="虾米'Blog" target="_blank">虾米'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://rcoil.me/" title="Rcoil'Blog" target="_blank">Rcoil'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://tom0li.github.io" title="tom0li_blog" target="_blank">tom0li_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.inksec.cn/" title="Szrzvdny'Blog" target="_blank">Szrzvdny'Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dastone.tk" title="Dastone's Notes" target="_blank">Dastone's Notes</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.mkernel.com/" title="deep Learning" target="_blank">deep Learning</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ares-x.com/" title="AresX" target="_blank">AresX</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-Mysql"><span class="nav-number">1.</span> <span class="nav-text">Install Mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for-ubuntu"><span class="nav-number">1.1.</span> <span class="nav-text">for ubuntu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-centos"><span class="nav-number">1.2.</span> <span class="nav-text">for centos</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql基础命令"><span class="nav-number">2.</span> <span class="nav-text">Mysql基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库操作"><span class="nav-number">2.1.</span> <span class="nav-text">数据库操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库表操作"><span class="nav-number">2.2.</span> <span class="nav-text">数据库表操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据操作"><span class="nav-number">2.3.</span> <span class="nav-text">数据操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用Sql语句"><span class="nav-number">3.</span> <span class="nav-text">常用Sql语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取固定数量的结果"><span class="nav-number">3.1.</span> <span class="nav-text">获取固定数量的结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询字符串"><span class="nav-number">3.2.</span> <span class="nav-text">查询字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非空查询"><span class="nav-number">3.3.</span> <span class="nav-text">非空查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断查询"><span class="nav-number">3.4.</span> <span class="nav-text">判断查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询结果的数量"><span class="nav-number">3.5.</span> <span class="nav-text">查询结果的数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询结果不显示重复记录"><span class="nav-number">3.6.</span> <span class="nav-text">查询结果不显示重复记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询排序"><span class="nav-number">3.7.</span> <span class="nav-text">查询排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多条件查询排序"><span class="nav-number">3.8.</span> <span class="nav-text">多条件查询排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全文检索"><span class="nav-number">3.9.</span> <span class="nav-text">全文检索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多表全文检索"><span class="nav-number">3.9.1.</span> <span class="nav-text">多表全文检索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全文检索模糊匹配与精确匹配"><span class="nav-number">3.9.2.</span> <span class="nav-text">全文检索模糊匹配与精确匹配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多表联合查询"><span class="nav-number">3.10.</span> <span class="nav-text">多表联合查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#交叉连接查询"><span class="nav-number">3.10.1.</span> <span class="nav-text">交叉连接查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等值连接查询"><span class="nav-number">3.10.2.</span> <span class="nav-text">等值连接查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部连接查询"><span class="nav-number">3.10.3.</span> <span class="nav-text">外部连接查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三表查询"><span class="nav-number">3.10.4.</span> <span class="nav-text">三表查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#导出数据库为sql文件"><span class="nav-number">3.10.5.</span> <span class="nav-text">导出数据库为sql文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql使用权限问题"><span class="nav-number">4.</span> <span class="nav-text">Mysql使用权限问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql初始化设置密码"><span class="nav-number">4.1.</span> <span class="nav-text">mysql初始化设置密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#忘记密码？安全模式"><span class="nav-number">4.2.</span> <span class="nav-text">忘记密码？安全模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只能本地连接mysql，远程机器连接不了？"><span class="nav-number">4.3.</span> <span class="nav-text">只能本地连接mysql，远程机器连接不了？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-number">4.3.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户权限很低"><span class="nav-number">4.4.</span> <span class="nav-text">用户权限很低</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案-1"><span class="nav-number">4.4.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义授权问题"><span class="nav-number">4.5.</span> <span class="nav-text">自定义授权问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只能连接localhost？"><span class="nav-number">4.6.</span> <span class="nav-text">只能连接localhost？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案-2"><span class="nav-number">4.6.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报错：too-many-connections"><span class="nav-number">4.7.</span> <span class="nav-text">报错：too many connections</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql服务重启出错"><span class="nav-number">4.8.</span> <span class="nav-text">mysql服务重启出错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phpmyadmin-403问题"><span class="nav-number">4.9.</span> <span class="nav-text">phpmyadmin 403问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql性能优化"><span class="nav-number">5.</span> <span class="nav-text">Mysql性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-insert加速"><span class="nav-number">5.1.</span> <span class="nav-text">mysql insert加速</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方案：一条SQL语句插入多条数据（亲测有效）"><span class="nav-number">5.1.1.</span> <span class="nav-text">方案：一条SQL语句插入多条数据（亲测有效）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方案：在事务中进行插入处理"><span class="nav-number">5.1.2.</span> <span class="nav-text">方案：在事务中进行插入处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql特殊字符编码问题"><span class="nav-number">6.</span> <span class="nav-text">Mysql特殊字符编码问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#存储报错"><span class="nav-number">6.1.</span> <span class="nav-text">存储报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储特殊编码解决方案"><span class="nav-number">6.2.</span> <span class="nav-text">存储特殊编码解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改数据库编码"><span class="nav-number">6.2.1.</span> <span class="nav-text">修改数据库编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改数据表编码"><span class="nav-number">6.2.2.</span> <span class="nav-text">修改数据表编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改数据字段编码"><span class="nav-number">6.2.3.</span> <span class="nav-text">修改数据字段编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改代码中连接mysql的编码："><span class="nav-number">6.2.4.</span> <span class="nav-text">修改代码中连接mysql的编码：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python操作Mysql"><span class="nav-number">7.</span> <span class="nav-text">Python操作Mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQLdb安装"><span class="nav-number">7.1.</span> <span class="nav-text">MySQLdb安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Usage"><span class="nav-number">7.2.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python操作mysql优化问题"><span class="nav-number">7.3.</span> <span class="nav-text">Python操作mysql优化问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间墙"><span class="nav-number">8.</span> <span class="nav-text">时间墙</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+
+
+  <!--   <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7923903290305785"
+         data-ad-slot="1960662908"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+ -->
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nMask</span>
+</div>
+
+<!--
+<div class="powered-by">
+  Power <a class="theme-link" rel="external nofollow" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" rel="external nofollow" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = '';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("z4gJQDYWtJaYDKAY3kuPtn2i-gzGzoHsz", "NPG4o0CWzLFqSTL94JmNAm7X");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+
+<!-- 背景动画 -->
+<!-- <script type="text/javascript" src="/js/src/particle.js"></script> -->
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</div>
+
+</body>
+</html>
